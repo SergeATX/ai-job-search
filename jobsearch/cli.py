@@ -22,6 +22,9 @@ def main():
     rec.add_argument("file", nargs="?")
     st = sub.add_parser("status", help="counts by status")
     st.add_argument("--profile", required=True)
+    d = sub.add_parser("discover", help="grow the employer registry from posting URLs (probes each new board live)")
+    d.add_argument("--from", dest="src", choices=["simplify"], default="simplify")
+    d.add_argument("--dry-run", action="store_true")
     sub.add_parser("profiles", help="list local profiles")
     a = ap.parse_args()
 
@@ -29,6 +32,12 @@ def main():
         base = Path(a.profiles_dir).expanduser() if a.profiles_dir else PROFILES_DIR
         for d in sorted(base.glob("*/profile.yml")):
             print(d.parent.name)
+        return
+    if a.cmd == "discover":
+        from .discover import discover
+        from .sources import simplify
+        urls = [x.get("url") for x in simplify.fetch_listings() if x.get("active")]
+        print(discover(urls, save=not a.dry_run))
         return
     p = Profile(a.profile, a.profiles_dir)
     if a.cmd == "run":

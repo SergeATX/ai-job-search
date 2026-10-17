@@ -1,5 +1,188 @@
 {
   "globalcareers-lennox": {
     "tenant": "globalcareers-lennox"
+  },
+  "careers-peraton": {
+    "tenant": "careers-peraton"
+  },
+  "careers-gdms": {
+    "tenant": "careers-gdms"
+  },
+  "careers-markon": {
+    "tenant": "careers-markon"
+  },
+  "careers-sig": {
+    "tenant": "careers-sig"
+  },
+  "careers-sri": {
+    "tenant": "careers-sri"
+  },
+  "careers-appliedsystems": {
+    "tenant": "careers-appliedsystems"
+  },
+  "careers-apogeeusa": {
+    "tenant": "careers-apogeeusa"
+  },
+  "careers-scires": {
+    "tenant": "careers-scires"
+  },
+  "careers-pamhealth": {
+    "tenant": "careers-pamhealth"
+  },
+  "careers-barrios": {
+    "tenant": "careers-barrios"
+  },
+  "careers-rambus": {
+    "tenant": "careers-rambus"
+  },
+  "careers-ita-intl": {
+    "tenant": "careers-ita-intl"
+  },
+  "careersuk-cpicardgroup": {
+    "tenant": "careersuk-cpicardgroup"
+  },
+  "careers-urbanscience": {
+    "tenant": "careers-urbanscience"
+  },
+  "careers-guard": {
+    "tenant": "careers-guard"
+  },
+  "careers-lynker": {
+    "tenant": "careers-lynker"
+  },
+  "careers-i3-corps": {
+    "tenant": "careers-i3-corps"
+  },
+  "careers-constructconnect": {
+    "tenant": "careers-constructconnect"
+  },
+  "careers-steampunk": {
+    "tenant": "careers-steampunk"
+  },
+  "careers-gtsx": {
+    "tenant": "careers-gtsx"
+  },
+  "careers-bluehawk": {
+    "tenant": "careers-bluehawk"
+  },
+  "careers-framatome": {
+    "tenant": "careers-framatome"
+  },
+  "talent-marvin": {
+    "tenant": "talent-marvin"
+  },
+  "dcacareers-dentalcarealliance": {
+    "tenant": "dcacareers-dentalcarealliance"
+  },
+  "careers-primehealthcare": {
+    "tenant": "careers-primehealthcare"
+  },
+  "careers-nakupuna": {
+    "tenant": "careers-nakupuna"
+  },
+  "careers-arh": {
+    "tenant": "careers-arh"
+  },
+  "uscareers-waters": {
+    "tenant": "uscareers-waters"
+  },
+  "jobs-selectmedicalcorp": {
+    "tenant": "jobs-selectmedicalcorp"
+  },
+  "careers-ideagenuk": {
+    "tenant": "careers-ideagenuk"
+  },
+  "careers-reisystems": {
+    "tenant": "careers-reisystems"
+  },
+  "careers-decisionpointcorp": {
+    "tenant": "careers-decisionpointcorp"
+  },
+  "careers-powerschool": {
+    "tenant": "careers-powerschool"
+  },
+  "staff-emory": {
+    "tenant": "staff-emory"
+  },
+  "careers-bruno": {
+    "tenant": "careers-bruno"
+  },
+  "careersenus-itt-inc": {
+    "tenant": "careersenus-itt-inc"
+  },
+  "careers-apexservicepartners": {
+    "tenant": "careers-apexservicepartners"
+  },
+  "careers-goldbeltapex": {
+    "tenant": "careers-goldbeltapex"
+  },
+  "careers-brewers": {
+    "tenant": "careers-brewers"
+  },
+  "careers-sas": {
+    "tenant": "careers-sas"
+  },
+  "careers-americansystems": {
+    "tenant": "careers-americansystems"
+  },
+  "careers-ftidefense": {
+    "tenant": "careers-ftidefense"
+  },
+  "careers-usu": {
+    "tenant": "careers-usu"
+  },
+  "careers-ipipeline": {
+    "tenant": "careers-ipipeline"
+  },
+  "careers-additionalrovisysopportunities": {
+    "tenant": "careers-additionalrovisysopportunities"
+  },
+  "uscareers-pepsico": {
+    "tenant": "uscareers-pepsico"
+  },
+  "careers-riversideresearch": {
+    "tenant": "careers-riversideresearch"
+  },
+  "careers-lmi": {
+    "tenant": "careers-lmi"
+  },
+  "uscareers-bruker": {
+    "tenant": "uscareers-bruker"
+  },
+  "canada-english-avisonyoung": {
+    "tenant": "canada-english-avisonyoung"
+  },
+  "campus-libertymutual": {
+    "tenant": "campus-libertymutual"
+  },
+  "careers-sscgp": {
+    "tenant": "careers-sscgp"
+  },
+  "careers-daddario": {
+    "tenant": "careers-daddario"
+  },
+  "careers-gdbiw": {
+    "tenant": "careers-gdbiw"
+  },
+  "global-portal-ttelectronics": {
+    "tenant": "global-portal-ttelectronics"
+  },
+  "careers-kci": {
+    "tenant": "careers-kci"
+  },
+  "careers-gdeb": {
+    "tenant": "careers-gdeb"
+  },
+  "careers-amtrustgroup": {
+    "tenant": "careers-amtrustgroup"
+  },
+  "uscareers2-asm": {
+    "tenant": "uscareers2-asm"
+  },
+  "careers-stifel": {
+    "tenant": "careers-stifel"
+  },
+  "careers-ovg": {
+    "tenant": "careers-ovg"
   }
 }

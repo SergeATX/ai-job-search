@@ -15,9 +15,11 @@ def _tasks(p):
     """Yield (source, company, zero-arg fetcher returning raw jobs)."""
     srcs = p.sources
     if "ats" in srcs:
-        from .sources import ats
+        from .sources import ats, smartrecruiters, workable
+        direct = {"smartrecruiters": smartrecruiters.fetch_jobs, "workable": workable.fetch_jobs}
         for co, kind in _reg("watchlist.json")["confirmed"].items():
-            yield "ats", co, (lambda co=co, kind=kind: ats.fetch_jobs(co, kind))
+            fn = direct.get(kind)
+            yield "ats", co, ((lambda co=co, fn=fn: fn(co)) if fn else (lambda co=co, kind=kind: ats.fetch_jobs(co, kind)))
     if "workday" in srcs:
         from .sources import workday
         for co, c in _reg("workday_sites.json").items():
@@ -27,6 +29,9 @@ def _tasks(p):
         from .sources import icims
         for co, c in _reg("icims_sites.json").items():
             yield "icims", co, (lambda c=c: icims.fetch_all_jobs(c["tenant"]))
+    if "simplify" in srcs:
+        from .sources import simplify
+        yield "simplify", "simplify", simplify.fetch_jobs
     if "jibe" in srcs:
         from .sources import jibe
         for co, c in _reg("jibe_sites.json").items():
@@ -43,7 +48,7 @@ def _norm(job, source, company):
     if not loc and (job.get("city") or job.get("state")):
         loc = ", ".join(x for x in (job.get("city"), job.get("state")) if x)
     return {"title": job.get("title"), "location": loc, "url": job.get("url"),
-            "company": company, "source": source}
+            "company": job.get("company") or company, "source": source}
 
 
 def run(p, dry_run=False, workers=8):

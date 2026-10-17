@@ -3,7 +3,7 @@ name: example
 email: you@example.com
 resume: ~/path/to/master-resume.md     # read by the fit-check agent
 
-sources: [ats, workday, icims, jibe]   # registry lives in jobsearch/registry/
+sources: [ats, workday, icims, jibe]   # add simplify for new-grad profiles; registry lives in jobsearch/registry/
 companies:
   include: []                          # empty = every company in the registry
   exclude: []

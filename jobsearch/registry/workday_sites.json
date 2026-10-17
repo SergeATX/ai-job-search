@@ -173,5 +173,1215 @@
     "subdomain": "topgolf.wd501",
     "tenant": "topgolf",
     "site": "TopgolfCareers"
+  },
+  "micron": {
+    "subdomain": "micron.wd1",
+    "tenant": "micron",
+    "site": "External"
+  },
+  "globusmedical": {
+    "subdomain": "globusmedical.wd5",
+    "tenant": "globusmedical",
+    "site": "GMED_Careers"
+  },
+  "caci": {
+    "subdomain": "caci.wd1",
+    "tenant": "caci",
+    "site": "external"
+  },
+  "leidos": {
+    "subdomain": "leidos.wd5",
+    "tenant": "leidos",
+    "site": "External"
+  },
+  "onehealthineers": {
+    "subdomain": "onehealthineers.wd3",
+    "tenant": "onehealthineers",
+    "site": "SHSJB"
+  },
+  "globalfoundries": {
+    "subdomain": "globalfoundries.wd1",
+    "tenant": "globalfoundries",
+    "site": "External"
+  },
+  "psu": {
+    "subdomain": "psu.wd1",
+    "tenant": "psu",
+    "site": "PSU_Staff"
+  },
+  "deluxe": {
+    "subdomain": "deluxe.wd5",
+    "tenant": "deluxe",
+    "site": "USA_CAN"
+  },
+  "reliaquest": {
+    "subdomain": "reliaquest.wd5",
+    "tenant": "reliaquest",
+    "site": "ReliaQuest_Careers"
+  },
+  "equifax": {
+    "subdomain": "equifax.wd5",
+    "tenant": "equifax",
+    "site": "UR_External"
+  },
+  "marvell": {
+    "subdomain": "marvell.wd1",
+    "tenant": "marvell",
+    "site": "MarvellCareers2"
+  },
+  "mjhlifesciences": {
+    "subdomain": "mjhlifesciences.wd1",
+    "tenant": "mjhlifesciences",
+    "site": "Careers"
+  },
+  "ameren": {
+    "subdomain": "ameren.wd1",
+    "tenant": "ameren",
+    "site": "External"
+  },
+  "tsc": {
+    "subdomain": "tsc.wd12",
+    "tenant": "tsc",
+    "site": "TSC-Careers"
+  },
+  "ambarella": {
+    "subdomain": "ambarella.wd108",
+    "tenant": "ambarella",
+    "site": "ambarella"
+  },
+  "centific": {
+    "subdomain": "centific.wd1",
+    "tenant": "centific",
+    "site": "Centific_Global"
+  },
+  "relx": {
+    "subdomain": "relx.wd3",
+    "tenant": "relx",
+    "site": "RiskSolutions"
+  },
+  "cgg": {
+    "subdomain": "cgg.wd103",
+    "tenant": "cgg",
+    "site": "viridiencareers"
+  },
+  "silabs": {
+    "subdomain": "silabs.wd1",
+    "tenant": "silabs",
+    "site": "SiliconlabsCareers"
+  },
+  "axos": {
+    "subdomain": "axos.wd5",
+    "tenant": "axos",
+    "site": "Axos"
+  },
+  "semtech": {
+    "subdomain": "semtech.wd1",
+    "tenant": "semtech",
+    "site": "SemtechCareers"
+  },
+  "kla": {
+    "subdomain": "kla.wd1",
+    "tenant": "kla",
+    "site": "annarbor"
+  },
+  "guidehouse": {
+    "subdomain": "guidehouse.wd1",
+    "tenant": "guidehouse",
+    "site": "external"
+  },
+  "selinc": {
+    "subdomain": "selinc.wd1",
+    "tenant": "selinc",
+    "site": "SEL"
+  },
+  "homedepot": {
+    "subdomain": "homedepot.wd5",
+    "tenant": "homedepot",
+    "site": "careerdepot"
+  },
+  "hrhub": {
+    "subdomain": "hrhub.wd3",
+    "tenant": "hrhub",
+    "site": "Euronext_Career_Page"
+  },
+  "abglobal": {
+    "subdomain": "abglobal.wd1",
+    "tenant": "abglobal",
+    "site": "abcampuscareers"
+  },
+  "nwis": {
+    "subdomain": "nwis.wd12",
+    "tenant": "nwis",
+    "site": "NW"
+  },
+  "pimco": {
+    "subdomain": "pimco.wd1",
+    "tenant": "pimco",
+    "site": "pimco-careers"
+  },
+  "ncr": {
+    "subdomain": "ncr.wd1",
+    "tenant": "ncr",
+    "site": "ext_non_us"
+  },
+  "gentex": {
+    "subdomain": "gentex.wd5",
+    "tenant": "gentex",
+    "site": "Gentex"
+  },
+  "paloaltonetworks": {
+    "subdomain": "paloaltonetworks.wd5",
+    "tenant": "paloaltonetworks",
+    "site": "panwexternalcareers"
+  },
+  "evergreenix": {
+    "subdomain": "evergreenix.wd1",
+    "tenant": "evergreenix",
+    "site": "external-careers2"
+  },
+  "signetjewelers": {
+    "subdomain": "signetjewelers.wd1",
+    "tenant": "signetjewelers",
+    "site": "SignetCorporateCareers"
+  },
+  "theaccessgroup": {
+    "subdomain": "theaccessgroup.wd103",
+    "tenant": "theaccessgroup",
+    "site": "Access_Group_External_Careers"
+  },
+  "generac": {
+    "subdomain": "generac.wd5",
+    "tenant": "generac",
+    "site": "external"
+  },
+  "altera": {
+    "subdomain": "altera.wd1",
+    "tenant": "altera",
+    "site": "altera"
+  },
+  "massgeneralbrigham": {
+    "subdomain": "massgeneralbrigham.wd1",
+    "tenant": "massgeneralbrigham",
+    "site": "mgbexternal"
+  },
+  "motorolasolutions": {
+    "subdomain": "motorolasolutions.wd5",
+    "tenant": "motorolasolutions",
+    "site": "Careers"
+  },
+  "nidec": {
+    "subdomain": "nidec.wd1",
+    "tenant": "nidec",
+    "site": "nidec"
+  },
+  "cisco": {
+    "subdomain": "cisco.wd5",
+    "tenant": "cisco",
+    "site": "cisco_careers"
+  },
+  "hcmportal": {
+    "subdomain": "hcmportal.wd5",
+    "tenant": "hcmportal",
+    "site": "Search"
+  },
+  "onto": {
+    "subdomain": "onto.wd1",
+    "tenant": "onto",
+    "site": "onto_careers"
+  },
+  "imf": {
+    "subdomain": "imf.wd5",
+    "tenant": "imf",
+    "site": "IMF"
+  },
+  "flir": {
+    "subdomain": "flir.wd1",
+    "tenant": "flir",
+    "site": "flircareers"
+  },
+  "aero": {
+    "subdomain": "aero.wd5",
+    "tenant": "aero",
+    "site": "external"
+  },
+  "freddiemac": {
+    "subdomain": "freddiemac.wd5",
+    "tenant": "freddiemac",
+    "site": "External"
+  },
+  "arlo": {
+    "subdomain": "arlo.wd12",
+    "tenant": "arlo",
+    "site": "External_Careers"
+  },
+  "statestreet": {
+    "subdomain": "statestreet.wd1",
+    "tenant": "statestreet",
+    "site": "Global"
+  },
+  "interpublic": {
+    "subdomain": "interpublic.wd5",
+    "tenant": "interpublic",
+    "site": "omc"
+  },
+  "cadence": {
+    "subdomain": "cadence.wd1",
+    "tenant": "cadence",
+    "site": "University_Talent"
+  },
+  "snc": {
+    "subdomain": "snc.wd1",
+    "tenant": "snc",
+    "site": "snc_external_career_site"
+  },
+  "ebi": {
+    "subdomain": "ebi.wd5",
+    "tenant": "ebi",
+    "site": "ebadcareers"
+  },
+  "amat": {
+    "subdomain": "amat.wd1",
+    "tenant": "amat",
+    "site": "External"
+  },
+  "invesco": {
+    "subdomain": "invesco.wd1",
+    "tenant": "invesco",
+    "site": "IVZ"
+  },
+  "bmo": {
+    "subdomain": "bmo.wd3",
+    "tenant": "bmo",
+    "site": "External"
+  },
+  "fmr": {
+    "subdomain": "fmr.wd1",
+    "tenant": "fmr",
+    "site": "fidelitycareers"
+  },
+  "dealertire": {
+    "subdomain": "dealertire.wd5",
+    "tenant": "dealertire",
+    "site": "DealerTireLLC-Careers"
+  },
+  "formfactor": {
+    "subdomain": "formfactor.wd1",
+    "tenant": "formfactor",
+    "site": "FFI-Careers"
+  },
+  "ntst": {
+    "subdomain": "ntst.wd1",
+    "tenant": "ntst",
+    "site": "careers"
+  },
+  "analogdevices": {
+    "subdomain": "analogdevices.wd1",
+    "tenant": "analogdevices",
+    "site": "External"
+  },
+  "pnc": {
+    "subdomain": "pnc.wd5",
+    "tenant": "pnc",
+    "site": "External"
+  },
+  "sralab": {
+    "subdomain": "sralab.wd1",
+    "tenant": "sralab",
+    "site": "SRAlabCareers"
+  },
+  "nrel": {
+    "subdomain": "nrel.wd5",
+    "tenant": "nrel",
+    "site": "NLR"
+  },
+  "salesforce": {
+    "subdomain": "salesforce.wd12",
+    "tenant": "salesforce",
+    "site": "External_Career_Site"
+  },
+  "litera": {
+    "subdomain": "litera.wd12",
+    "tenant": "litera",
+    "site": "Litera_Careers"
+  },
+  "citi": {
+    "subdomain": "citi.wd5",
+    "tenant": "citi",
+    "site": "2"
+  },
+  "curtisswright": {
+    "subdomain": "curtisswright.wd1",
+    "tenant": "curtisswright",
+    "site": "cw_external_career_site"
+  },
+  "polaris": {
+    "subdomain": "polaris.wd5",
+    "tenant": "polaris",
+    "site": "PolarisJobs"
+  },
+  "lplfinancial": {
+    "subdomain": "lplfinancial.wd1",
+    "tenant": "lplfinancial",
+    "site": "university"
+  },
+  "blueorigin": {
+    "subdomain": "blueorigin.wd5",
+    "tenant": "blueorigin",
+    "site": "blueorigin"
+  },
+  "insitu": {
+    "subdomain": "insitu.wd1",
+    "tenant": "insitu",
+    "site": "careers"
+  },
+  "bird": {
+    "subdomain": "bird.wd3",
+    "tenant": "bird",
+    "site": "BirdConstructionCareers"
+  },
+  "pjtpartners": {
+    "subdomain": "pjtpartners.wd1",
+    "tenant": "pjtpartners",
+    "site": "Careers"
+  },
+  "exelixis": {
+    "subdomain": "exelixis.wd1",
+    "tenant": "exelixis",
+    "site": "exel"
+  },
+  "gartner": {
+    "subdomain": "gartner.wd5",
+    "tenant": "gartner",
+    "site": "EXT"
+  },
+  "broadcom": {
+    "subdomain": "broadcom.wd1",
+    "tenant": "broadcom",
+    "site": "external_career"
+  },
+  "kyndryl": {
+    "subdomain": "kyndryl.wd5",
+    "tenant": "kyndryl",
+    "site": "KyndrylProfessionalCareers"
+  },
+  "parsons": {
+    "subdomain": "parsons.wd5",
+    "tenant": "parsons",
+    "site": "search"
+  },
+  "aoins": {
+    "subdomain": "aoins.wd5",
+    "tenant": "aoins",
+    "site": "AutoOwners"
+  },
+  "vanguard": {
+    "subdomain": "vanguard.wd5",
+    "tenant": "vanguard",
+    "site": "vanguard_external"
+  },
+  "keybank": {
+    "subdomain": "keybank.wd5",
+    "tenant": "keybank",
+    "site": "External_Career_Site"
+  },
+  "pg": {
+    "subdomain": "pg.wd5",
+    "tenant": "pg",
+    "site": "1000"
+  },
+  "godirect": {
+    "subdomain": "godirect.wd5",
+    "tenant": "godirect",
+    "site": "voya_jobs"
+  },
+  "avav": {
+    "subdomain": "avav.wd1",
+    "tenant": "avav",
+    "site": "avav"
+  },
+  "fanniemae": {
+    "subdomain": "fanniemae.wd1",
+    "tenant": "fanniemae",
+    "site": "FannieMaeCareers"
+  },
+  "ciena": {
+    "subdomain": "ciena.wd5",
+    "tenant": "ciena",
+    "site": "Careers"
+  },
+  "sbdinc": {
+    "subdomain": "sbdinc.wd1",
+    "tenant": "sbdinc",
+    "site": "Stanley_Black_Decker_Career_Site"
+  },
+  "crowdstrike": {
+    "subdomain": "crowdstrike.wd5",
+    "tenant": "crowdstrike",
+    "site": "crowdstrikecareers"
+  },
+  "bah": {
+    "subdomain": "bah.wd1",
+    "tenant": "bah",
+    "site": "bah_jobs"
+  },
+  "viavisolutions": {
+    "subdomain": "viavisolutions.wd1",
+    "tenant": "viavisolutions",
+    "site": "careers"
+  },
+  "hpe": {
+    "subdomain": "hpe.wd5",
+    "tenant": "hpe",
+    "site": "jobsathpe"
+  },
+  "newrez": {
+    "subdomain": "newrez.wd1",
+    "tenant": "newrez",
+    "site": "NRZ"
+  },
+  "alation": {
+    "subdomain": "alation.wd503",
+    "tenant": "alation",
+    "site": "ExternalSite"
+  },
+  "travelers": {
+    "subdomain": "travelers.wd5",
+    "tenant": "travelers",
+    "site": "External"
+  },
+  "vermeer": {
+    "subdomain": "vermeer.wd5",
+    "tenant": "vermeer",
+    "site": "externalcareersite"
+  },
+  "dimensional": {
+    "subdomain": "dimensional.wd5",
+    "tenant": "dimensional",
+    "site": "dfa_careers"
+  },
+  "pae": {
+    "subdomain": "pae.wd1",
+    "tenant": "pae",
+    "site": "amentum_careers"
+  },
+  "wattswater": {
+    "subdomain": "wattswater.wd5",
+    "tenant": "wattswater",
+    "site": "external"
+  },
+  "belron": {
+    "subdomain": "belron.wd3",
+    "tenant": "belron",
+    "site": "Safelite_Careers"
+  },
+  "horizonmedia": {
+    "subdomain": "horizonmedia.wd1",
+    "tenant": "horizonmedia",
+    "site": "CareerOpportunities"
+  },
+  "thales": {
+    "subdomain": "thales.wd3",
+    "tenant": "thales",
+    "site": "Careers"
+  },
+  "saabusa": {
+    "subdomain": "saabusa.wd1",
+    "tenant": "saabusa",
+    "site": "saab_careers"
+  },
+  "draper": {
+    "subdomain": "draper.wd5",
+    "tenant": "draper",
+    "site": "Draper_Careers"
+  },
+  "jj": {
+    "subdomain": "jj.wd5",
+    "tenant": "jj",
+    "site": "JJ"
+  },
+  "hp": {
+    "subdomain": "hp.wd5",
+    "tenant": "hp",
+    "site": "EXTEU-AC-CareerSite"
+  },
+  "usc": {
+    "subdomain": "usc.wd5",
+    "tenant": "usc",
+    "site": "ExternalUSCCareers"
+  },
+  "mymvw": {
+    "subdomain": "mymvw.wd5",
+    "tenant": "mymvw",
+    "site": "hvocareers"
+  },
+  "fnbcorp": {
+    "subdomain": "fnbcorp.wd501",
+    "tenant": "fnbcorp",
+    "site": "FNBCORP"
+  },
+  "sonyglobal": {
+    "subdomain": "sonyglobal.wd1",
+    "tenant": "sonyglobal",
+    "site": "SonyGlobalCareers"
+  },
+  "tcbrands": {
+    "subdomain": "tcbrands.wd1",
+    "tenant": "tcbrands",
+    "site": "callaway-careers"
+  },
+  "lsu": {
+    "subdomain": "lsu.wd1",
+    "tenant": "lsu",
+    "site": "lsuwaiver"
+  },
+  "ivytech": {
+    "subdomain": "ivytech.wd1",
+    "tenant": "ivytech",
+    "site": "ivy_tech_careers"
+  },
+  "cyrusone": {
+    "subdomain": "cyrusone.wd1",
+    "tenant": "cyrusone",
+    "site": "CyrusOneCareerPortal"
+  },
+  "aksteel": {
+    "subdomain": "aksteel.wd1",
+    "tenant": "aksteel",
+    "site": "careers"
+  },
+  "uva": {
+    "subdomain": "uva.wd1",
+    "tenant": "uva",
+    "site": "uvastudentjobs"
+  },
+  "barnard": {
+    "subdomain": "barnard.wd1",
+    "tenant": "barnard",
+    "site": "Staff"
+  },
+  "connect": {
+    "subdomain": "connect.wd1",
+    "tenant": "connect",
+    "site": "ztsystemscareers"
+  },
+  "tysonfoods": {
+    "subdomain": "tysonfoods.wd5",
+    "tenant": "tysonfoods",
+    "site": "TSN"
+  },
+  "aptiv": {
+    "subdomain": "aptiv.wd5",
+    "tenant": "aptiv",
+    "site": "aptiv_careers"
+  },
+  "cat": {
+    "subdomain": "cat.wd5",
+    "tenant": "cat",
+    "site": "CaterpillarCareers"
+  },
+  "blackrock": {
+    "subdomain": "blackrock.wd1",
+    "tenant": "blackrock",
+    "site": "BlackRock_Professional"
+  },
+  "thisisglobal": {
+    "subdomain": "thisisglobal.wd3",
+    "tenant": "thisisglobal",
+    "site": "Global"
+  },
+  "barclays": {
+    "subdomain": "barclays.wd3",
+    "tenant": "barclays",
+    "site": "External_Career_Site_Barclays"
+  },
+  "halma": {
+    "subdomain": "halma.wd3",
+    "tenant": "halma",
+    "site": "halma"
+  },
+  "tti": {
+    "subdomain": "tti.wd1",
+    "tenant": "tti",
+    "site": "tti_pe"
+  },
+  "zrsmanagement": {
+    "subdomain": "zrsmanagement.wd5",
+    "tenant": "zrsmanagement",
+    "site": "zrs_careers"
+  },
+  "moffitt": {
+    "subdomain": "moffitt.wd108",
+    "tenant": "moffitt",
+    "site": "Moffitt"
+  },
+  "myhrhome": {
+    "subdomain": "myhrhome.wd1",
+    "tenant": "myhrhome",
+    "site": "OneMainCareers"
+  },
+  "ryan": {
+    "subdomain": "ryan.wd1",
+    "tenant": "ryan",
+    "site": "RyanCareers"
+  },
+  "barr": {
+    "subdomain": "barr.wd1",
+    "tenant": "barr",
+    "site": "barrcareers"
+  },
+  "gevernova": {
+    "subdomain": "gevernova.wd5",
+    "tenant": "gevernova",
+    "site": "vernova_externalsite"
+  },
+  "brambles": {
+    "subdomain": "brambles.wd5",
+    "tenant": "brambles",
+    "site": "Brambles_Careers"
+  },
+  "assetmark": {
+    "subdomain": "assetmark.wd5",
+    "tenant": "assetmark",
+    "site": "AssetMark_Careers"
+  },
+  "lseg": {
+    "subdomain": "lseg.wd3",
+    "tenant": "lseg",
+    "site": "Careers"
+  },
+  "mimecast": {
+    "subdomain": "mimecast.wd5",
+    "tenant": "mimecast",
+    "site": "Mimecast-Careers"
+  },
+  "jci": {
+    "subdomain": "jci.wd5",
+    "tenant": "jci",
+    "site": "JCI"
+  },
+  "lowes": {
+    "subdomain": "lowes.wd5",
+    "tenant": "lowes",
+    "site": "LWS_External_CS"
+  },
+  "mbda": {
+    "subdomain": "mbda.wd3",
+    "tenant": "mbda",
+    "site": "MBDA-UK"
+  },
+  "disney": {
+    "subdomain": "disney.wd5",
+    "tenant": "disney",
+    "site": "disneycareer"
+  },
+  "clearwateranalytics": {
+    "subdomain": "clearwateranalytics.wd1",
+    "tenant": "clearwateranalytics",
+    "site": "Clearwater_Analytics_Careers"
+  },
+  "axcelis": {
+    "subdomain": "axcelis.wd1",
+    "tenant": "axcelis",
+    "site": "axcelis"
+  },
+  "ag": {
+    "subdomain": "ag.wd3",
+    "tenant": "ag",
+    "site": "Airbus"
+  },
+  "ms": {
+    "subdomain": "ms.wd5",
+    "tenant": "ms",
+    "site": "External"
+  },
+  "costar": {
+    "subdomain": "costar.wd1",
+    "tenant": "costar",
+    "site": "CoStarCareers"
+  },
+  "badgermeter": {
+    "subdomain": "badgermeter.wd5",
+    "tenant": "badgermeter",
+    "site": "US_CareerSite"
+  },
+  "aspentech": {
+    "subdomain": "aspentech.wd5",
+    "tenant": "aspentech",
+    "site": "aspentech"
+  },
+  "dutchbros": {
+    "subdomain": "dutchbros.wd1",
+    "tenant": "dutchbros",
+    "site": "DBShops"
+  },
+  "msiexpress": {
+    "subdomain": "msiexpress.wd5",
+    "tenant": "msiexpress",
+    "site": "MSI_Express_External_Careers"
+  },
+  "oumedicine": {
+    "subdomain": "oumedicine.wd5",
+    "tenant": "oumedicine",
+    "site": "OUHealthCareers"
+  },
+  "dxctechnology": {
+    "subdomain": "dxctechnology.wd1",
+    "tenant": "dxctechnology",
+    "site": "dxcjobs"
+  },
+  "talentmanagementsolution": {
+    "subdomain": "talentmanagementsolution.wd3",
+    "tenant": "talentmanagementsolution",
+    "site": "perseus-careers"
+  },
+  "avisbudget": {
+    "subdomain": "avisbudget.wd1",
+    "tenant": "avisbudget",
+    "site": "abg_careers"
+  },
+  "moog": {
+    "subdomain": "moog.wd5",
+    "tenant": "moog",
+    "site": "moog_external_career_site"
+  },
+  "intactfc": {
+    "subdomain": "intactfc.wd3",
+    "tenant": "intactfc",
+    "site": "intactfc"
+  },
+  "abb": {
+    "subdomain": "abb.wd3",
+    "tenant": "abb",
+    "site": "external_career_page"
+  },
+  "cccis": {
+    "subdomain": "cccis.wd1",
+    "tenant": "cccis",
+    "site": "broadbean_external"
+  },
+  "tandemdiabetes": {
+    "subdomain": "tandemdiabetes.wd12",
+    "tenant": "tandemdiabetes",
+    "site": "tandemdiabetes"
+  },
+  "wilburellis": {
+    "subdomain": "wilburellis.wd12",
+    "tenant": "wilburellis",
+    "site": "wilbur-ellis"
+  },
+  "amainc": {
+    "subdomain": "amainc.wd12",
+    "tenant": "amainc",
+    "site": "ama_careers"
+  },
+  "remitly": {
+    "subdomain": "remitly.wd5",
+    "tenant": "remitly",
+    "site": "Remitly_Careers"
+  },
+  "snapfinance": {
+    "subdomain": "snapfinance.wd1",
+    "tenant": "snapfinance",
+    "site": "snap_external_careers"
+  },
+  "stryker": {
+    "subdomain": "stryker.wd1",
+    "tenant": "stryker",
+    "site": "StrykerCareers"
+  },
+  "viatris": {
+    "subdomain": "viatris.wd5",
+    "tenant": "viatris",
+    "site": "External"
+  },
+  "dfwairport": {
+    "subdomain": "dfwairport.wd5",
+    "tenant": "dfwairport",
+    "site": "External"
+  },
+  "conocophillips": {
+    "subdomain": "conocophillips.wd1",
+    "tenant": "conocophillips",
+    "site": "External"
+  },
+  "capgroup": {
+    "subdomain": "capgroup.wd1",
+    "tenant": "capgroup",
+    "site": "capitalgroupcareers"
+  },
+  "allegromicro": {
+    "subdomain": "allegromicro.wd5",
+    "tenant": "allegromicro",
+    "site": "allegrocareers"
+  },
+  "expedia": {
+    "subdomain": "expedia.wd108",
+    "tenant": "expedia",
+    "site": "private"
+  },
+  "eversource": {
+    "subdomain": "eversource.wd1",
+    "tenant": "eversource",
+    "site": "ExternalSite"
+  },
+  "mtb": {
+    "subdomain": "mtb.wd5",
+    "tenant": "mtb",
+    "site": "Campus"
+  },
+  "sandvik": {
+    "subdomain": "sandvik.wd3",
+    "tenant": "sandvik",
+    "site": "sandvik-jobs"
+  },
+  "jainglobal": {
+    "subdomain": "jainglobal.wd5",
+    "tenant": "jainglobal",
+    "site": "ExternalSite"
+  },
+  "powerdesigninc": {
+    "subdomain": "powerdesigninc.wd5",
+    "tenant": "powerdesigninc",
+    "site": "PDI"
+  },
+  "blackstone": {
+    "subdomain": "blackstone.wd1",
+    "tenant": "blackstone",
+    "site": "Blackstone_Campus_Careers"
+  },
+  "allstate": {
+    "subdomain": "allstate.wd5",
+    "tenant": "allstate",
+    "site": "allstate_careers"
+  },
+  "interdigital": {
+    "subdomain": "interdigital.wd5",
+    "tenant": "interdigital",
+    "site": "InterDigital_Career"
+  },
+  "danaher": {
+    "subdomain": "danaher.wd1",
+    "tenant": "danaher",
+    "site": "danaherjobs"
+  },
+  "amgen": {
+    "subdomain": "amgen.wd1",
+    "tenant": "amgen",
+    "site": "careers"
+  },
+  "lumentum": {
+    "subdomain": "lumentum.wd5",
+    "tenant": "lumentum",
+    "site": "LITE"
+  },
+  "livingspaces": {
+    "subdomain": "livingspaces.wd5",
+    "tenant": "livingspaces",
+    "site": "ls"
+  },
+  "argonne": {
+    "subdomain": "argonne.wd1",
+    "tenant": "argonne",
+    "site": "Argonne_Careers"
+  },
+  "nasdaq": {
+    "subdomain": "nasdaq.wd1",
+    "tenant": "nasdaq",
+    "site": "Global_External_Site"
+  },
+  "johnsonelectric": {
+    "subdomain": "johnsonelectric.wd3",
+    "tenant": "johnsonelectric",
+    "site": "Career_JE"
+  },
+  "aveva": {
+    "subdomain": "aveva.wd3",
+    "tenant": "aveva",
+    "site": "AVEVA_careers"
+  },
+  "ancestry": {
+    "subdomain": "ancestry.wd501",
+    "tenant": "ancestry",
+    "site": "Careers"
+  },
+  "ulse": {
+    "subdomain": "ulse.wd5",
+    "tenant": "ulse",
+    "site": "ulricareers"
+  },
+  "autodesk": {
+    "subdomain": "autodesk.wd1",
+    "tenant": "autodesk",
+    "site": "Ext"
+  },
+  "crowe": {
+    "subdomain": "crowe.wd12",
+    "tenant": "crowe",
+    "site": "external_careers"
+  },
+  "gresearch": {
+    "subdomain": "gresearch.wd103",
+    "tenant": "gresearch",
+    "site": "G-Research"
+  },
+  "sentryinsurance": {
+    "subdomain": "sentryinsurance.wd1",
+    "tenant": "sentryinsurance",
+    "site": "SentryCareers"
+  },
+  "mastercard": {
+    "subdomain": "mastercard.wd1",
+    "tenant": "mastercard",
+    "site": "Campus"
+  },
+  "rochester": {
+    "subdomain": "rochester.wd5",
+    "tenant": "rochester",
+    "site": "UR_Staff"
+  },
+  "rb": {
+    "subdomain": "rb.wd5",
+    "tenant": "rb",
+    "site": "FRS"
+  },
+  "uline": {
+    "subdomain": "uline.wd1",
+    "tenant": "uline",
+    "site": "Uline_Careers"
+  },
+  "leonardocompany": {
+    "subdomain": "leonardocompany.wd3",
+    "tenant": "leonardocompany",
+    "site": "LeonardoCareerSite"
+  },
+  "ecolab": {
+    "subdomain": "ecolab.wd1",
+    "tenant": "ecolab",
+    "site": "ecolab_external"
+  },
+  "nordstrom": {
+    "subdomain": "nordstrom.wd501",
+    "tenant": "nordstrom",
+    "site": "nordstrom_careers"
+  },
+  "sierraspace": {
+    "subdomain": "sierraspace.wd1",
+    "tenant": "sierraspace",
+    "site": "Sierra_Space_External_Career_Site"
+  },
+  "centricsoftware": {
+    "subdomain": "centricsoftware.wd501",
+    "tenant": "centricsoftware",
+    "site": "Centric"
+  },
+  "american": {
+    "subdomain": "american.wd1",
+    "tenant": "american",
+    "site": "au"
+  },
+  "myhrabc": {
+    "subdomain": "myhrabc.wd5",
+    "tenant": "myhrabc",
+    "site": "Global"
+  },
+  "highmarkhealth": {
+    "subdomain": "highmarkhealth.wd1",
+    "tenant": "highmarkhealth",
+    "site": "highmark"
+  },
+  "r1rcm": {
+    "subdomain": "r1rcm.wd1",
+    "tenant": "r1rcm",
+    "site": "R1RCM"
+  },
+  "hyperiongrp": {
+    "subdomain": "hyperiongrp.wd3",
+    "tenant": "hyperiongrp",
+    "site": "Hyperion_External"
+  },
+  "mufgub": {
+    "subdomain": "mufgub.wd3",
+    "tenant": "mufgub",
+    "site": "mufg-earlycareers"
+  },
+  "neogen": {
+    "subdomain": "neogen.wd5",
+    "tenant": "neogen",
+    "site": "neogencareers"
+  },
+  "geaerospace": {
+    "subdomain": "geaerospace.wd5",
+    "tenant": "geaerospace",
+    "site": "ge_externalsite"
+  },
+  "cboe": {
+    "subdomain": "cboe.wd1",
+    "tenant": "cboe",
+    "site": "External_Career_CBOE"
+  },
+  "vizient": {
+    "subdomain": "vizient.wd1",
+    "tenant": "vizient",
+    "site": "Vizient_Careers"
+  },
+  "bdx": {
+    "subdomain": "bdx.wd1",
+    "tenant": "bdx",
+    "site": "EXTERNAL_CAREER_SITE_USA"
+  },
+  "shi": {
+    "subdomain": "shi.wd12",
+    "tenant": "shi",
+    "site": "shicareers"
+  },
+  "kainos": {
+    "subdomain": "kainos.wd3",
+    "tenant": "kainos",
+    "site": "kainos"
+  },
+  "baird": {
+    "subdomain": "baird.wd1",
+    "tenant": "baird",
+    "site": "careers"
+  },
+  "aderant": {
+    "subdomain": "aderant.wd5",
+    "tenant": "aderant",
+    "site": "Aderant_External_Careers"
+  },
+  "icf": {
+    "subdomain": "icf.wd5",
+    "tenant": "icf",
+    "site": "icfexternal_career_site"
+  },
+  "clarioclinical": {
+    "subdomain": "clarioclinical.wd1",
+    "tenant": "clarioclinical",
+    "site": "clarioclinical_careers"
+  },
+  "broadridge": {
+    "subdomain": "broadridge.wd5",
+    "tenant": "broadridge",
+    "site": "careers"
+  },
+  "bpinternational": {
+    "subdomain": "bpinternational.wd3",
+    "tenant": "bpinternational",
+    "site": "bpEarlyCareers"
+  },
+  "collectorsuniverse": {
+    "subdomain": "collectorsuniverse.wd1",
+    "tenant": "collectorsuniverse",
+    "site": "collectors"
+  },
+  "jd": {
+    "subdomain": "jd.wd103",
+    "tenant": "jd",
+    "site": "Campus_Career_Site"
+  },
+  "agilent": {
+    "subdomain": "agilent.wd5",
+    "tenant": "agilent",
+    "site": "Agilent_Student_Careers"
+  },
+  "edftrading": {
+    "subdomain": "edftrading.wd1",
+    "tenant": "edftrading",
+    "site": "EDFTrading"
+  },
+  "dtna": {
+    "subdomain": "dtna.wd5",
+    "tenant": "dtna",
+    "site": "dtna_affiliate"
+  },
+  "centrica": {
+    "subdomain": "centrica.wd3",
+    "tenant": "centrica",
+    "site": "Centrica"
+  },
+  "thrivent": {
+    "subdomain": "thrivent.wd5",
+    "tenant": "thrivent",
+    "site": "external"
+  },
+  "3m": {
+    "subdomain": "3m.wd1",
+    "tenant": "3m",
+    "site": "Search"
+  },
+  "heinz": {
+    "subdomain": "heinz.wd1",
+    "tenant": "heinz",
+    "site": "KraftHeinz_Careers_BC"
+  },
+  "synchronyfinancial": {
+    "subdomain": "synchronyfinancial.wd5",
+    "tenant": "synchronyfinancial",
+    "site": "careers"
+  },
+  "healthresearch": {
+    "subdomain": "healthresearch.wd1",
+    "tenant": "healthresearch",
+    "site": "hri_careers"
+  },
+  "aep": {
+    "subdomain": "aep.wd1",
+    "tenant": "aep",
+    "site": "AEPCareerSite"
+  },
+  "bdo": {
+    "subdomain": "bdo.wd3",
+    "tenant": "bdo",
+    "site": "BDO"
+  },
+  "ttc": {
+    "subdomain": "ttc.wd1",
+    "tenant": "ttc",
+    "site": "Toro_External_Careers"
+  },
+  "michelinhr": {
+    "subdomain": "michelinhr.wd3",
+    "tenant": "michelinhr",
+    "site": "Michelin"
+  },
+  "oshkoshcorporation": {
+    "subdomain": "oshkoshcorporation.wd5",
+    "tenant": "oshkoshcorporation",
+    "site": "Oshkosh"
+  },
+  "choicehotels": {
+    "subdomain": "choicehotels.wd5",
+    "tenant": "choicehotels",
+    "site": "External"
+  },
+  "dexcom": {
+    "subdomain": "dexcom.wd1",
+    "tenant": "dexcom",
+    "site": "Dexcom"
+  },
+  "morningstar": {
+    "subdomain": "morningstar.wd5",
+    "tenant": "morningstar",
+    "site": "Morningstar"
+  },
+  "tdwilliamson": {
+    "subdomain": "tdwilliamson.wd1",
+    "tenant": "tdwilliamson",
+    "site": "TDWCareers"
+  },
+  "bbinsurance": {
+    "subdomain": "bbinsurance.wd1",
+    "tenant": "bbinsurance",
+    "site": "careers"
+  },
+  "tmobile": {
+    "subdomain": "tmobile.wd1",
+    "tenant": "tmobile",
+    "site": "External"
+  },
+  "accuray": {
+    "subdomain": "accuray.wd5",
+    "tenant": "accuray",
+    "site": "external"
   }
 }
