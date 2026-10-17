@@ -74,7 +74,9 @@ def run(p, dry_run=False, workers=8):
     uniq = {j["url"].split("?")[0]: j for j in shortlist}
     shortlist = sorted(uniq.values(), key=lambda j: (j["company"], j["title"] or ""))
     if not dry_run:
-        write_shortlist(p, shortlist)
+        # the shortlist is every not-yet-reviewed candidate, so re-running never loses unreviewed rows
+        pending = [dict(zip(("company", "title", "location", "source", "url"), r)) for r in store.candidates()]
+        write_shortlist(p, pending)
     print(f"[{p.name}] {len(tasks)} sources, {raw} raw postings, {len(shortlist)} new candidates, {len(errors)} errors")
     for c, n in sorted(per_company.items(), key=lambda x: -x[1])[:8]:
         print(f"  {c}: {n}")
