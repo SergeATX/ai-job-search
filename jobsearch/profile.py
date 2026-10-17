@@ -26,12 +26,12 @@ DEFAULTS = {
 
 
 class Profile:
-    def __init__(self, name):
+    def __init__(self, name, profiles_dir=None):
         self.name = name
-        self.dir = PROFILES_DIR / name
+        self.dir = Path(profiles_dir).expanduser() / name if profiles_dir else PROFILES_DIR / name
         path = self.dir / "profile.yml"
         if not path.exists():
-            raise SystemExit(f"No profile at {path}. Copy profiles.example/example/ to profiles/{name}/ and edit it.")
+            raise SystemExit(f"No profile at {path}. Copy profiles.example/example/ to {self.dir} and edit it.")
         cfg = yaml.safe_load(path.read_text()) or {}
         self.cfg = {**DEFAULTS, **cfg}
         self.cfg["titles"] = {**DEFAULTS["titles"], **(cfg.get("titles") or {})}

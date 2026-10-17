@@ -8,6 +8,7 @@ from .store import Store
 
 def main():
     ap = argparse.ArgumentParser(prog="jobsearch")
+    ap.add_argument("--profiles-dir", help="where profiles/databases/outputs live (default: $JOBSEARCH_PROFILES, else ./profiles in the repo)")
     sub = ap.add_subparsers(dest="cmd", required=True)
 
     r = sub.add_parser("run", help="scrape all configured sources for a profile and write a shortlist")
@@ -25,10 +26,11 @@ def main():
     a = ap.parse_args()
 
     if a.cmd == "profiles":
-        for d in sorted(PROFILES_DIR.glob("*/profile.yml")):
+        base = Path(a.profiles_dir).expanduser() if a.profiles_dir else PROFILES_DIR
+        for d in sorted(base.glob("*/profile.yml")):
             print(d.parent.name)
         return
-    p = Profile(a.profile)
+    p = Profile(a.profile, a.profiles_dir)
     if a.cmd == "run":
         from .runner import run
         run(p, dry_run=a.dry_run)
