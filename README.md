@@ -258,3 +258,7 @@ python3 -m jobsearch record --profile me        # load fit-check verdicts
 Sources: Greenhouse, Lever, Ashby, SmartRecruiters, Workable, BambooHR, Workday, Oracle Recruiting, iCIMS, Jibe and the SimplifyJobs new-grad list (the company registry is in `jobsearch/registry/`; `python3 -m jobsearch discover` grows it automatically from real posting URLs, probing every new board live before saving it), plus Built In, The Muse and Texas CAPPS modules in `jobsearch/sources/`. In Claude Code, `/batch <profile>` runs the whole loop including the fit-check agent. Requires Python 3.9+.
 
 Pass `--profiles-dir /some/private/dir` (before the subcommand, e.g. `python3 -m jobsearch --profiles-dir ~/me/profiles run --profile me`) or set `JOBSEARCH_PROFILES` to keep profiles, databases and outputs outside the repo (default: `./profiles`).
+
+### Pre-push privacy scan
+
+`scripts/prepush_scan.py` runs from `.githooks/pre-push` and blocks a push if any commit being pushed adds secrets (keys, tokens, private keys), emails, phone numbers, home-directory paths, forbidden files (`profiles/`, `memory/`, databases, `.env`, generated CVs) or your own personal patterns. Enable once per clone: `git config core.hooksPath .githooks`. Put personal regexes (your name, email, phone) one per line in `.git/privacy-patterns.txt` - that file lives inside `.git/` and is never pushed.
