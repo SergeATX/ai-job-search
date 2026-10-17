@@ -256,3 +256,5 @@ python3 -m jobsearch record --profile me        # load fit-check verdicts
 ```
 
 Sources: Greenhouse, Lever, Ashby, Workday, iCIMS and Jibe (the company registry is in `jobsearch/registry/`), plus Built In, The Muse and Texas CAPPS modules in `jobsearch/sources/`. In Claude Code, `/batch <profile>` runs the whole loop including the fit-check agent. Requires Python 3.9+.
+
+Set `JOBSEARCH_PROFILES=/some/private/dir` to keep profiles, databases and outputs outside the repo (default: `./profiles`).

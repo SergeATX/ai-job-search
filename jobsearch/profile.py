@@ -1,11 +1,13 @@
 """Profiles live in profiles/<name>/profile.yml (gitignored - personal, stays local)."""
+import os
 import re
 from pathlib import Path
 
 import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
-PROFILES_DIR = ROOT / "profiles"
+# JOBSEARCH_PROFILES lets a person keep profiles/databases next to their own files instead of inside this repo
+PROFILES_DIR = Path(os.environ.get("JOBSEARCH_PROFILES", ROOT / "profiles")).expanduser()
 REGISTRY = Path(__file__).resolve().parent / "registry"
 
 DEFAULTS = {
