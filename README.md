@@ -255,6 +255,6 @@ python3 -m jobsearch run --profile me           # scrape, dedupe, filter -> prof
 python3 -m jobsearch record --profile me        # load fit-check verdicts
 ```
 
-Sources: Greenhouse, Lever, Ashby, SmartRecruiters, Workable, Workday, iCIMS, Jibe and the SimplifyJobs new-grad list (the company registry is in `jobsearch/registry/`; `python3 -m jobsearch discover` grows it automatically from real posting URLs, probing every new board live before saving it), plus Built In, The Muse and Texas CAPPS modules in `jobsearch/sources/`. In Claude Code, `/batch <profile>` runs the whole loop including the fit-check agent. Requires Python 3.9+.
+Sources: Greenhouse, Lever, Ashby, SmartRecruiters, Workable, BambooHR, Workday, Oracle Recruiting, iCIMS, Jibe and the SimplifyJobs new-grad list (the company registry is in `jobsearch/registry/`; `python3 -m jobsearch discover` grows it automatically from real posting URLs, probing every new board live before saving it), plus Built In, The Muse and Texas CAPPS modules in `jobsearch/sources/`. In Claude Code, `/batch <profile>` runs the whole loop including the fit-check agent. Requires Python 3.9+.
 
 Pass `--profiles-dir /some/private/dir` (before the subcommand, e.g. `python3 -m jobsearch --profiles-dir ~/me/profiles run --profile me`) or set `JOBSEARCH_PROFILES` to keep profiles, databases and outputs outside the repo (default: `./profiles`).

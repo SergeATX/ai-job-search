@@ -449,7 +449,8 @@
     "blockchain": "greenhouse",
     "teya": "ashby",
     "americaninstitutesforresearch": "greenhouse",
-    "galatea-associates": "lever"
+    "galatea-associates": "lever",
+    "intercom": "greenhouse"
   },
   "not_on_these_ats": [
     "realtor",

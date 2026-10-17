@@ -16,15 +16,21 @@ PATTERNS = [
     ("ashby", re.compile(r"jobs\.ashbyhq\.com/([A-Za-z0-9_.%-]+)")),
     ("smartrecruiters", re.compile(r"(?:jobs|careers)\.smartrecruiters\.com/([A-Za-z0-9_-]+)")),
     ("workable", re.compile(r"apply\.workable\.com/([A-Za-z0-9_-]+)")),
+    ("bamboohr", re.compile(r"https?://([a-z0-9-]+)\.bamboohr\.com/")),
 ]
 WORKDAY = re.compile(r"https?://([a-z0-9-]+)\.(wd\d+)\.myworkdayjobs\.com/(?:[a-z]{2}-[A-Z]{2}/)?([A-Za-z0-9_-]+)")
+ORACLE = re.compile(r"https?://([a-z0-9.-]+\.oraclecloud\.com)/hcmUI/CandidateExperience/[a-zA-Z_-]+/sites/([A-Za-z0-9_]+)")
 ICIMS = re.compile(r"https?://([a-z0-9-]+)\.icims\.com/")
 SKIP_SLUGS = {"embed", "jobs", "careers", "api", "v1", "j"}
 
 
 def classify(urls):
-    ats, workday, icims = {}, {}, {}
+    ats, workday, icims, oracle = {}, {}, {}, {}
     for u in urls:
+        m = ORACLE.match(u or "")
+        if m:
+            oracle[m.group(1).split('.')[0]] = {"host": m.group(1), "site": m.group(2)}
+            continue
         m = WORKDAY.match(u or "")
         if m:
             tenant, wd, site = m.groups()
@@ -39,7 +45,7 @@ def classify(urls):
             if m and m.group(1).lower() not in SKIP_SLUGS:
                 ats[m.group(1)] = kind
                 break
-    return ats, workday, icims
+    return ats, workday, icims, oracle
 
 
 def _load(name):
@@ -63,27 +69,34 @@ def _probe_icims(cfg):
     return len(icims.fetch_all_jobs(cfg["tenant"], max_pages=1))
 
 
+def _probe_oracle(cfg):
+    from .sources import oracle
+    return len(oracle.fetch_jobs(cfg["host"], cfg["site"], max_jobs=50))
+
+
 def discover(urls, save=True, workers=12):
-    ats, workday, icims = classify(urls)
+    ats, workday, icims, oracle = classify(urls)
     wl = _load("watchlist.json")
     known_ats = set(wl["confirmed"]) | set(wl.get("not_on_these_ats", []))
     known_ats_l = {k.lower() for k in known_ats}
-    wd, ic = _load("workday_sites.json"), _load("icims_sites.json")
+    wd, ic, orc = _load("workday_sites.json"), _load("icims_sites.json"), _load("oracle_sites.json")
     known_wd = {(v["subdomain"], v["site"]) for v in wd.values()}
     todo = []
     todo += [("ats", s, k) for s, k in ats.items() if s.lower() not in known_ats_l]
     todo += [("workday", s, c) for s, c in workday.items() if (c["subdomain"], c["site"]) not in known_wd and s not in wd]
     todo += [("icims", s, c) for s, c in icims.items() if s not in ic]
+    known_or = {(v["host"], v["site"]) for v in orc.values()}
+    todo += [("oracle", s, c) for s, c in oracle.items() if (c["host"], c["site"]) not in known_or]
 
     def probe(t):
         kind, slug, v = t
         try:
-            n = {"ats": lambda: _probe_ats(slug, v), "workday": lambda: _probe_workday(v), "icims": lambda: _probe_icims(v)}[kind]()
+            n = {"ats": lambda: _probe_ats(slug, v), "workday": lambda: _probe_workday(v), "icims": lambda: _probe_icims(v), "oracle": lambda: _probe_oracle(v)}[kind]()
         except Exception:
             n = 0
         return t, n
 
-    added = {"ats": 0, "workday": 0, "icims": 0}
+    added = {"ats": 0, "workday": 0, "icims": 0, "oracle": 0}
     with ThreadPoolExecutor(workers) as ex:
         for (kind, slug, v), n in ex.map(probe, todo):
             if n <= 0:
@@ -93,9 +106,11 @@ def discover(urls, save=True, workers=12):
                 wl["confirmed"][slug] = v
             elif kind == "workday":
                 wd[slug] = v
+            elif kind == "oracle":
+                orc[slug] = v
             else:
                 ic[slug] = v
     if save:
-        for name, data in (("watchlist.json", wl), ("workday_sites.json", wd), ("icims_sites.json", ic)):
+        for name, data in (("watchlist.json", wl), ("workday_sites.json", wd), ("icims_sites.json", ic), ("oracle_sites.json", orc)):
             (REGISTRY / name).write_text(json.dumps(data, indent=2) + "\n")
     return {"candidates": len(todo), "added": added}

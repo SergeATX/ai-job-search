@@ -15,8 +15,8 @@ def _tasks(p):
     """Yield (source, company, zero-arg fetcher returning raw jobs)."""
     srcs = p.sources
     if "ats" in srcs:
-        from .sources import ats, smartrecruiters, workable
-        direct = {"smartrecruiters": smartrecruiters.fetch_jobs, "workable": workable.fetch_jobs}
+        from .sources import ats, bamboohr, smartrecruiters, workable
+        direct = {"smartrecruiters": smartrecruiters.fetch_jobs, "workable": workable.fetch_jobs, "bamboohr": bamboohr.fetch_jobs}
         for co, kind in _reg("watchlist.json")["confirmed"].items():
             fn = direct.get(kind)
             yield "ats", co, ((lambda co=co, fn=fn: fn(co)) if fn else (lambda co=co, kind=kind: ats.fetch_jobs(co, kind)))
@@ -29,6 +29,10 @@ def _tasks(p):
         from .sources import icims
         for co, c in _reg("icims_sites.json").items():
             yield "icims", co, (lambda c=c: icims.fetch_all_jobs(c["tenant"]))
+    if "oracle" in srcs:
+        from .sources import oracle
+        for co, c in _reg("oracle_sites.json").items():
+            yield "oracle", co, (lambda c=c: oracle.fetch_jobs(c["host"], c["site"], keyword=p.search_text))
     if "simplify" in srcs:
         from .sources import simplify
         yield "simplify", "simplify", simplify.fetch_jobs
