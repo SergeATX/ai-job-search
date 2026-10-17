@@ -67,3 +67,6 @@ upskill/*.md
 
 # Agent usage logs
 .agents/
+
+# Local job-search profiles, databases and outputs (personal - never commit)
+profiles/

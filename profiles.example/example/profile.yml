@@ -1,0 +1,26 @@
+# Copy this folder to profiles/<name>/ . profiles/ is gitignored: personal data stays local.
+name: example
+email: you@example.com
+resume: ~/path/to/master-resume.md     # read by the fit-check agent
+
+sources: [ats, workday, icims, jibe]   # registry lives in jobsearch/registry/
+companies:
+  include: []                          # empty = every company in the registry
+  exclude: []
+search_text: "software"                # Workday server-side search box text
+
+titles:
+  include: 'engineer|developer|programmer|software|swe'
+  exclude: '\b(senior|sr\.?|staff|principal|lead|director|manager|vp|iii|iv)\b'
+locations: 'texas|austin|dallas|houston|san antonio|\btx\b|remote'
+keep_unknown_location: false
+exclude_internships: true
+
+# Hard gates given to the fit-check agent. Anything not listed is NOT a reason to skip.
+gates:
+  - explicit years-of-experience requirement above what the candidate has
+  - required degree / certification the candidate lacks
+  - already must hold an active security clearance
+  - not actually a software/dev role
+fitcheck_notes: |
+  Candidate is open to unfamiliar stacks; a stack mismatch alone is not a reason to skip.

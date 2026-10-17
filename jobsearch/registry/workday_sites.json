@@ -1,0 +1,177 @@
+{
+  "rtx": {
+    "subdomain": "globalhr.wd5",
+    "tenant": "globalhr",
+    "site": "rec_rtx_ext_gateway"
+  },
+  "adobe": {
+    "subdomain": "adobe.wd5",
+    "tenant": "adobe",
+    "site": "external_experienced"
+  },
+  "usaa": {
+    "subdomain": "usaa.wd1",
+    "tenant": "usaa",
+    "site": "USAAJOBSWD"
+  },
+  "att": {
+    "subdomain": "att.wd1",
+    "tenant": "att",
+    "site": "ATTGeneral"
+  },
+  "generalmotors": {
+    "subdomain": "generalmotors.wd5",
+    "tenant": "generalmotors",
+    "site": "Careers_GM"
+  },
+  "nvidia": {
+    "subdomain": "nvidia.wd5",
+    "tenant": "nvidia",
+    "site": "NVIDIAExternalCareerSite"
+  },
+  "visa": {
+    "subdomain": "visa.wd5",
+    "tenant": "visa",
+    "site": "Visa"
+  },
+  "boeing": {
+    "subdomain": "boeing.wd1",
+    "tenant": "boeing",
+    "site": "EXTERNAL_CAREERS"
+  },
+  "bakerhughes": {
+    "subdomain": "bakerhughes.wd5",
+    "tenant": "bakerhughes",
+    "site": "BakerHughes"
+  },
+  "chevron": {
+    "subdomain": "chevron.wd5",
+    "tenant": "chevron",
+    "site": "jobs"
+  },
+  "northropgrumman": {
+    "subdomain": "ngc.wd1",
+    "tenant": "ngc",
+    "site": "Northrop_Grumman_External_Site"
+  },
+  "boozallen": {
+    "subdomain": "bah.wd1",
+    "tenant": "bah",
+    "site": "BAH_Jobs"
+  },
+  "kbr": {
+    "subdomain": "kbr.wd5",
+    "tenant": "kbr",
+    "site": "KBR_Careers"
+  },
+  "gdit": {
+    "subdomain": "gdit.wd5",
+    "tenant": "gdit",
+    "site": "External_Career_Site"
+  },
+  "bankofamerica": {
+    "subdomain": "ghr.wd1",
+    "tenant": "ghr",
+    "site": "Lateral-US"
+  },
+  "wellsfargo": {
+    "subdomain": "wf.wd1",
+    "tenant": "wf",
+    "site": "WellsFargoJobs"
+  },
+  "capitalone": {
+    "subdomain": "capitalone.wd12",
+    "tenant": "capitalone",
+    "site": "Capital_One"
+  },
+  "fidelity": {
+    "subdomain": "fmr.wd1",
+    "tenant": "fmr",
+    "site": "FidelityCareers"
+  },
+  "texascapitalbank": {
+    "subdomain": "texascapitalbank.wd12",
+    "tenant": "texascapitalbank",
+    "site": "Careers"
+  },
+  "frostbank": {
+    "subdomain": "frostbank.wd5",
+    "tenant": "frostbank",
+    "site": "External"
+  },
+  "memorialhermann": {
+    "subdomain": "memorialhermann.wd5",
+    "tenant": "memorialhermann",
+    "site": "external"
+  },
+  "houstonmethodist": {
+    "subdomain": "houstonmethodist.wd12",
+    "tenant": "houstonmethodist",
+    "site": "GTI"
+  },
+  "accenture": {
+    "subdomain": "accenture.wd103",
+    "tenant": "accenture",
+    "site": "AccentureCareers"
+  },
+  "flex": {
+    "subdomain": "flextronics.wd1",
+    "tenant": "flextronics",
+    "site": "Careers"
+  },
+  "utaustin": {
+    "subdomain": "utaustin.wd1",
+    "tenant": "utaustin",
+    "site": "UTstaff"
+  },
+  "tamu": {
+    "subdomain": "tamus.wd1",
+    "tenant": "tamus",
+    "site": "TAMU_External"
+  },
+  "nxp": {
+    "subdomain": "nxp.wd3",
+    "tenant": "nxp",
+    "site": "careers"
+  },
+  "appliedmaterials": {
+    "subdomain": "amat.wd1",
+    "tenant": "amat",
+    "site": "external"
+  },
+  "iheartmedia": {
+    "subdomain": "iheartmedia.wd5",
+    "tenant": "iheartmedia",
+    "site": "External_iHM"
+  },
+  "cinemark": {
+    "subdomain": "cinemark.wd1",
+    "tenant": "cinemark",
+    "site": "cinemark"
+  },
+  "sabre": {
+    "subdomain": "sabre.wd1",
+    "tenant": "sabre",
+    "site": "SabreJobs"
+  },
+  "rackspace": {
+    "subdomain": "rackspace.wd1",
+    "tenant": "rackspace",
+    "site": "External"
+  },
+  "sysco": {
+    "subdomain": "sysco.wd5",
+    "tenant": "sysco",
+    "site": "syscocareers"
+  },
+  "occidentalpetroleum": {
+    "subdomain": "oxy.wd5",
+    "tenant": "oxy",
+    "site": "Corporate"
+  },
+  "topgolf": {
+    "subdomain": "topgolf.wd501",
+    "tenant": "topgolf",
+    "site": "TopgolfCareers"
+  }
+}

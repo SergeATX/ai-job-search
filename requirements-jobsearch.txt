@@ -1,0 +1,4 @@
+pyyaml
+beautifulsoup4
+lxml
+playwright  # only for the Built In / CAPPS sources

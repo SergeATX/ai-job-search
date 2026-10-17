@@ -243,3 +243,16 @@ To get the most from this, invest time during `/setup` in describing not just yo
 ## License
 
 MIT
+
+## Multi-profile job search scanner (`jobsearch/`)
+
+A reusable scanner that works for any number of people. Each person is a local profile in `profiles/<name>/profile.yml` (target titles, seniority exclusions, locations, hard gates for the fit-check, email, resume path). `profiles/` is gitignored, so profiles, databases and outputs never leave your machine.
+
+```bash
+pip install -r requirements-jobsearch.txt
+cp -r profiles.example/example profiles/me      # then edit profiles/me/profile.yml
+python3 -m jobsearch run --profile me           # scrape, dedupe, filter -> profiles/me/out/shortlist.md
+python3 -m jobsearch record --profile me        # load fit-check verdicts
+```
+
+Sources: Greenhouse, Lever, Ashby, Workday, iCIMS and Jibe (the company registry is in `jobsearch/registry/`), plus Built In, The Muse and Texas CAPPS modules in `jobsearch/sources/`. In Claude Code, `/batch <profile>` runs the whole loop including the fit-check agent. Requires Python 3.9+.
