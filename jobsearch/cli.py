@@ -21,6 +21,10 @@ def main():
     rec = sub.add_parser("record", help="load fit-check verdicts (fitcheck.json) into the profile database")
     rec.add_argument("--profile", required=True)
     rec.add_argument("file", nargs="?")
+    ps = sub.add_parser("prescreen", help="fetch candidate postings and auto-reject explicit years/clearance/grad-degree gates")
+    ps.add_argument("--profile", required=True)
+    ps.add_argument("--limit", type=int)
+    ps.add_argument("--max-queue", type=int, default=250, help="cap on postings handed to the fit-check agent")
     st = sub.add_parser("status", help="counts by status")
     st.add_argument("--profile", required=True)
     d = sub.add_parser("discover", help="grow the employer registry from posting URLs (probes each new board live)")
@@ -62,6 +66,16 @@ def main():
         run(p, dry_run=a.dry_run, workers=a.workers)
         if not a.dry_run:
             print(f"shortlist: {p.out_dir / 'shortlist.md'}\nfit-check prompt: {p.out_dir / 'fitcheck-prompt.md'}")
+    elif a.cmd == "prescreen":
+        from .prescreen import run as pre
+        from .runner import write_shortlist
+        s = Store(p.db_path)
+        print(pre(p, s, limit=a.limit))
+        pend = [dict(zip(("company", "title", "location", "source", "url"), r)) for r in s.candidates()]
+        write_shortlist(p, pend)
+        from .prescreen import export_queue
+        total, queued = export_queue(p, s, a.max_queue)
+        print(f"{len(pend)} candidates remain ({total} distinct); {queued} queued for the fit-check agent in {p.out_dir / 'fitcheck-queue.json'}")
     elif a.cmd == "seed":
         n = Store(p.db_path).seed_urls(Path(a.file).read_text())
         print(f"seeded {n} urls")

@@ -1,11 +1,35 @@
 import json
 import re
 import sys
+import threading
+import time
+import urllib.error
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from . import filters
 from .profile import REGISTRY
 from .store import Store
+
+
+# per-vendor concurrency caps (public APIs rate-limit aggressively) and retry-with-backoff on HTTP 429
+_LIMITS = {"workable": 3, "smartrecruiters": 6, "rippling": 6, "bamboohr": 6, "oracle": 8, "icims": 6}
+_SEMS = {k: threading.Semaphore(v) for k, v in _LIMITS.items()}
+
+
+def _guarded(kind, fn):
+    def run():
+        sem = _SEMS.get(kind)
+        for attempt in range(4):
+            try:
+                if sem:
+                    with sem:
+                        return fn()
+                return fn()
+            except urllib.error.HTTPError as e:
+                if e.code != 429 or attempt == 3:
+                    raise
+                time.sleep(4 * (attempt + 1))
+    return run
 
 
 def _reg(name):
@@ -26,7 +50,7 @@ def _tasks(p):
         direct = {"rippling": rippling.fetch_jobs, "smartrecruiters": smartrecruiters.fetch_jobs, "workable": workable.fetch_jobs, "bamboohr": bamboohr.fetch_jobs}
         for co, kind in _reg("watchlist.json")["confirmed"].items():
             fn = direct.get(kind)
-            yield "ats", co, ((lambda co=co, fn=fn: fn(co)) if fn else (lambda co=co, kind=kind: ats.fetch_jobs(co, kind)))
+            yield "ats", co, _guarded(kind, (lambda co=co, fn=fn: fn(co)) if fn else (lambda co=co, kind=kind: ats.fetch_jobs(co, kind)))
     if "workday" in srcs:
         from .sources import workday
         for co, c in _reg("workday_sites.json").items():
@@ -39,7 +63,7 @@ def _tasks(p):
     if "icims" in srcs:
         from .sources import icims
         for co, c in _reg("icims_sites.json").items():
-            yield "icims", co, (lambda c=c: icims.fetch_all_jobs(c["tenant"]))
+            yield "icims", co, _guarded("icims", lambda c=c: icims.fetch_all_jobs(c["tenant"]))
     if "oracle" in srcs:
         from .sources import oracle
         for co, c in _reg("oracle_sites.json").items():
@@ -48,7 +72,7 @@ def _tasks(p):
                 for term in _terms(p):
                     out += oracle.fetch_jobs(c["host"], c["site"], keyword=term)
                 return out
-            yield "oracle", co, f
+            yield "oracle", co, _guarded("oracle", f)
     if "simplify" in srcs:
         from .sources import simplify
         yield "simplify", "simplify", simplify.fetch_jobs
@@ -105,8 +129,11 @@ def run(p, dry_run=False, workers=8):
     print(f"[{p.name}] {len(tasks)} sources, {raw} raw postings, {len(shortlist)} new candidates, {len(errors)} errors")
     for c, n in sorted(per_company.items(), key=lambda x: -x[1])[:8]:
         print(f"  {c}: {n}")
-    for e in errors[:10]:
-        print(f"  ! {e}", file=sys.stderr)
+    if errors:
+        from collections import Counter
+        kinds = Counter((e.split(":", 1)[0].split("/")[0], e.split(": ", 1)[-1][:28]) for e in errors)
+        print("  errors by (source, kind): " + "; ".join(f"{s}/{k} x{n}" for (s, k), n in kinds.most_common(6)))
+        (p.out_dir / "errors.log").write_text("\n".join(errors) + "\n")
     return shortlist
 
 
@@ -122,13 +149,15 @@ def write_shortlist(p, shortlist):
     (p.out_dir / "fitcheck-prompt.md").write_text(f"""You are a resume-fit-check agent for the job-search profile "{p.name}".
 
 1. Read the candidate's resume: {resume}
-2. Candidates are listed in {sl} (one per line: title | company | location | url). Fetch each posting's full description
-   (Greenhouse: boards-api.greenhouse.io/v1/boards/<co>/jobs/<id>; Lever: api.lever.co/v0/postings/<co>/<id>;
-   Workday: POST/GET the /wday/cxs/... job JSON; otherwise WebFetch). Work in parallel batches.
+2. The queue is {p.out_dir}/fitcheck-queue.json (a list of {{n,title,company,locations,urls,prescreen,note}}). Each posting's text is already on disk
+   at {p.out_dir}/jd/<n>.txt - read that file; do NOT re-fetch the web unless the file is empty (then WebFetch urls[0]).
+   Mechanical gates (explicit years, clearance, graduate degree) were already applied; you judge what is left.
+   prescreen=WEAK means a soft/1-year experience mention: read it in context.
 3. Disqualify ONLY for these gates (anything else is a fit, even a different stack):
 {gates}
 {notes}
-4. Verdicts: GOOD / WEAK / SKIP. Quote the deciding requirement text.
-5. Write JSON to {p.out_dir}/fitcheck.json: a list of {{"url","title","company","location","verdict","reason"}}.
+4. Verdicts: GOOD / WEAK / SKIP. Quote the deciding requirement text. A verdict applies to every url of the group.
+5. Write JSON to {p.out_dir}/fitcheck.json: a list of {{"url","title","company","location","verdict","reason"}} - one row per url in the group.
    Do not edit trackers or send email. Final report: counts plus a table of GOOD and WEAK rows.
 """)
+
