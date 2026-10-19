@@ -14,6 +14,7 @@ def main():
     r = sub.add_parser("run", help="scrape all configured sources for a profile and write a shortlist")
     r.add_argument("--profile", required=True)
     r.add_argument("--dry-run", action="store_true")
+    r.add_argument("--workers", type=int, default=24, help="parallel fetches (default 24)")
     s = sub.add_parser("seed", help="mark every URL in an existing tracker file as already seen")
     s.add_argument("--profile", required=True)
     s.add_argument("file")
@@ -23,8 +24,11 @@ def main():
     st = sub.add_parser("status", help="counts by status")
     st.add_argument("--profile", required=True)
     d = sub.add_parser("discover", help="grow the employer registry from posting URLs (probes each new board live)")
-    d.add_argument("--from", dest="src", choices=["simplify"], default="simplify")
+    d.add_argument("--from", dest="src", nargs="+", default=["simplify-all"],
+                   help="URL lists to mine: simplify-all simplify-internships speedyapply vanshb03 (or 'all')")
     d.add_argument("--dry-run", action="store_true")
+    d.add_argument("--yc", action="store_true", help="also probe slugs of YC companies that are hiring (yc-oss API)")
+    d.add_argument("--names-file", help="text file, one company name per line, to probe by slug (keep personal lists local)")
     sub.add_parser("profiles", help="list local profiles")
     a = ap.parse_args()
 
@@ -35,14 +39,27 @@ def main():
         return
     if a.cmd == "discover":
         from .discover import discover
-        from .sources import simplify
-        urls = [x.get("url") for x in simplify.fetch_listings() if x.get("active")]
+        from . import lists
+        urls = []
+        for name in (lists.ALL if a.src == ["all"] else a.src):
+            urls += lists.urls(name)
         print(discover(urls, save=not a.dry_run))
+        if a.yc or a.names_file:
+            from .discover import discover_names
+            entries = []
+            if a.yc:
+                from .lists import _get
+                import json as _j
+                entries += [(x["name"], x.get("website")) for x in _j.loads(_get("https://yc-oss.github.io/api/companies/all.json"))
+                            if x.get("isHiring") in (True, "True")]
+            if a.names_file:
+                entries += [(l.strip(), None) for l in Path(a.names_file).expanduser().read_text().splitlines() if l.strip()]
+            print(discover_names(entries, save=not a.dry_run))
         return
     p = Profile(a.profile, a.profiles_dir)
     if a.cmd == "run":
         from .runner import run
-        run(p, dry_run=a.dry_run)
+        run(p, dry_run=a.dry_run, workers=a.workers)
         if not a.dry_run:
             print(f"shortlist: {p.out_dir / 'shortlist.md'}\nfit-check prompt: {p.out_dir / 'fitcheck-prompt.md'}")
     elif a.cmd == "seed":

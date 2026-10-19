@@ -194,5 +194,537 @@
   "fa-euxc-saasfaprod1": {
     "host": "fa-euxc-saasfaprod1.fa.ocs.oraclecloud.com",
     "site": "CX_1"
+  },
+  "hdhe": {
+    "host": "hdhe.fa.em3.oraclecloud.com",
+    "site": "CX"
+  },
+  "fa-etyr-saasfaprod1": {
+    "host": "fa-etyr-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "CX_2"
+  },
+  "eeug": {
+    "host": "eeug.fa.us6.oraclecloud.com",
+    "site": "CX"
+  },
+  "fa-etnb-saasfaprod1": {
+    "host": "fa-etnb-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "CX_1001"
+  },
+  "ewij": {
+    "host": "ewij.fa.us8.oraclecloud.com",
+    "site": "CX_2"
+  },
+  "ehtv": {
+    "host": "ehtv.fa.em2.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "fa-emkq-saasfaprod1": {
+    "host": "fa-emkq-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "CX"
+  },
+  "ekbq": {
+    "host": "ekbq.fa.em2.oraclecloud.com",
+    "site": "CX_2"
+  },
+  "etgi": {
+    "host": "etgi.fa.us8.oraclecloud.com",
+    "site": "CX_4005"
+  },
+  "elvp": {
+    "host": "elvp.fa.us2.oraclecloud.com",
+    "site": "CX_1001"
+  },
+  "eppr": {
+    "host": "eppr.fa.us2.oraclecloud.com",
+    "site": "CX_2"
+  },
+  "ekiz": {
+    "host": "ekiz.fa.em2.oraclecloud.com",
+    "site": "CX"
+  },
+  "fa-etqo-saasfaprod1": {
+    "host": "fa-etqo-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "hdid": {
+    "host": "hdid.fa.us2.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "emit": {
+    "host": "emit.fa.ca3.oraclecloud.com",
+    "site": "CX_2001"
+  },
+  "ejhp": {
+    "host": "ejhp.fa.us6.oraclecloud.com",
+    "site": "CX_2"
+  },
+  "elxw": {
+    "host": "elxw.fa.em3.oraclecloud.com",
+    "site": "CX_1001"
+  },
+  "ewvl": {
+    "host": "ewvl.fa.us8.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "ekkh": {
+    "host": "ekkh.fa.us2.oraclecloud.com",
+    "site": "CX_2002"
+  },
+  "ecnf": {
+    "host": "ecnf.fa.us2.oraclecloud.com",
+    "site": "CX"
+  },
+  "hccz": {
+    "host": "hccz.fa.em3.oraclecloud.com",
+    "site": "CX_2"
+  },
+  "fa-evxo-saasfaprod1": {
+    "host": "fa-evxo-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "fa-eqto-saasfaprod1": {
+    "host": "fa-eqto-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "fa-erqb-saasfaprod1": {
+    "host": "fa-erqb-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "fa-evcg-saasfaprod1": {
+    "host": "fa-evcg-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "hczw": {
+    "host": "hczw.fa.us2.oraclecloud.com",
+    "site": "CX_1001"
+  },
+  "hcog": {
+    "host": "hcog.fa.em2.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "ebwb": {
+    "host": "ebwb.fa.us2.oraclecloud.com",
+    "site": "CX"
+  },
+  "hdnn": {
+    "host": "hdnn.fa.us6.oraclecloud.com",
+    "site": "CX"
+  },
+  "ejcu": {
+    "host": "ejcu.fa.us6.oraclecloud.com",
+    "site": "CX_1033"
+  },
+  "hctz": {
+    "host": "hctz.fa.us2.oraclecloud.com",
+    "site": "CX_1001"
+  },
+  "ebxs": {
+    "host": "ebxs.fa.us2.oraclecloud.com",
+    "site": "CX_2"
+  },
+  "ehac": {
+    "host": "ehac.fa.us6.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "efds": {
+    "host": "efds.fa.em5.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "ejko": {
+    "host": "ejko.fa.us2.oraclecloud.com",
+    "site": "CX_3"
+  },
+  "fa-errt-saasfaprod1": {
+    "host": "fa-errt-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "CX_2001"
+  },
+  "fa-extu-saasfaprod1": {
+    "host": "fa-extu-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "hckd": {
+    "host": "hckd.fa.us2.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "ehpv": {
+    "host": "ehpv.fa.em2.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "emdz": {
+    "host": "emdz.fa.us2.oraclecloud.com",
+    "site": "CX_2001"
+  },
+  "egua": {
+    "host": "egua.fa.us2.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "ekgn": {
+    "host": "ekgn.fa.us6.oraclecloud.com",
+    "site": "CX_2001"
+  },
+  "ebhu": {
+    "host": "ebhu.fa.us2.oraclecloud.com",
+    "site": "CX"
+  },
+  "hdks": {
+    "host": "hdks.fa.ca2.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "fa-ewmy-saasfaprod1": {
+    "host": "fa-ewmy-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "ebgj": {
+    "host": "ebgj.fa.us2.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "ebwh": {
+    "host": "ebwh.fa.us2.oraclecloud.com",
+    "site": "CX_1001"
+  },
+  "ecsr": {
+    "host": "ecsr.fa.us2.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "edqv": {
+    "host": "edqv.fa.us2.oraclecloud.com",
+    "site": "CX"
+  },
+  "ibnjjb": {
+    "host": "ibnjjb.fa.ocs.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "eexs": {
+    "host": "eexs.fa.us2.oraclecloud.com",
+    "site": "GreenwoodVillageSouth"
+  },
+  "eewl": {
+    "host": "eewl.fa.us6.oraclecloud.com",
+    "site": "CX"
+  },
+  "ehtl": {
+    "host": "ehtl.fa.us6.oraclecloud.com",
+    "site": "CX"
+  },
+  "ecge": {
+    "host": "ecge.fa.us2.oraclecloud.com",
+    "site": "CX_1003"
+  },
+  "ejia": {
+    "host": "ejia.fa.us6.oraclecloud.com",
+    "site": "CX_1001"
+  },
+  "ebwg": {
+    "host": "ebwg.fa.us2.oraclecloud.com",
+    "site": "CX"
+  },
+  "cva": {
+    "host": "cva.fa.us1.oraclecloud.com",
+    "site": "CX_3"
+  },
+  "ecvz": {
+    "host": "ecvz.fa.us2.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "hcxs": {
+    "host": "hcxs.fa.us2.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "eofd": {
+    "host": "eofd.fa.us6.oraclecloud.com",
+    "site": "CX_1001"
+  },
+  "eoje": {
+    "host": "eoje.fa.us2.oraclecloud.com",
+    "site": "CX_1001"
+  },
+  "ejrz": {
+    "host": "ejrz.fa.us2.oraclecloud.com",
+    "site": "CX_5001"
+  },
+  "fa-ewca-saasfaprod1": {
+    "host": "fa-ewca-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "eimy": {
+    "host": "eimy.fa.us6.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "fa-eups-saasfaprod1": {
+    "host": "fa-eups-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "ULSolutionsCareers"
+  },
+  "fa-elzs-saasfaprod1": {
+    "host": "fa-elzs-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "CX"
+  },
+  "hcal": {
+    "host": "hcal.fa.us2.oraclecloud.com",
+    "site": "CX_1001"
+  },
+  "fa-evdq-saasfaprod1": {
+    "host": "fa-evdq-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "CX_2001"
+  },
+  "ertr": {
+    "host": "ertr.fa.us2.oraclecloud.com",
+    "site": "CX_3001"
+  },
+  "fa-exew-saasfaprod1": {
+    "host": "fa-exew-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "fa-emxf-saasfaprod1": {
+    "host": "fa-emxf-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "CX"
+  },
+  "hdow": {
+    "host": "hdow.fa.us6.oraclecloud.com",
+    "site": "CX_1001"
+  },
+  "elar": {
+    "host": "elar.fa.us2.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "hcjy": {
+    "host": "hcjy.fa.us2.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "eczy": {
+    "host": "eczy.fa.us2.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "eoff": {
+    "host": "eoff.fa.em1.ukg.oraclecloud.com",
+    "site": "CX_1001"
+  },
+  "ehif": {
+    "host": "ehif.fa.em2.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "hdpn": {
+    "host": "hdpn.fa.us6.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "ejwl": {
+    "host": "ejwl.fa.us2.oraclecloud.com",
+    "site": "CX"
+  },
+  "tulane-ibqejb": {
+    "host": "tulane-ibqejb.fa.ocs.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "fa-etvl-saasfaprod1": {
+    "host": "fa-etvl-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "emcm": {
+    "host": "emcm.fa.us2.oraclecloud.com",
+    "site": "WMCareers"
+  },
+  "encd": {
+    "host": "encd.fa.em3.oraclecloud.com",
+    "site": "CX_6005"
+  },
+  "ecyq": {
+    "host": "ecyq.fa.em2.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "fa-exkk-saasfaprod1": {
+    "host": "fa-exkk-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "epyc": {
+    "host": "epyc.fa.us2.oraclecloud.com",
+    "site": "CX_1001"
+  },
+  "fa-ewub-saasfaprod1": {
+    "host": "fa-ewub-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "CX_26"
+  },
+  "eevd": {
+    "host": "eevd.fa.us6.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "fa-etjd-saasfaprod1": {
+    "host": "fa-etjd-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "FirstEnergyCareers"
+  },
+  "gka": {
+    "host": "gka.fa.us1.oraclecloud.com",
+    "site": "CX"
+  },
+  "egud": {
+    "host": "egud.fa.us2.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "fa-epmd-saasfaprod1": {
+    "host": "fa-epmd-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "CX_3001"
+  },
+  "fa-exhh-saasfaprod1": {
+    "host": "fa-exhh-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "StaplesInc"
+  },
+  "hcqq": {
+    "host": "hcqq.fa.us2.oraclecloud.com",
+    "site": "CX_5004"
+  },
+  "elrj": {
+    "host": "elrj.fa.us2.oraclecloud.com",
+    "site": "CX_9001"
+  },
+  "fa-exmi-saasfaprod1": {
+    "host": "fa-exmi-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "efet": {
+    "host": "efet.fa.us2.oraclecloud.com",
+    "site": "CX_1009"
+  },
+  "fa-etbx-saasfaprod1": {
+    "host": "fa-etbx-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "nfcu"
+  },
+  "ehzq": {
+    "host": "ehzq.fa.us2.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "efsp": {
+    "host": "efsp.fa.us6.oraclecloud.com",
+    "site": "CX"
+  },
+  "eodq": {
+    "host": "eodq.fa.us6.oraclecloud.com",
+    "site": "CX"
+  },
+  "egcu": {
+    "host": "egcu.fa.us6.oraclecloud.com",
+    "site": "CX"
+  },
+  "ekcf": {
+    "host": "ekcf.fa.us6.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "fa-evfm-saasfaprod1": {
+    "host": "fa-evfm-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "CX_1029"
+  },
+  "ertd": {
+    "host": "ertd.fa.us2.oraclecloud.com",
+    "site": "CX_1001"
+  },
+  "hcmn": {
+    "host": "hcmn.fa.ap1.oraclecloud.com",
+    "site": "CX_1001"
+  },
+  "hdep": {
+    "host": "hdep.fa.us2.oraclecloud.com",
+    "site": "CX"
+  },
+  "fa-euwp-saasfaprod1": {
+    "host": "fa-euwp-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "fa-etgw-saasfaprod1": {
+    "host": "fa-etgw-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "fa-ewgu-saasfaprod1": {
+    "host": "fa-ewgu-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "CX_2001"
+  },
+  "fa-eygo-saasfaprod1": {
+    "host": "fa-eygo-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "CX_2001"
+  },
+  "hdsn": {
+    "host": "hdsn.fa.us6.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "ehth": {
+    "host": "ehth.fa.em2.oraclecloud.com",
+    "site": "CX_2001"
+  },
+  "ehtc": {
+    "host": "ehtc.fa.ca2.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "edxn": {
+    "host": "edxn.fa.us2.oraclecloud.com",
+    "site": "CX_5001"
+  },
+  "hcbo": {
+    "host": "hcbo.fa.us2.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "ekaw": {
+    "host": "ekaw.fa.us2.oraclecloud.com",
+    "site": "CX"
+  },
+  "hcor": {
+    "host": "hcor.fa.us2.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "emqz": {
+    "host": "emqz.fa.us2.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "eoce": {
+    "host": "eoce.fa.em3.oraclecloud.com",
+    "site": "CX_1004"
+  },
+  "eezy": {
+    "host": "eezy.fa.ca2.oraclecloud.com",
+    "site": "CX"
+  },
+  "fa-ertb-saasfaprod1": {
+    "host": "fa-ertb-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "CX_2"
+  },
+  "ekkf": {
+    "host": "ekkf.fa.em2.oraclecloud.com",
+    "site": "CX"
+  },
+  "fa-exby-saasfaprod1": {
+    "host": "fa-exby-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "CX_1013"
+  },
+  "hckz": {
+    "host": "hckz.fa.us2.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "fa-exjq-saasfaprod1": {
+    "host": "fa-exjq-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "SHEIN"
+  },
+  "fa-epzg-saasfaprod1": {
+    "host": "fa-epzg-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "ekmu": {
+    "host": "ekmu.fa.em3.oraclecloud.com",
+    "site": "CX_6009"
+  },
+  "etyy": {
+    "host": "etyy.fa.ap2.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "fa-eqcd-saasfaprod1": {
+    "host": "fa-eqcd-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "elyq": {
+    "host": "elyq.fa.em3.oraclecloud.com",
+    "site": "CX"
+  },
+  "icbpjb": {
+    "host": "icbpjb.fa.ocs.oraclecloud.com",
+    "site": "LazardProfessionalCareers"
+  },
+  "iadugs": {
+    "host": "iadugs.fa.ocs.oraclecloud.com",
+    "site": "CX_1001"
   }
 }

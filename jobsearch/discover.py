@@ -16,6 +16,7 @@ PATTERNS = [
     ("ashby", re.compile(r"jobs\.ashbyhq\.com/([A-Za-z0-9_.%-]+)")),
     ("smartrecruiters", re.compile(r"(?:jobs|careers)\.smartrecruiters\.com/([A-Za-z0-9_-]+)")),
     ("workable", re.compile(r"apply\.workable\.com/([A-Za-z0-9_-]+)")),
+    ("rippling", re.compile(r"ats\.rippling\.com/(?:[a-z]{2}-[A-Z]{2}/)?([A-Za-z0-9_-]+)/jobs")),
     ("bamboohr", re.compile(r"https?://([a-z0-9-]+)\.bamboohr\.com/")),
 ]
 WORKDAY = re.compile(r"https?://([a-z0-9-]+)\.(wd\d+)\.myworkdayjobs\.com/(?:[a-z]{2}-[A-Z]{2}/)?([A-Za-z0-9_-]+)")
@@ -54,8 +55,9 @@ def _load(name):
 
 
 def _probe_ats(slug, kind):
-    from .sources import ats, smartrecruiters, workable
-    fn = {"smartrecruiters": smartrecruiters.fetch_jobs, "workable": workable.fetch_jobs}.get(kind)
+    from .sources import ats, bamboohr, rippling, smartrecruiters, workable
+    fn = {"smartrecruiters": smartrecruiters.fetch_jobs, "workable": workable.fetch_jobs,
+          "bamboohr": bamboohr.fetch_jobs, "rippling": rippling.fetch_jobs}.get(kind)
     return len(fn(slug)) if fn else len(ats.fetch_jobs(slug, kind))
 
 
@@ -74,7 +76,7 @@ def _probe_oracle(cfg):
     return len(oracle.fetch_jobs(cfg["host"], cfg["site"], max_jobs=50))
 
 
-def discover(urls, save=True, workers=12):
+def discover(urls, save=True, workers=24):
     ats, workday, icims, oracle = classify(urls)
     wl = _load("watchlist.json")
     known_ats = set(wl["confirmed"]) | set(wl.get("not_on_these_ats", []))
@@ -114,3 +116,43 @@ def discover(urls, save=True, workers=12):
         for name, data in (("watchlist.json", wl), ("workday_sites.json", wd), ("icims_sites.json", ic), ("oracle_sites.json", orc)):
             (REGISTRY / name).write_text(json.dumps(data, indent=2) + "\n")
     return {"candidates": len(todo), "added": added}
+
+
+def _slugs(name, website=None):
+    base = re.sub(r"\b(inc|llc|ltd|corp|corporation|co|company|technologies|technology|holdings|group)\b\.?", "", name, flags=re.I)
+    plain = re.sub(r"[^a-z0-9]", "", base.lower())
+    dash = re.sub(r"[^a-z0-9]+", "-", base.lower()).strip("-")
+    out = {plain, dash}
+    if website:
+        m = re.match(r"https?://(?:www\.)?([a-z0-9-]+)\.", website.lower())
+        if m:
+            out.add(m.group(1))
+    return {s for s in out if len(s) >= 3}
+
+
+def discover_names(entries, save=True, workers=24):
+    """entries: iterable of (name, website-or-None). Probes greenhouse/lever/ashby/workable/smartrecruiters/rippling by slug."""
+    wl = _load("watchlist.json")
+    known = {k.lower() for k in wl["confirmed"]} | {k.lower() for k in wl.get("not_on_these_ats", [])}
+    todo = []
+    for name, site in entries:
+        for s in _slugs(name, site):
+            if s not in known:
+                known.add(s)  # one attempt per slug per run
+                todo += [(s, k) for k in ("greenhouse", "lever", "ashby", "workable", "smartrecruiters", "rippling")]
+
+    def probe(t):
+        try:
+            return t, _probe_ats(*t)
+        except Exception:
+            return t, 0
+
+    found = {}
+    with ThreadPoolExecutor(workers) as ex:
+        for (slug, kind), n in ex.map(probe, todo):
+            if n > 0 and slug not in found:
+                found[slug] = kind
+    wl["confirmed"].update(found)
+    if save:
+        (REGISTRY / "watchlist.json").write_text(json.dumps(wl, indent=2) + "\n")
+    return {"probes": len(todo), "found": len(found)}

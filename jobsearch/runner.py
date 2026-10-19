@@ -1,4 +1,5 @@
 import json
+import re
 import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
@@ -11,20 +12,30 @@ def _reg(name):
     return json.loads((REGISTRY / name).read_text())
 
 
+def _terms(p):
+    """search_text may be one string or a list; each term is a separate server-side query (deduped by URL later)."""
+    t = p.search_text
+    return list(t) if isinstance(t, (list, tuple)) else [t]
+
+
 def _tasks(p):
     """Yield (source, company, zero-arg fetcher returning raw jobs)."""
     srcs = p.sources
     if "ats" in srcs:
-        from .sources import ats, bamboohr, smartrecruiters, workable
-        direct = {"smartrecruiters": smartrecruiters.fetch_jobs, "workable": workable.fetch_jobs, "bamboohr": bamboohr.fetch_jobs}
+        from .sources import ats, bamboohr, rippling, smartrecruiters, workable
+        direct = {"rippling": rippling.fetch_jobs, "smartrecruiters": smartrecruiters.fetch_jobs, "workable": workable.fetch_jobs, "bamboohr": bamboohr.fetch_jobs}
         for co, kind in _reg("watchlist.json")["confirmed"].items():
             fn = direct.get(kind)
             yield "ats", co, ((lambda co=co, fn=fn: fn(co)) if fn else (lambda co=co, kind=kind: ats.fetch_jobs(co, kind)))
     if "workday" in srcs:
         from .sources import workday
         for co, c in _reg("workday_sites.json").items():
-            yield "workday", co, (lambda c=c: workday.fetch_all_jobs(
-                c["subdomain"], c["tenant"], c["site"], search_text=p.search_text))
+            def f(c=c):
+                out = []
+                for term in _terms(p):
+                    out += workday.fetch_all_jobs(c["subdomain"], c["tenant"], c["site"], search_text=term)
+                return out
+            yield "workday", co, f
     if "icims" in srcs:
         from .sources import icims
         for co, c in _reg("icims_sites.json").items():
@@ -32,7 +43,12 @@ def _tasks(p):
     if "oracle" in srcs:
         from .sources import oracle
         for co, c in _reg("oracle_sites.json").items():
-            yield "oracle", co, (lambda c=c: oracle.fetch_jobs(c["host"], c["site"], keyword=p.search_text))
+            def f(c=c):
+                out = []
+                for term in _terms(p):
+                    out += oracle.fetch_jobs(c["host"], c["site"], keyword=term)
+                return out
+            yield "oracle", co, f
     if "simplify" in srcs:
         from .sources import simplify
         yield "simplify", "simplify", simplify.fetch_jobs
@@ -96,7 +112,10 @@ def run(p, dry_run=False, workers=8):
 
 def write_shortlist(p, shortlist):
     sl = p.out_dir / "shortlist.md"
-    sl.write_text("\n".join(f"- {j['title']} | {j['company']} | {j['location']} | {j['url']}" for j in shortlist) + "\n")
+    boost = re.compile(p.cfg["titles"]["boost"], re.I) if p.cfg["titles"].get("boost") else None
+    mark = lambda j: bool(boost and boost.search(j["title"] or ""))
+    shortlist = sorted(shortlist, key=lambda j: (not mark(j), j["company"] or "", j["title"] or ""))
+    sl.write_text("\n".join(f"- {'★ ' if mark(j) else ''}{j['title']} | {j['company']} | {j['location']} | {j['url']}" for j in shortlist) + "\n")
     notes = p.fitcheck_notes or ""
     gates = "\n".join(f"- {g}" for g in p.gates)
     resume = p.resume or "(no resume path configured)"

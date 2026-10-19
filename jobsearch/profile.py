@@ -15,7 +15,7 @@ DEFAULTS = {
     "sources": ["ats", "workday", "icims", "jibe"],
     "companies": {"include": [], "exclude": []},
     "search_text": "",
-    "titles": {"include": r"engineer|developer|programmer|software|swe", "exclude": r"\b(senior|sr\.?|staff|principal|director|vp)\b"},
+    "titles": {"include": r"engineer|developer|programmer|software|swe", "exclude": r"\b(senior|sr\.?|staff|principal|director|vp)\b", "boost": None},
     "locations": r"remote|united states|\bus\b",
     "keep_unknown_location": False,
     "exclude_internships": True,
