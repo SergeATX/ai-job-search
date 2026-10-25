@@ -14,7 +14,7 @@ def main():
     r = sub.add_parser("run", help="scrape all configured sources for a profile and write a shortlist")
     r.add_argument("--profile", required=True)
     r.add_argument("--dry-run", action="store_true")
-    r.add_argument("--workers", type=int, default=24, help="parallel fetches (default 24)")
+    r.add_argument("--workers", type=int, default=12, help="parallel fetches (default 12; higher triggers Workday 429s)")
     s = sub.add_parser("seed", help="mark every URL in an existing tracker file as already seen")
     s.add_argument("--profile", required=True)
     s.add_argument("file")
