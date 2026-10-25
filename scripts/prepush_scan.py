@@ -57,7 +57,7 @@ def main():
     rules = [(n, re.compile(p, re.I if n == "personal pattern" else 0)) for n, p in SECRETS + personal_patterns()]
     findings = []
     for c in commits(local, remote):
-        for path in git("diff-tree", "--no-commit-id", "--name-only", "-r", "--root", c).split("\n"):
+        for path in git("diff-tree", "--no-commit-id", "--name-only", "--diff-filter=d", "-r", "--root", c).split("\n"):
             if path and BAD_PATHS.search(path):
                 findings.append((c[:8], path, "forbidden path", ""))
         cur = None
