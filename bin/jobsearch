@@ -1,0 +1,4 @@
+#!/bin/sh
+# Run the job-search framework from anywhere: symlink this file onto your PATH (e.g. ~/.local/bin/jobsearch).
+here="$(cd "$(dirname "$(readlink "$0" || echo "$0")")" && pwd)"
+PYTHONPATH="$here/.." exec python3 -m jobsearch "$@"

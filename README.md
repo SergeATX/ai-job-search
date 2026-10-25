@@ -246,18 +246,26 @@ MIT
 
 ## Multi-profile job search scanner (`jobsearch/`)
 
-A reusable scanner that works for any number of people. Each person is a local profile in `profiles/<name>/profile.yml` (target titles, seniority exclusions, locations, hard gates for the fit-check, email, resume path). `profiles/` is gitignored, so profiles, databases and outputs never leave your machine.
+A reusable scanner that works for any number of people. Each person keeps a **profile folder** anywhere on their machine (outside this repo); a small local **registry** maps names to folders:
+
+```
+<root>/jobsearch/   profile.yml (titles, locations, fit-check gates, email), jobs.db, out/
+<root>/assistant/   01-candidate-profile.md ... search-queries.md, CLAUDE.profile.md (data for /setup, /apply, /scrape)
+```
 
 ```bash
 pip install -r requirements-jobsearch.txt
-cp -r profiles.example/example profiles/me      # then edit profiles/me/profile.yml
-python3 -m jobsearch run --profile me           # scrape, dedupe, filter -> profiles/me/out/shortlist.md
-python3 -m jobsearch record --profile me        # load fit-check verdicts
+ln -s "$PWD/bin/jobsearch" ~/.local/bin/jobsearch          # run it from anywhere
+mkdir -p ~/me/jobsearch && cp profiles.example/example/profile.yml ~/me/jobsearch/   # then edit it
+jobsearch register me ~/me --default                       # writes ~/.config/ai-job-search/registry.yml
+jobsearch assist-init                                      # blank assistant templates into ~/me/assistant
+jobsearch run                                              # scrape, dedupe, filter -> ~/me/jobsearch/out/shortlist.md
+jobsearch record                                           # load fit-check verdicts
 ```
 
-Sources: Greenhouse, Lever, Ashby, SmartRecruiters, Workable, BambooHR, Workday, Oracle Recruiting, iCIMS, Jibe and the SimplifyJobs new-grad list (the company registry is in `jobsearch/registry/`; `python3 -m jobsearch discover` grows it automatically from real posting URLs, probing every new board live before saving it), plus Built In, The Muse and Texas CAPPS modules in `jobsearch/sources/`. In Claude Code, `/batch <profile>` runs the whole loop including the fit-check agent. Requires Python 3.9+.
+The profile is resolved in this order: `--root PATH`, `--profile NAME` (registry), the nearest folder above the current directory containing `jobsearch/profile.yml`, then the registry default. So starting Claude Code inside a person's folder selects that person automatically, and `jobsearch where` / `jobsearch where --assist` print the folder the skills read from. `jobsearch profiles` lists registered profiles. The old layout (`profiles/<name>/`, `--profiles-dir`, `JOBSEARCH_PROFILES`) still works as a fallback.
 
-Pass `--profiles-dir /some/private/dir` (before the subcommand, e.g. `python3 -m jobsearch --profiles-dir ~/me/profiles run --profile me`) or set `JOBSEARCH_PROFILES` to keep profiles, databases and outputs outside the repo (default: `./profiles`).
+Sources: Greenhouse, Lever, Ashby, SmartRecruiters, Workable, BambooHR, Workday, Oracle Recruiting, iCIMS, Jibe and the SimplifyJobs new-grad list (the company registry is in `jobsearch/registry/`; `python3 -m jobsearch discover` grows it automatically from real posting URLs, probing every new board live before saving it), plus Built In, The Muse and Texas CAPPS modules in `jobsearch/sources/`. In Claude Code, `/batch <profile>` runs the whole loop including the fit-check agent. Requires Python 3.9+.
 
 ### Pre-push privacy scan
 

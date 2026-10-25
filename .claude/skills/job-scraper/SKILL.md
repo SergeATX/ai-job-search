@@ -1,5 +1,8 @@
 # Job Scraper
 
+> **Profile data:** personal files are not stored in this repo. Run `jobsearch where --assist` once (if `jobsearch` is not on PATH, use `<repo>/bin/jobsearch`) and call the printed folder `<ASSIST>`; every `<ASSIST>/...` path below lives there. If it reports no profile, tell the user to run `jobsearch register NAME PATH --default` and then `jobsearch assist-init` (copies the blank templates into `<ASSIST>`). Never write personal data into this repo.
+
+
 **name:** job-scraper
 **description:** Scrapes Danish job sites for new positions matching your profile. Deduplicates across runs. Triggers on: job scrape, find jobs, search jobs, new jobs, job search, scrape jobs, /scrape
 **allowed-tools:** Read, Write, Edit, Glob, Grep, WebFetch, WebSearch, Agent, AskUserQuestion
@@ -30,7 +33,7 @@ Optional arguments:
 
 1. Read `job_scraper/seen_jobs.json` (create if missing - start with `{"seen": {}}`)
 2. Read `job_search_tracker.csv` to extract already-applied companies+roles
-3. Read `search-queries.md` (this directory) for the search strategy
+3. Read `<ASSIST>/search-queries.md` for the search strategy
 
 ### Step 1: Search
 
@@ -53,7 +56,7 @@ For each promising result from Step 1:
 
 ### Step 3: Quick Fit Assessment
 
-For each new job, do a rapid fit check (NOT the full evaluation from `04-job-evaluation.md` - just a quick signal):
+For each new job, do a rapid fit check (NOT the full evaluation from `<ASSIST>/04-job-evaluation.md` - just a quick signal):
 
 - **High match**: Role directly involves your core skills
 - **Medium match**: Role is adjacent to your experience

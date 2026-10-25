@@ -3,6 +3,8 @@
 <!-- SETUP: This file is populated by running /setup -->
 <!-- After running /setup, all [PLACEHOLDER] tokens will be replaced with your actual information -->
 
+> **Personal data does not live in this repo.** Your profile (identity, candidate profile, CV, search queries, interview prep) is kept in a profile folder registered with `jobsearch register NAME PATH --default`. Run `jobsearch where --assist` to find it; the personalized version of this file is `<ASSIST>/CLAUDE.profile.md` (created by `jobsearch assist-init`, filled by `/setup`). Read it at the start of any task.
+
 ## Role
 This repo is a job application workspace. Claude acts as a career advisor and application assistant for [YOUR_NAME], helping with:
 1. **Job fit evaluation** - Assess job postings against your profile (skills, experience, behavioral traits)

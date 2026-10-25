@@ -2,44 +2,95 @@ import argparse
 import json
 from pathlib import Path
 
-from .profile import PROFILES_DIR, Profile
+import shutil
+
+from .profile import PROFILES_DIR, REGISTRY_FILE, ROOT, TEMPLATE_FILES, Profile, find_root, load_registry, save_registry
 from .store import Store
 
 
 def main():
     ap = argparse.ArgumentParser(prog="jobsearch")
     ap.add_argument("--profiles-dir", help="where profiles/databases/outputs live (default: $JOBSEARCH_PROFILES, else ./profiles in the repo)")
+    ap.add_argument("--root", help="profile root folder (overrides the registry and the current-directory lookup)")
     sub = ap.add_subparsers(dest="cmd", required=True)
 
     r = sub.add_parser("run", help="scrape all configured sources for a profile and write a shortlist")
-    r.add_argument("--profile", required=True)
+    r.add_argument("--profile", help="profile name (default: registry lookup from the current directory, then the registry default)")
     r.add_argument("--dry-run", action="store_true")
     r.add_argument("--workers", type=int, default=12, help="parallel fetches (default 12; higher triggers Workday 429s)")
     s = sub.add_parser("seed", help="mark every URL in an existing tracker file as already seen")
-    s.add_argument("--profile", required=True)
+    s.add_argument("--profile", help="profile name (default: registry lookup from the current directory, then the registry default)")
     s.add_argument("file")
     rec = sub.add_parser("record", help="load fit-check verdicts (fitcheck.json) into the profile database")
-    rec.add_argument("--profile", required=True)
+    rec.add_argument("--profile", help="profile name (default: registry lookup from the current directory, then the registry default)")
     rec.add_argument("file", nargs="?")
     ps = sub.add_parser("prescreen", help="fetch candidate postings and auto-reject explicit years/clearance/grad-degree gates")
-    ps.add_argument("--profile", required=True)
+    ps.add_argument("--profile", help="profile name (default: registry lookup from the current directory, then the registry default)")
     ps.add_argument("--limit", type=int)
     ps.add_argument("--max-queue", type=int, default=250, help="cap on postings handed to the fit-check agent")
     st = sub.add_parser("status", help="counts by status")
-    st.add_argument("--profile", required=True)
+    st.add_argument("--profile", help="profile name (default: registry lookup from the current directory, then the registry default)")
     d = sub.add_parser("discover", help="grow the employer registry from posting URLs (probes each new board live)")
     d.add_argument("--from", dest="src", nargs="+", default=["simplify-all"],
                    help="URL lists to mine: simplify-all simplify-internships speedyapply vanshb03 (or 'all')")
     d.add_argument("--dry-run", action="store_true")
     d.add_argument("--yc", action="store_true", help="also probe slugs of YC companies that are hiring (yc-oss API)")
     d.add_argument("--names-file", help="text file, one company name per line, to probe by slug (keep personal lists local)")
-    sub.add_parser("profiles", help="list local profiles")
+    sub.add_parser("profiles", help="list registered and legacy profiles")
+    w = sub.add_parser("where", help="print the profile root folder (use --assist for its assistant/ data folder)")
+    w.add_argument("--profile")
+    w.add_argument("--assist", action="store_true")
+    rg = sub.add_parser("register", help="add a profile folder to the registry")
+    rg.add_argument("name")
+    rg.add_argument("path")
+    rg.add_argument("--default", action="store_true")
+    ai = sub.add_parser("assist-init", help="copy the repo templates into <root>/assistant/ (never overwrites)")
+    ai.add_argument("--profile")
     a = ap.parse_args()
 
+    def open_profile():
+        """Registry/cwd lookup first; falls back to the legacy profiles/<name> layout."""
+        found = find_root(a.profile, a.root)
+        if found:
+            return Profile(found[0], root=found[1])
+        if a.profile:
+            return Profile(a.profile, a.profiles_dir)
+        raise SystemExit("No profile found: pass --profile NAME, run inside a profile folder, or `jobsearch register NAME PATH --default`.")
+
     if a.cmd == "profiles":
+        reg, default = load_registry()
+        for k, v in sorted(reg.items()):
+            print(f"{k}\t{v}{'  (default)' if k == default else ''}")
         base = Path(a.profiles_dir).expanduser() if a.profiles_dir else PROFILES_DIR
         for d in sorted(base.glob("*/profile.yml")):
-            print(d.parent.name)
+            if d.parent.name not in reg:
+                print(f"{d.parent.name}\t{d.parent}  (legacy)")
+        return
+    if a.cmd == "register":
+        reg, default = load_registry()
+        path = Path(a.path).expanduser().resolve()
+        if not path.is_dir():
+            raise SystemExit(f"{path} is not a folder")
+        reg[a.name] = path
+        save_registry(reg, a.name if a.default else default)
+        print(f"registered {a.name} -> {path} in {REGISTRY_FILE}")
+        return
+    if a.cmd in ("where", "assist-init"):
+        found = find_root(a.profile, a.root)
+        if not found:
+            raise SystemExit("No profile found: pass --profile NAME, run inside a profile folder, or register one.")
+        assist = found[1] / "assistant"
+        if a.cmd == "where":
+            print(assist if a.assist else found[1])
+            return
+        assist.mkdir(parents=True, exist_ok=True)
+        for rel in TEMPLATE_FILES:
+            dest = assist / Path(rel).name
+            if rel == "CLAUDE.md":
+                dest = assist / "CLAUDE.profile.md"
+            if not dest.exists():
+                shutil.copy(ROOT / rel, dest)
+                print(f"created {dest}")
         return
     if a.cmd == "discover":
         from .discover import discover
@@ -60,7 +111,7 @@ def main():
                 entries += [(l.strip(), None) for l in Path(a.names_file).expanduser().read_text().splitlines() if l.strip()]
             print(discover_names(entries, save=not a.dry_run))
         return
-    p = Profile(a.profile, a.profiles_dir)
+    p = open_profile()
     if a.cmd == "run":
         from .runner import run
         run(p, dry_run=a.dry_run, workers=a.workers)

@@ -1,5 +1,8 @@
 # /reset - Reset Candidate Profile Data
 
+> **Profile data:** personal files are not stored in this repo. Run `jobsearch where --assist` once (if `jobsearch` is not on PATH, use `<repo>/bin/jobsearch`) and call the printed folder `<ASSIST>`; every `<ASSIST>/...` path below lives there. If it reports no profile, tell the user to run `jobsearch register NAME PATH --default` and then `jobsearch assist-init` (copies the blank templates into `<ASSIST>`). Never write personal data into this repo.
+
+
 You are resetting parts of the job search framework back to a blank state so the user can start fresh with `/setup`.
 
 **This command is destructive.** Nothing is deleted until the user explicitly confirms. Follow these steps exactly in order.
@@ -38,10 +41,10 @@ Before doing anything, show the user precisely what will be wiped.
 
 Read the current state of these files and report whether each has content or is already empty:
 
-- `.claude/skills/job-application-assistant/01-candidate-profile.md`
-- `.claude/skills/job-application-assistant/02-behavioral-profile.md`
-- `.claude/skills/job-application-assistant/05-cv-templates.md` *(profile statements section only — framework structure is preserved)*
-- `.claude/skills/job-application-assistant/07-interview-prep.md` *(STAR examples and STAR candidates sections only — framework structure is preserved)*
+- `<ASSIST>/01-candidate-profile.md`
+- `<ASSIST>/02-behavioral-profile.md`
+- `<ASSIST>/05-cv-templates.md` *(profile statements section only — framework structure is preserved)*
+- `<ASSIST>/07-interview-prep.md` *(STAR examples and STAR candidates sections only — framework structure is preserved)*
 
 Present as:
 
@@ -114,7 +117,7 @@ Wait for the user's response.
 
 ### Profile reset
 
-**For `01-candidate-profile.md`**, replace the file content with:
+**For `<ASSIST>/01-candidate-profile.md`**, replace the file content with:
 
 ```markdown
 # Candidate Profile
@@ -138,7 +141,7 @@ Wait for the user's response.
 ## References
 ```
 
-**For `02-behavioral-profile.md`**, replace the file content with:
+**For `<ASSIST>/02-behavioral-profile.md`**, replace the file content with:
 
 ```markdown
 # Behavioral Profile
@@ -160,7 +163,7 @@ Wait for the user's response.
 ## Using This in Applications
 ```
 
-**For `05-cv-templates.md`**, locate the section that begins with `**Profile statement templates` and extends through the role-specific template blocks. Replace only that section with:
+**For `<ASSIST>/05-cv-templates.md`**, locate the section that begins with `**Profile statement templates` and extends through the role-specific template blocks. Replace only that section with:
 
 ```markdown
 **Profile statement templates:**
@@ -168,9 +171,9 @@ Wait for the user's response.
 <!-- Run /setup to populate role-specific profile statements -->
 ```
 
-Leave all other content in `05-cv-templates.md` intact.
+Leave all other content in `<ASSIST>/05-cv-templates.md` intact.
 
-**For `07-interview-prep.md`**, locate and remove:
+**For `<ASSIST>/07-interview-prep.md`**, locate and remove:
 - The entire `## Ready-Made STAR Examples` section and all numbered STAR examples under it
 - Any `## STAR Candidates (Complete Manually)` section added by `/setup` Path A
 
@@ -182,7 +185,7 @@ Replace with:
 <!-- Run /setup to populate STAR examples from your actual experience -->
 ```
 
-Leave all other content in `07-interview-prep.md` intact (STAR format explanation, tough questions, questions to ask interviewers, phone/video tips, follow-up etiquette, roleplay guidelines).
+Leave all other content in `<ASSIST>/07-interview-prep.md` intact (STAR format explanation, tough questions, questions to ask interviewers, phone/video tips, follow-up etiquette, roleplay guidelines).
 
 ### Documents reset
 

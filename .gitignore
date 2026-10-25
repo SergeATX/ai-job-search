@@ -70,3 +70,8 @@ upskill/*.md
 
 # Local job-search profiles, databases and outputs (personal - never commit)
 profiles/
+
+# Machine-local / personal Claude Code state (personal data lives in the profile root, see `jobsearch where`)
+.claude/settings.local.json
+CLAUDE.local.md
+memory/
