@@ -6888,5 +6888,215 @@
     "subdomain": "impactadvisors.wd501",
     "tenant": "impactadvisors",
     "site": "impactadvisors"
+  },
+  "netflix": {
+    "subdomain": "netflix.wd108",
+    "tenant": "netflix",
+    "site": "netflix"
+  },
+  "bb": {
+    "subdomain": "bb.wd3",
+    "tenant": "bb",
+    "site": "Student"
+  },
+  "primetherapeutics": {
+    "subdomain": "primetherapeutics.wd1",
+    "tenant": "primetherapeutics",
+    "site": "PrimeTherapeuticsCareers"
+  },
+  "flexerasoftware": {
+    "subdomain": "flexerasoftware.wd1",
+    "tenant": "flexerasoftware",
+    "site": "FlexeraSoftware"
+  },
+  "crescentenergyco": {
+    "subdomain": "crescentenergyco.wd108",
+    "tenant": "crescentenergyco",
+    "site": "crescent_energy_careers"
+  },
+  "interface": {
+    "subdomain": "interface.wd1",
+    "tenant": "interface",
+    "site": "interface"
+  },
+  "iff": {
+    "subdomain": "iff.wd5",
+    "tenant": "iff",
+    "site": "IFF_Careers"
+  },
+  "usacs": {
+    "subdomain": "usacs.wd1",
+    "tenant": "usacs",
+    "site": "usacscareers"
+  },
+  "winlandfoods": {
+    "subdomain": "winlandfoods.wd1",
+    "tenant": "winlandfoods",
+    "site": "external"
+  },
+  "availity": {
+    "subdomain": "availity.wd1",
+    "tenant": "availity",
+    "site": "availity_careers_us"
+  },
+  "multco": {
+    "subdomain": "multco.wd1",
+    "tenant": "multco",
+    "site": "multco_jobs"
+  },
+  "customersbank": {
+    "subdomain": "customersbank.wd1",
+    "tenant": "customersbank",
+    "site": "customersbankcareers"
+  },
+  "commercebank": {
+    "subdomain": "commercebank.wd1",
+    "tenant": "commercebank",
+    "site": "CommerceJobs"
+  },
+  "nike": {
+    "subdomain": "nike.wd1",
+    "tenant": "nike",
+    "site": "nke"
+  },
+  "nebraskablue": {
+    "subdomain": "nebraskablue.wd1",
+    "tenant": "nebraskablue",
+    "site": "BCBSNE"
+  },
+  "iatinsurancegroup": {
+    "subdomain": "iatinsurancegroup.wd1",
+    "tenant": "iatinsurancegroup",
+    "site": "iat"
+  },
+  "trwd": {
+    "subdomain": "trwd.wd1",
+    "tenant": "trwd",
+    "site": "TRWDCareers"
+  },
+  "usfoods": {
+    "subdomain": "usfoods.wd1",
+    "tenant": "usfoods",
+    "site": "usfoodscareersExternal"
+  },
+  "ingredion": {
+    "subdomain": "ingredion.wd1",
+    "tenant": "ingredion",
+    "site": "IngredionCareers"
+  },
+  "wonder": {
+    "subdomain": "wonder.wd1",
+    "tenant": "wonder",
+    "site": "WG"
+  },
+  "landolakes": {
+    "subdomain": "landolakes.wd1",
+    "tenant": "landolakes",
+    "site": "landolakes"
+  },
+  "directv": {
+    "subdomain": "directv.wd1",
+    "tenant": "directv",
+    "site": "careers"
+  },
+  "simon": {
+    "subdomain": "simon.wd1",
+    "tenant": "simon",
+    "site": "simon"
+  },
+  "gilead": {
+    "subdomain": "gilead.wd1",
+    "tenant": "gilead",
+    "site": "gileadcareers"
+  },
+  "austincc": {
+    "subdomain": "austincc.wd1",
+    "tenant": "austincc",
+    "site": "external"
+  },
+  "ncratleos": {
+    "subdomain": "ncratleos.wd1",
+    "tenant": "ncratleos",
+    "site": "ext_intern"
+  },
+  "plastipak": {
+    "subdomain": "plastipak.wd1",
+    "tenant": "plastipak",
+    "site": "Plastipak"
+  },
+  "churchdwight": {
+    "subdomain": "churchdwight.wd1",
+    "tenant": "churchdwight",
+    "site": "chdcareers"
+  },
+  "amfam": {
+    "subdomain": "amfam.wd1",
+    "tenant": "amfam",
+    "site": "Careers"
+  },
+  "primient": {
+    "subdomain": "primient.wd1",
+    "tenant": "primient",
+    "site": "External_Careers"
+  },
+  "aba": {
+    "subdomain": "aba.wd1",
+    "tenant": "aba",
+    "site": "aba"
+  },
+  "spartannash": {
+    "subdomain": "spartannash.wd1",
+    "tenant": "spartannash",
+    "site": "spartannash_careers"
+  },
+  "midlandsb": {
+    "subdomain": "midlandsb.wd1",
+    "tenant": "midlandsb",
+    "site": "msbcareers"
+  },
+  "alston": {
+    "subdomain": "alston.wd1",
+    "tenant": "alston",
+    "site": "externalcareer"
+  },
+  "unitytech": {
+    "subdomain": "unitytech.wd1",
+    "tenant": "unitytech",
+    "site": "Unity"
+  },
+  "wasatchproperty": {
+    "subdomain": "wasatchproperty.wd1",
+    "tenant": "wasatchproperty",
+    "site": "MarketStarCareers"
+  },
+  "freight": {
+    "subdomain": "freight.wd108",
+    "tenant": "freight",
+    "site": "FXF_External_Career_Site"
+  },
+  "albertamotorassociation": {
+    "subdomain": "albertamotorassociation.wd3",
+    "tenant": "albertamotorassociation",
+    "site": "ama"
+  },
+  "nationalindemnity": {
+    "subdomain": "nationalindemnity.wd5",
+    "tenant": "nationalindemnity",
+    "site": "NICO"
+  },
+  "genesys": {
+    "subdomain": "genesys.wd1",
+    "tenant": "genesys",
+    "site": "2_genesys_jobs"
+  },
+  "werner": {
+    "subdomain": "werner.wd501",
+    "tenant": "werner",
+    "site": "werner"
+  },
+  "tihinsurance": {
+    "subdomain": "tihinsurance.wd1",
+    "tenant": "tihinsurance",
+    "site": "crc_careers"
   }
 }
