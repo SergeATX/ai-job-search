@@ -66,6 +66,7 @@ DEFAULTS = {
     "source_options": {},
     "resume_labels": [],
     "skill_aliases": {},
+    "discovery": {},
 }
 
 

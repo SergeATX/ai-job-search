@@ -123,3 +123,28 @@ def email_body(store, urls, extra=None, top=5):
     out += [f"  {s}: {n} jobs ({round(100 * n / an)}%){'  <- also in this batch' if s in bc else ''}" for s, n in ac.most_common(top)]
     out.append(f"Most common blocker is still posted years of experience ({skipped_for_years(store)} jobs skipped for it), which skills alone will not fix.")
     return "\n".join(out) + "\n", k
+
+
+def yield_report(store, since=None, top=15):
+    """Per source and per employer: how many reviewed jobs ended GOOD/WEAK vs SKIP, so low-yield sources can be dropped."""
+    where, args = "WHERE verdict IS NOT NULL", []
+    if since:
+        where += " AND first_seen >= ?"
+        args.append(since)
+
+    def table(col, limit=None):
+        sql = (f"SELECT COALESCE({col},'?'), COUNT(*), SUM(verdict='GOOD'), SUM(verdict='WEAK'), SUM(verdict='SKIP') "
+               f"FROM jobs {where} GROUP BY 1 ORDER BY SUM(verdict IN ('GOOD','WEAK')) DESC, COUNT(*) DESC")
+        rows = store.db.execute(sql, args).fetchall()
+        return rows[:limit] if limit else rows
+
+    def fmt(rows):
+        return [f"  {name[:28]:<28} reviewed {n:>5}  GOOD {g or 0:>3}  WEAK {w or 0:>3}  SKIP {s or 0:>5}  hit-rate {round(100 * ((g or 0) + (w or 0)) / n):>2}%"
+                for name, n, g, w, s in rows]
+
+    lines = [f"Yield{' since ' + since if since else ''} (reviewed jobs only)", "", "By source:"] + fmt(table("source"))
+    lines += ["", f"Top {top} employers by GOOD+WEAK:"] + fmt(table("company", top))
+    zero = [r for r in table("source") if not (r[2] or 0) + (r[3] or 0)]
+    if zero:
+        lines += ["", "Sources with no GOOD/WEAK yet: " + ", ".join(r[0] for r in zero)]
+    return "\n".join(lines)

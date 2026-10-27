@@ -39,11 +39,16 @@ def main():
     st = sub.add_parser("status", help="counts by status")
     st.add_argument("--profile", help="profile name (default: registry lookup from the current directory, then the registry default)")
     d = sub.add_parser("discover", help="grow the employer registry from posting URLs (probes each new board live)")
-    d.add_argument("--from", dest="src", nargs="+", default=["simplify-all"],
-                   help="URL lists to mine: simplify-all simplify-internships speedyapply vanshb03 (or 'all')")
+    d.add_argument("--profile", help="read the profile's `discovery:` settings (lists, yc, names_file) when no flags are given")
+    d.add_argument("--from", dest="src", nargs="+", default=None,
+                   help="URL lists to mine: simplify-all simplify-internships speedyapply vanshb03 (or 'all'); default: the profile's discovery.lists, else simplify-all")
     d.add_argument("--dry-run", action="store_true")
     d.add_argument("--yc", action="store_true", help="also probe slugs of YC companies that are hiring (yc-oss API)")
     d.add_argument("--names-file", help="text file, one company name per line, to probe by slug (keep personal lists local)")
+    y = sub.add_parser("yield", help="which sources/employers actually produce GOOD/WEAK jobs (from the profile database)")
+    y.add_argument("--profile", help="profile name (default: registry lookup from the current directory, then the registry default)")
+    y.add_argument("--since", help="only jobs first seen on/after this date (YYYY-MM-DD)")
+    y.add_argument("--top", type=int, default=15)
     sub.add_parser("profiles", help="list registered and legacy profiles")
     w = sub.add_parser("where", help="print the profile root folder (use --assist for its assistant/ data folder)")
     w.add_argument("--profile")
@@ -103,6 +108,16 @@ def main():
     if a.cmd == "discover":
         from .discover import discover
         from . import lists
+        disc = {}
+        found = find_root(a.profile, a.root)
+        if found and (found[1] / "jobsearch" / "profile.yml").exists():
+            prof = Profile(found[0], root=found[1])
+            disc = prof.cfg.get("discovery") or {}
+            if not a.names_file and disc.get("names_file"):
+                a.names_file = str(Path(disc["names_file"]).expanduser() if Path(disc["names_file"]).expanduser().is_absolute() else found[1] / disc["names_file"])
+            a.yc = a.yc or bool(disc.get("yc"))
+        if a.src is None:
+            a.src = disc.get("lists") or ["simplify-all"]
         urls = []
         for name in (lists.ALL if a.src == ["all"] else a.src):
             urls += lists.urls(name)
@@ -157,6 +172,9 @@ def main():
         (p.out_dir / "last-batch.json").write_text(json.dumps([r["url"] for r in rows]))
         if any(r["verdict"].upper() != "SKIP" and r.get("missing_skills") is None for r in rows):
             print("warning: some GOOD/WEAK rows have no missing_skills; the fit-check agent should always include it")
+    elif a.cmd == "yield":
+        from .gaps import yield_report
+        print(yield_report(Store(p.db_path), a.since, a.top))
     elif a.cmd == "gaps":
         from .gaps import report_text
         s = Store(p.db_path)
