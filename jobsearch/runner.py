@@ -149,6 +149,8 @@ def write_shortlist(p, shortlist):
     mark = lambda j: bool(boost and boost.search(j["title"] or ""))
     shortlist = sorted(shortlist, key=lambda j: (not mark(j), j["company"] or "", j["title"] or ""))
     sl.write_text("\n".join(f"- {'★ ' if mark(j) else ''}{j['title']} | {j['company']} | {j['location']} | {j['url']}" for j in shortlist) + "\n")
+    labels = p.cfg.get("resume_labels") or []
+    label_rule = f', "resume" (one of: {", ".join(labels)} - which of the candidate\'s resumes fits best)' if labels else ""
     notes = p.fitcheck_notes or ""
     gates = "\n".join(f"- {g}" for g in p.gates)
     resume = p.resume or "(no resume path configured)"
@@ -163,7 +165,9 @@ def write_shortlist(p, shortlist):
 {gates}
 {notes}
 4. Verdicts: GOOD / WEAK / SKIP. Quote the deciding requirement text. A verdict applies to every url of the group.
-5. Write JSON to {p.out_dir}/fitcheck.json: a list of {{"url","title","company","location","verdict","reason"}} - one row per url in the group.
+5. Write JSON to {p.out_dir}/fitcheck.json: a list of {{"url","title","company","location","verdict","reason","missing_skills"{label_rule}}} - one row per url in the group.
+   "missing_skills" is REQUIRED on every GOOD/WEAK row: a list of short canonical skill/tool names (e.g. "Docker", "TypeScript", "Kubernetes") that the posting asks for and the resume lacks; [] if none.
+   Skills only - no years-of-experience, no domain facts.
    Do not edit trackers or send email. Final report: counts plus a table of GOOD and WEAK rows.
 """)
 

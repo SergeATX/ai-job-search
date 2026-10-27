@@ -64,6 +64,8 @@ DEFAULTS = {
     "fitcheck_notes": "",
     "resume": None,
     "source_options": {},
+    "resume_labels": [],
+    "skill_aliases": {},
 }
 
 

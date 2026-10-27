@@ -102,10 +102,6 @@ def screen(text):
 def run(p, store, workers=16, limit=None):
     import sqlite3
     db = store.db
-    cols = {r[1] for r in db.execute("PRAGMA table_info(jobs)")}
-    for c in ("jd", "prescreen"):
-        if c not in cols:
-            db.execute(f"ALTER TABLE jobs ADD COLUMN {c} TEXT")
     rows = db.execute("SELECT url,title,company FROM jobs WHERE status='candidate' AND jd IS NULL").fetchall()
     if limit:
         rows = rows[:limit]
