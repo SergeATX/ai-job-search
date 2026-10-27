@@ -1,3 +1,4 @@
+import importlib
 import json
 import re
 import sys
@@ -76,6 +77,11 @@ def _tasks(p):
     if "simplify" in srcs:
         from .sources import simplify
         yield "simplify", "simplify", simplify.fetch_jobs
+    for name in ("builtin", "muse", "capps"):
+        if name in srcs:
+            mod = importlib.import_module(f".sources.{name}", __package__)
+            opts = (p.cfg.get("source_options") or {}).get(name) or {}
+            yield name, name, _guarded(name, lambda mod=mod, opts=opts: mod.fetch_jobs(**opts))
     if "jibe" in srcs:
         from .sources import jibe
         for co, c in _reg("jibe_sites.json").items():

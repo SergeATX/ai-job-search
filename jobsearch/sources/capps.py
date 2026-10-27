@@ -69,7 +69,14 @@ def search(keyword, headless=True, wait_ms=4000):
         box.fill(keyword)
         box.press("Enter")
         page.wait_for_timeout(wait_ms)
-        html = page.content()
+        html = ""
+        for _ in range(5):  # PeopleSoft re-renders after the search; retry while the page is still navigating
+            try:
+                page.wait_for_load_state("networkidle", timeout=10000)
+                html = page.content()
+                break
+            except Exception:
+                page.wait_for_timeout(2000)
         browser.close()
     return extract_jobs_from_html(html)
 
@@ -86,3 +93,17 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+DEFAULT_KEYWORDS = ["software", "developer", "programmer", "data analyst", "information technology"]
+
+
+def fetch_jobs(keywords=None):
+    """Runner adapter. CAPPS has no per-job URL, so a synthetic one keyed on the Job ID keeps dedupe working;
+    the real posting is found by pasting the Job ID into the portal search box. Page 1 (~50) per keyword."""
+    out = []
+    for kw in keywords or DEFAULT_KEYWORDS:
+        for j in search(kw):
+            out.append({"title": f"{j['title']} [CAPPS Job ID {j.get('job_id')}]", "company": j.get("company") or "State of Texas",
+                        "url": f"{PORTAL_URL}#jobid={j.get('job_id')}", "location": f"{j.get('location')}, TX"})
+    return out

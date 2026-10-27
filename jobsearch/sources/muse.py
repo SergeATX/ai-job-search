@@ -82,3 +82,20 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+DEFAULT_CATEGORIES = ["Software Engineering", "Data and Analytics", "Computer and IT"]
+DEFAULT_LOCATIONS = ["Austin, TX", "Dallas, TX", "Houston, TX", "San Antonio, TX", "Flexible / Remote"]
+
+
+def fetch_jobs(categories=None, locations=None, levels=None, max_pages=3):
+    """Runner adapter: Entry Level postings per category x location (Muse tags are loose; the profile's title filter does the real work)."""
+    out = []
+    for cat in categories or DEFAULT_CATEGORIES:
+        for loc in locations or DEFAULT_LOCATIONS:
+            jobs, _ = search(cat, loc, levels or ["Entry Level"], max_pages=max_pages)
+            for j in jobs:
+                if j["url"]:
+                    out.append({"title": j["title"], "company": j["company"], "url": j["url"],
+                                "location": "; ".join(j["locations"] or [])})
+    return out

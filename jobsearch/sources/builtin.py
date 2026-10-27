@@ -134,3 +134,19 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+DEFAULT_CITIES = ["austin", "dallas", "houston", "san-antonio"]
+DEFAULT_CATEGORIES = ["dev-engineering", "data-analytics"]
+KEEP_SENIORITY = {"junior", "entry level"}
+
+
+def fetch_jobs(cities=None, categories=None, max_pages=3):
+    """Runner adapter: junior/entry-level cards for each city x category (one browser session per call)."""
+    out = []
+    for city in cities or DEFAULT_CITIES:
+        for cat in categories or DEFAULT_CATEGORIES:
+            for j in scrape(city, cat, max_pages=max_pages):
+                if (j["seniority"] or "").strip().lower() in KEEP_SENIORITY:
+                    out.append({"title": j["title"], "company": j["company"], "url": j["url"], "location": j["location"]})
+    return out

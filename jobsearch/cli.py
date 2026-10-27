@@ -18,6 +18,7 @@ def main():
     r.add_argument("--profile", help="profile name (default: registry lookup from the current directory, then the registry default)")
     r.add_argument("--dry-run", action="store_true")
     r.add_argument("--workers", type=int, default=12, help="parallel fetches (default 12; higher triggers Workday 429s)")
+    r.add_argument("--sources", help="comma-separated subset of the profile's sources to scan this time (e.g. builtin,muse,capps)")
     s = sub.add_parser("seed", help="mark every URL in an existing tracker file as already seen")
     s.add_argument("--profile", help="profile name (default: registry lookup from the current directory, then the registry default)")
     s.add_argument("file")
@@ -114,6 +115,8 @@ def main():
     p = open_profile()
     if a.cmd == "run":
         from .runner import run
+        if a.sources:
+            p.cfg["sources"] = [x.strip() for x in a.sources.split(",")]
         run(p, dry_run=a.dry_run, workers=a.workers)
         if not a.dry_run:
             print(f"shortlist: {p.out_dir / 'shortlist.md'}\nfit-check prompt: {p.out_dir / 'fitcheck-prompt.md'}")

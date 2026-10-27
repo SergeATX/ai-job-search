@@ -63,6 +63,7 @@ DEFAULTS = {
     "gates": [],
     "fitcheck_notes": "",
     "resume": None,
+    "source_options": {},
 }
 
 
