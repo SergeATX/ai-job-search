@@ -89,7 +89,8 @@ This runs the full workflow: evaluate fit, draft CV + cover letter, review with 
 
 `/setup`, `/scrape`, and `/apply` form the core workflow. Two more commands extend it once your profile is in place:
 
-- **`/expand`** enriches your profile by scanning public sources you've already linked in it (GitHub repos, portfolio site, Kaggle, Google Scholar) and looking up syllabi for named courses and certifications. Discovered competencies are added to your profile with a source tag. Useful right after `/setup` to surface skills that documents alone don't make explicit.
+- **`/expand-skills`** enriches your profile by scanning public sources you've already linked in it (GitHub repos, portfolio site, Kaggle, Google Scholar) and looking up syllabi for named courses and certifications. Discovered competencies are added to your profile with a source tag. Useful right after `/setup` to surface skills that documents alone don't make explicit.
+- **`/grow-sources`** widens the scanner itself: it checks `jobsearch yield`, adds employers (`jobsearch discover`, driven by the profile's `discovery:` settings) or new sources, tests them, commits and pushes, and stops without running a batch.
 - **`/upskill`** analyzes the gap between your profile and your tracked job postings (or a single posting via `/upskill <URL>`). Produces a prioritized heatmap of skill gaps and a learning plan with web-searched study resources and time estimates. Useful for career planning between applications.
 
 `/reset` is also available, see [Starting over](#starting-over) below.
@@ -103,7 +104,7 @@ ai-job-search/
 │   ├── commands/
 │   │   ├── apply.md                   # /apply workflow (drafter-reviewer)
 │   │   ├── setup.md                   # /setup onboarding (documents folder, CV import, or interview)
-│   │   ├── expand.md                  # /expand competency enrichment from documents and online presence
+│   │   ├── expand-skills.md           # /expand-skills competency enrichment from documents and online presence
 │   │   └── reset.md                   # /reset wipe profile data or documents folder
 │   ├── skills/
 │   │   ├── job-application-assistant/  # Core application skill
@@ -128,7 +129,7 @@ ai-job-search/
 ├── cover_letters/
 │   ├── cover.cls                      # Custom cover letter LaTeX class
 │   └── OpenFonts/                     # Lato + Raleway fonts
-├── documents/                         # Career source materials for /setup Path A and /expand
+├── documents/                         # Career source materials for /setup Path A and /expand-skills
 │   ├── README.md                      # Folder layout instructions
 │   ├── cv/                            # Master CV (PDF or .tex)
 │   ├── linkedin/                      # LinkedIn profile export (PDF)

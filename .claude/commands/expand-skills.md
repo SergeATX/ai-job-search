@@ -1,4 +1,4 @@
-# /expand - Competency Expansion from Documents and Online Presence
+# /expand-skills - Competency Expansion from Documents and Online Presence
 
 > **Profile data:** personal files are not stored in this repo. Run `jobsearch where --assist` once (if `jobsearch` is not on PATH, use `<repo>/bin/jobsearch`) and call the printed folder `<ASSIST>`; every `<ASSIST>/...` path below lives there. If it reports no profile, tell the user to run `jobsearch register NAME PATH --default` and then `jobsearch assist-init` (copies the blank templates into `<ASSIST>`). Never write personal data into this repo.
 
@@ -126,7 +126,7 @@ Remove anything already present in `<ASSIST>/01-candidate-profile.md` or `<ASSIS
 Present all new competencies for the user's review before writing anything. Format:
 
 ```
-## /expand found [N] new competency signals across [M] sources
+## /expand-skills found [N] new competency signals across [M] sources
 
 **COURSES & CERTIFICATIONS**
 Source: [Course/cert name — Provider]
@@ -176,7 +176,7 @@ Apply only the confirmed items. Use the Edit tool to add to the relevant section
 - Domain knowledge → append to the Domain Knowledge or Technical Skills section (match the existing structure)
 - Methods and practices → append appropriately
 
-For each addition, add a brief source annotation in a comment or parenthetical: *(Coursera — Deep Learning Specialisation)*, *(GitHub — project-name)*, etc. This makes future `/expand` runs idempotent.
+For each addition, add a brief source annotation in a comment or parenthetical: *(Coursera — Deep Learning Specialisation)*, *(GitHub — project-name)*, etc. This makes future `/expand-skills` runs idempotent.
 
 ### Additions to `<ASSIST>/02-behavioral-profile.md`
 - Soft/behavioral signals → append to the "Strongest Behavioral Traits" or "How I Work Best" section (match existing structure)
@@ -189,7 +189,7 @@ For each addition, add a brief source annotation in a comment or parenthetical: 
 After writing, present:
 
 ```
-## /expand Complete
+## /expand-skills Complete
 
 ### Added to 01-candidate-profile.md
 [List each competency added, with source]

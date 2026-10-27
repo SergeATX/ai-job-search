@@ -1,4 +1,4 @@
-Grow the scanner's reach (new employers or new sources) for a profile: `/grow [profile]`. This is NOT a batch.
+Grow the scanner's reach (new employers or new sources) for a profile: `/grow-sources [profile]`. This is NOT a batch.
 
 > **Profile data:** personal files are not stored in this repo. Run `jobsearch where` to find the profile folder. Never write personal data into this repo.
 
