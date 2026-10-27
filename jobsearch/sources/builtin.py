@@ -30,6 +30,7 @@ CITY_JOBS_URL = {
     "fort-worth": "https://builtin.com/jobs/dallas-fort-worth",  # no separate Built In market; Dallas-Fort Worth is combined
     "houston": "https://builtin.com/jobs/houston",
     "san-antonio": "https://builtin.com/jobs/san-antonio",
+    "remote": "https://builtin.com/jobs/remote",
 }
 
 CITY_LINK_BASE = {
@@ -38,6 +39,7 @@ CITY_LINK_BASE = {
     "fort-worth": BUILTIN_ROOT,
     "houston": BUILTIN_ROOT,
     "san-antonio": BUILTIN_ROOT,
+    "remote": BUILTIN_ROOT,
 }
 
 ALLOWED_SENIORITY = {"junior", "entry level", "internship"}
@@ -136,7 +138,7 @@ if __name__ == "__main__":
     main()
 
 
-DEFAULT_CITIES = ["austin", "dallas", "houston", "san-antonio"]
+DEFAULT_CITIES = ["austin", "dallas", "houston", "san-antonio", "remote"]
 DEFAULT_CATEGORIES = ["dev-engineering", "data-analytics"]
 KEEP_SENIORITY = {"junior", "entry level"}
 

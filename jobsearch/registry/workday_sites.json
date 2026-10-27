@@ -7098,5 +7098,10 @@
     "subdomain": "tihinsurance.wd1",
     "tenant": "tihinsurance",
     "site": "crc_careers"
+  },
+  "ngc": {
+    "subdomain": "ngc.wd1",
+    "tenant": "ngc",
+    "site": "northrop_grumman_external_site"
   }
 }

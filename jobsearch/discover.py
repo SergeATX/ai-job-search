@@ -156,3 +156,18 @@ def discover_names(entries, save=True, workers=24):
     if save:
         (REGISTRY / "watchlist.json").write_text(json.dumps(wl, indent=2) + "\n")
     return {"probes": len(todo), "found": len(found)}
+
+
+def builtin_names(cities=None, categories=("dev-engineering", "data-analytics", "it-internet-security"), pages=5):
+    """Company names hiring in Built In's markets (all seniorities - we want employers, not openings) -> [(name, None)]."""
+    from .sources import builtin
+    names = {}
+    for city in cities or builtin.DEFAULT_CITIES:
+        for cat in categories:
+            try:
+                for j in builtin.scrape(city, cat, max_pages=pages):
+                    if j["company"]:
+                        names[j["company"]] = None
+            except Exception:
+                continue
+    return list(names.items())

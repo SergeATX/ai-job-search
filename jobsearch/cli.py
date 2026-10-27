@@ -44,6 +44,7 @@ def main():
                    help="URL lists to mine: simplify-all simplify-internships speedyapply vanshb03 (or 'all'); default: the profile's discovery.lists, else simplify-all")
     d.add_argument("--dry-run", action="store_true")
     d.add_argument("--yc", action="store_true", help="also probe slugs of YC companies that are hiring (yc-oss API)")
+    d.add_argument("--builtin", action="store_true", help="also probe the companies hiring on Built In (its markets, all seniorities)")
     d.add_argument("--names-file", help="text file, one company name per line, to probe by slug (keep personal lists local)")
     y = sub.add_parser("yield", help="which sources/employers actually produce GOOD/WEAK jobs (from the profile database)")
     y.add_argument("--profile", help="profile name (default: registry lookup from the current directory, then the registry default)")
@@ -116,13 +117,14 @@ def main():
             if not a.names_file and disc.get("names_file"):
                 a.names_file = str(Path(disc["names_file"]).expanduser() if Path(disc["names_file"]).expanduser().is_absolute() else found[1] / disc["names_file"])
             a.yc = a.yc or bool(disc.get("yc"))
+            a.builtin = a.builtin or bool(disc.get("builtin"))
         if a.src is None:
             a.src = disc.get("lists") or ["simplify-all"]
         urls = []
         for name in (lists.ALL if a.src == ["all"] else a.src):
             urls += lists.urls(name)
         print(discover(urls, save=not a.dry_run))
-        if a.yc or a.names_file:
+        if a.yc or a.names_file or a.builtin:
             from .discover import discover_names
             entries = []
             if a.yc:
@@ -130,6 +132,9 @@ def main():
                 import json as _j
                 entries += [(x["name"], x.get("website")) for x in _j.loads(_get("https://yc-oss.github.io/api/companies/all.json"))
                             if x.get("isHiring") in (True, "True")]
+            if a.builtin:
+                from .discover import builtin_names
+                entries += builtin_names()
             if a.names_file:
                 entries += [(l.strip(), None) for l in Path(a.names_file).expanduser().read_text().splitlines() if l.strip()]
             print(discover_names(entries, save=not a.dry_run))

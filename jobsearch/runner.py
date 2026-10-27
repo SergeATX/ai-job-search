@@ -77,7 +77,7 @@ def _tasks(p):
     if "simplify" in srcs:
         from .sources import simplify
         yield "simplify", "simplify", simplify.fetch_jobs
-    for name in ("builtin", "muse", "capps"):
+    for name in ("builtin", "muse", "capps", "remote_boards"):
         if name in srcs:
             mod = importlib.import_module(f".sources.{name}", __package__)
             opts = (p.cfg.get("source_options") or {}).get(name) or {}
