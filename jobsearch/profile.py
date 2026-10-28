@@ -53,6 +53,7 @@ def find_root(name=None, root=None, start=None):
 
 DEFAULTS = {
     "email": None,
+    "cc": [],
     "sources": ["ats", "workday", "icims", "jibe"],
     "companies": {"include": [], "exclude": []},
     "search_text": "",
