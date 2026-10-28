@@ -1,5 +1,6 @@
 import importlib
 import json
+import random
 import re
 import sys
 import threading
@@ -12,24 +13,55 @@ from .profile import REGISTRY
 from .store import Store
 
 
-# per-vendor concurrency caps (public APIs rate-limit aggressively) and retry-with-backoff on HTTP 429
-_LIMITS = {"workable": 3, "smartrecruiters": 6, "rippling": 6, "bamboohr": 6, "oracle": 8, "icims": 6}
-_SEMS = {k: threading.Semaphore(v) for k, v in _LIMITS.items()}
+# Rate limits are enforced per host, so concurrency and spacing are limited per host (not per vendor), failures that
+# look transient are retried with exponential backoff + jitter (honouring Retry-After), and tasks are shuffled so
+# consecutive requests rarely hit the same host.
+_LIMITS = {"workable": 3, "smartrecruiters": 6, "rippling": 6, "bamboohr": 6, "icims": 6,
+           "greenhouse": 8, "lever": 6, "ashby": 6}  # concurrent requests per host key; default _DEFAULT_LIMIT
+_DEFAULT_LIMIT = 3
+_SPACING = {"workday": 0.3}  # min seconds between request starts per host key prefix; default _DEFAULT_SPACING
+_DEFAULT_SPACING = 0.1
+_TRANSIENT = {429, 500, 502, 503, 504, 520, 522, 524}
+_host_lock = threading.Lock()
+_hosts = {}  # key -> (semaphore, spacing lock, [last start time])
 
 
-def _guarded(kind, fn):
+def _host(key):
+    with _host_lock:
+        if key not in _hosts:
+            lim = _LIMITS.get(key, _LIMITS.get(key.split(":")[0], 2 if key.startswith("workday:") else _DEFAULT_LIMIT))
+            _hosts[key] = (threading.Semaphore(lim), threading.Lock(), [0.0])
+        return _hosts[key]
+
+
+def _transient(e):
+    if isinstance(e, urllib.error.HTTPError):
+        return e.code in _TRANSIENT
+    return isinstance(e, (urllib.error.URLError, TimeoutError, ConnectionError, OSError)) and not isinstance(e, urllib.error.HTTPError)
+
+
+def _wait(e, attempt):
+    ra = getattr(e, "headers", None) and e.headers.get("Retry-After")
+    base = float(ra) if ra and str(ra).replace(".", "", 1).isdigit() else min(60, 3 * 2 ** attempt)
+    time.sleep(base + random.uniform(0, 2))
+
+
+def _guarded(key, fn, attempts=5):
+    sem, spacing_lock, last = _host(key)
+    gap = _SPACING.get(key.split(":")[0], _DEFAULT_SPACING)
+
     def run():
-        sem = _SEMS.get(kind)
-        for attempt in range(4):
+        for attempt in range(attempts):
             try:
-                if sem:
-                    with sem:
-                        return fn()
-                return fn()
-            except urllib.error.HTTPError as e:
-                if e.code != 429 or attempt == 3:
+                with sem:
+                    with spacing_lock:  # serialise request *starts* per host, not the requests themselves
+                        time.sleep(max(0.0, last[0] + gap - time.time()))
+                        last[0] = time.time()
+                    return fn()
+            except Exception as e:
+                if not _transient(e) or attempt == attempts - 1:
                     raise
-                time.sleep(4 * (attempt + 1))
+                _wait(e, attempt)
     return run
 
 
@@ -60,7 +92,7 @@ def _tasks(p):
                 for term in _terms(p):
                     out += workday.fetch_all_jobs(c["subdomain"], c["tenant"], c["site"], search_text=term)
                 return out
-            yield "workday", co, f
+            yield "workday", co, _guarded(f"workday:{c['subdomain']}", f)
     if "icims" in srcs:
         from .sources import icims
         for co, c in _reg("icims_sites.json").items():
@@ -73,7 +105,7 @@ def _tasks(p):
                 for term in _terms(p):
                     out += oracle.fetch_jobs(c["host"], c["site"], keyword=term)
                 return out
-            yield "oracle", co, _guarded("oracle", f)
+            yield "oracle", co, _guarded(f"oracle:{c['host']}", f)
     if "simplify" in srcs:
         from .sources import simplify
         yield "simplify", "simplify", simplify.fetch_jobs
@@ -104,27 +136,45 @@ def _norm(job, source, company):
 def run(p, dry_run=False, workers=8):
     store = Store(p.db_path)
     tasks = [t for t in _tasks(p) if p.company_ok(t[1])]
+    random.Random(time.strftime("%Y%m%d%H")).shuffle(tasks)  # spread consecutive requests across hosts
     raw = new = 0
     errors, per_company = [], {}
     shortlist = []
-    with ThreadPoolExecutor(workers) as ex:
-        futs = {ex.submit(t[2]): t for t in tasks}
-        for fut in as_completed(futs):
-            source, company, _ = futs[fut]
-            try:
-                jobs = fut.result()
-            except Exception as e:  # one broken site must not sink the run
-                errors.append(f"{source}/{company}: {e}")
+    def handle(source, company, jobs):
+        nonlocal raw
+        raw += len(jobs)
+        for j in jobs:
+            j = _norm(j, source, company)
+            if not j["url"] or not filters.keep(j, p) or store.seen(j["url"]):
                 continue
-            raw += len(jobs)
-            for j in jobs:
-                j = _norm(j, source, company)
-                if not j["url"] or not filters.keep(j, p) or store.seen(j["url"]):
-                    continue
-                if not dry_run:
-                    store.add(j)
-                shortlist.append(j)
-                per_company[company] = per_company.get(company, 0) + 1
+            if not dry_run:
+                store.add(j)
+            shortlist.append(j)
+            per_company[company] = per_company.get(company, 0) + 1
+
+    def sweep(batch, nworkers):
+        """-> list of (task, exception) that failed."""
+        failed = []
+        with ThreadPoolExecutor(nworkers) as ex:
+            futs = {ex.submit(t[2]): t for t in batch}
+            for fut in as_completed(futs):
+                t = futs[fut]
+                try:
+                    handle(t[0], t[1], fut.result())
+                except Exception as e:  # one broken site must not sink the run
+                    failed.append((t, e))
+        return failed
+
+    failed = sweep(tasks, workers)
+    again = [t for t, e in failed if _transient(e)]
+    recovered = 0
+    if again:  # second pass: only transient failures (429/5xx/timeouts), slowly, after a cooldown
+        print(f"[{p.name}] retrying {len(again)} transient failures after a cooldown...")
+        time.sleep(20)
+        failed2 = sweep(again, 2)
+        recovered = len(again) - len(failed2)
+        failed = [(t, e) for t, e in failed if not _transient(e)] + failed2
+    errors = [f"{t[0]}/{t[1]}: {e}" for t, e in failed]
     # a job can be returned twice in one run (e.g. several locations) - collapse by url
     uniq = {j["url"].split("?")[0]: j for j in shortlist}
     shortlist = sorted(uniq.values(), key=lambda j: (j["company"], j["title"] or ""))
@@ -132,7 +182,9 @@ def run(p, dry_run=False, workers=8):
         # the shortlist is every not-yet-reviewed candidate, so re-running never loses unreviewed rows
         pending = [dict(zip(("company", "title", "location", "source", "url"), r)) for r in store.candidates()]
         write_shortlist(p, pending)
-    print(f"[{p.name}] {len(tasks)} sources, {raw} raw postings, {len(shortlist)} new candidates, {len(errors)} errors")
+    print(f"[{p.name}] {len(tasks)} sources, {raw} raw postings, {len(shortlist)} new candidates, {len(errors)} errors"
+          + (f" ({recovered} recovered on retry)" if recovered else ""))
+    print(f"  coverage: {len(tasks) - len(errors)}/{len(tasks)} sources scanned ({round(100 * (len(tasks) - len(errors)) / max(1, len(tasks)), 1)}%)")
     for c, n in sorted(per_company.items(), key=lambda x: -x[1])[:8]:
         print(f"  {c}: {n}")
     if errors:
