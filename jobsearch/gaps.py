@@ -95,6 +95,24 @@ def skipped_for_years(store):
     return row[0]
 
 
+def clean_company(name):
+    """ATS slugs arrive lowercase ('caci', 'audien-hearing'): make them readable; leave real names alone."""
+    name = (name or "").strip()
+    if name and name == name.lower():
+        return name.upper() if len(name) <= 4 else re.sub(r"[-_]+", " ", name).title().replace("  ", " ")
+    return name
+
+
+def clean_title(title):
+    return re.sub(r"^copy of\s+", "", (title or "").strip(), flags=re.I)
+
+
+def _dupe_key(title, location, reason):
+    """Same role on two boards (builtin + the employer's ATS): same title, same first location and the same fit-check
+    reason (one JD judged twice). Title+location alone would merge different employers' 'Software Engineer'."""
+    return (re.sub(r"\W+", " ", clean_title(title).lower()).strip(), re.split(r"[;|,]", location or "")[0].strip().lower(), (reason or "").strip())
+
+
 def email_body(store, urls, extra=None, top=5):
     """Plain-text email for the jobs recorded in the latest batch (urls), with the running gap analysis."""
     from .store import norm
@@ -102,6 +120,16 @@ def email_body(store, urls, extra=None, top=5):
     rows = store.db.execute(
         f"SELECT company,title,location,url,verdict,reason,missing_skills,resume FROM jobs WHERE url IN ({marks}) "
         f"AND verdict IN ('GOOD','WEAK') ORDER BY verdict, company", [norm(u) for u in urls]).fetchall()
+    seen, uniq = {}, []
+    for r in rows:  # drop cross-board duplicates, preferring the row whose company name is properly capitalised
+        k = _dupe_key(r[1], r[2], r[5])
+        if k in seen:
+            if uniq[seen[k]][0] == uniq[seen[k]][0].lower() and r[0] != r[0].lower():
+                uniq[seen[k]] = r
+            continue
+        seen[k] = len(uniq)
+        uniq.append(r)
+    rows = uniq
     out, good = [], [r for r in rows if r[4] == "GOOD"]
     weak = [r for r in rows if r[4] == "WEAK"]
     k = 0
@@ -112,7 +140,7 @@ def email_body(store, urls, extra=None, top=5):
         for co, ti, loc, url, _v, reason, ms, resume in group:
             k += 1
             miss = job_skills(json.loads(ms), extra) if ms else []
-            out.append(f"{k}. {co} - {ti} ({loc})" + (f" - {resume} resume" if resume else ""))
+            out.append(f"{k}. {clean_company(co)} - {clean_title(ti)} ({loc})" + (f" - {resume} resume" if resume else ""))
             out.append(f"   {reason}")
             out.append(f"   Missing: {', '.join(miss) if miss else 'nothing notable'}")
             out += [f"   {url}", ""]
