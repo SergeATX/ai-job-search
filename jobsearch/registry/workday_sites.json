@@ -7103,5 +7103,50 @@
     "subdomain": "ngc.wd1",
     "tenant": "ngc",
     "site": "northrop_grumman_external_site"
+  },
+  "illuminateusa": {
+    "subdomain": "illuminateusa.wd503",
+    "tenant": "illuminateusa",
+    "site": "Illuminate_Careers"
+  },
+  "blackline": {
+    "subdomain": "blackline.wd108",
+    "tenant": "blackline",
+    "site": "BlackLineCareers"
+  },
+  "servicetitan": {
+    "subdomain": "servicetitan.wd1",
+    "tenant": "servicetitan",
+    "site": "ServiceTitan"
+  },
+  "tapestry": {
+    "subdomain": "tapestry.wd108",
+    "tenant": "tapestry",
+    "site": "Tapestry_Careers"
+  },
+  "pernodricard": {
+    "subdomain": "pernodricard.wd3",
+    "tenant": "pernodricard",
+    "site": "pernod-ricard"
+  },
+  "valeris": {
+    "subdomain": "valeris.wd108",
+    "tenant": "valeris",
+    "site": "Valeris"
+  },
+  "faithtechnologies": {
+    "subdomain": "faithtechnologies.wd1",
+    "tenant": "faithtechnologies",
+    "site": "fti"
+  },
+  "macfound": {
+    "subdomain": "macfound.wd1",
+    "tenant": "macfound",
+    "site": "MAC_FOUND_EXT_CAREERS"
+  },
+  "chathamfinancial": {
+    "subdomain": "chathamfinancial.wd501",
+    "tenant": "chathamfinancial",
+    "site": "chathamfinancial"
   }
 }
