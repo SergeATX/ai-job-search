@@ -94,8 +94,9 @@ def _tasks(p):
     """Yield (source, company, zero-arg fetcher returning raw jobs)."""
     srcs = p.sources
     if "ats" in srcs:
-        from .sources import ats, bamboohr, rippling, smartrecruiters, workable
-        direct = {"rippling": rippling.fetch_jobs, "smartrecruiters": smartrecruiters.fetch_jobs, "workable": workable.fetch_jobs, "bamboohr": bamboohr.fetch_jobs}
+        from .sources import ats, bamboohr, breezy, personio, recruitee, rippling, smartrecruiters, teamtailor, workable
+        direct = {"rippling": rippling.fetch_jobs, "smartrecruiters": smartrecruiters.fetch_jobs, "workable": workable.fetch_jobs, "bamboohr": bamboohr.fetch_jobs,
+                  "recruitee": recruitee.fetch_jobs, "breezy": breezy.fetch_jobs, "personio": personio.fetch_jobs, "teamtailor": teamtailor.fetch_jobs}
         for co, kind in _reg("watchlist.json")["confirmed"].items():
             fn = direct.get(kind)
             yield "ats", co, _guarded(kind, (lambda co=co, fn=fn: fn(co)) if fn else (lambda co=co, kind=kind: ats.fetch_jobs(co, kind)))

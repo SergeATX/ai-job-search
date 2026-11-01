@@ -18,6 +18,10 @@ PATTERNS = [
     ("workable", re.compile(r"apply\.workable\.com/([A-Za-z0-9_-]+)")),
     ("rippling", re.compile(r"ats\.rippling\.com/(?:[a-z]{2}-[A-Z]{2}/)?([A-Za-z0-9_-]+)/jobs")),
     ("bamboohr", re.compile(r"https?://([a-z0-9-]+)\.bamboohr\.com/")),
+    ("recruitee", re.compile(r"https?://([a-z0-9-]+)\.recruitee\.com/")),
+    ("breezy", re.compile(r"https?://([a-z0-9-]+)\.breezy\.hr/")),
+    ("personio", re.compile(r"https?://([a-z0-9-]+)\.jobs\.personio\.(?:de|com)/")),
+    ("teamtailor", re.compile(r"https?://([a-z0-9-]+)\.teamtailor\.com/")),
 ]
 WORKDAY = re.compile(r"https?://([a-z0-9-]+)\.(wd\d+)\.myworkdayjobs\.com/(?:[a-z]{2}-[A-Z]{2}/)?([A-Za-z0-9_-]+)")
 ORACLE = re.compile(r"https?://([a-z0-9.-]+\.oraclecloud\.com)/hcmUI/CandidateExperience/[a-zA-Z_-]+/sites/([A-Za-z0-9_]+)")
@@ -55,9 +59,10 @@ def _load(name):
 
 
 def _probe_ats(slug, kind):
-    from .sources import ats, bamboohr, rippling, smartrecruiters, workable
+    from .sources import ats, bamboohr, breezy, personio, recruitee, rippling, smartrecruiters, teamtailor, workable
     fn = {"smartrecruiters": smartrecruiters.fetch_jobs, "workable": workable.fetch_jobs,
-          "bamboohr": bamboohr.fetch_jobs, "rippling": rippling.fetch_jobs}.get(kind)
+          "bamboohr": bamboohr.fetch_jobs, "rippling": rippling.fetch_jobs, "recruitee": recruitee.fetch_jobs,
+          "breezy": breezy.fetch_jobs, "personio": personio.fetch_jobs, "teamtailor": teamtailor.fetch_jobs}.get(kind)
     return len(fn(slug)) if fn else len(ats.fetch_jobs(slug, kind))
 
 
