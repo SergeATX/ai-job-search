@@ -4,6 +4,8 @@ Grow the scanner's reach (new employers or new sources) for a profile: `/grow-so
 
 Rule: expand, test, commit, push - then stop. Do not run a scan, fit-check or email a batch as part of this command. Run `/batch` separately when the user asks.
 
+Milestones: discovery probes thousands of boards and can take 10+ minutes, so run it in the background and tell the user in one line when it starts, when it finishes (employers added), when the commit is pushed. If it shows no output change for 10 minutes, check the process with `ps` and restart it rather than waiting.
+
 1. **Look at the yield first.** `jobsearch yield` shows which sources/employers produce GOOD/WEAK jobs. Grow what works (curated lists, boards that hit), not what doesn't.
 2. **Add employers.** `jobsearch discover --dry-run` first (uses the profile's `discovery:` settings: `lists`, `yc`, `names_file`), then `jobsearch discover`. A region/company names file stays in the profile folder, never in this repo.
 3. **Add a source** (only if it has a stable public API or scraper): add `jobsearch/sources/<name>.py` with `fetch_jobs(**opts)` returning `[{title, company, url, location}]`, wire it in `runner._tasks`, then test it alone with `jobsearch run --dry-run --sources <name>` and check the title-pass rate.

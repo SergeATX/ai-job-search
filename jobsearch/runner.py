@@ -168,11 +168,16 @@ def run(p, dry_run=False, workers=8):
             per_company[company] = per_company.get(company, 0) + 1
 
     def sweep(batch, nworkers):
-        """-> list of (task, exception) that failed."""
-        failed = []
+        """-> list of (task, exception) that failed. Prints a progress line every 10% so long scans are never silent."""
+        failed, done, started = [], 0, time.time()
+        step = max(1, len(batch) // 10)
         with ThreadPoolExecutor(nworkers) as ex:
             futs = {ex.submit(t[2]): t for t in batch}
             for fut in as_completed(futs):
+                done += 1
+                if done % step == 0 or done == len(batch):
+                    print(f"[{p.name}] progress {done}/{len(batch)} ({round(100 * done / len(batch))}%), {len(shortlist)} new so far, "
+                          f"{len(failed)} failed, {int(time.time() - started)}s elapsed", flush=True)
                 t = futs[fut]
                 try:
                     handle(t[0], t[1], fut.result())
