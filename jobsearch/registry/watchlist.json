@@ -3004,7 +3004,18 @@
     "reliable-robotics": "ashby",
     "ironmountain": "smartrecruiters",
     "roro": "smartrecruiters",
-    "cin7": "lever"
+    "cin7": "lever",
+    "discernis": "ashby",
+    "orbisoperations": "greenhouse",
+    "neptunenorth": "greenhouse",
+    "cambridgeconsultantslimited": "greenhouse",
+    "kaluza": "ashby",
+    "divergent": "greenhouse",
+    "designrulesco": "ashby",
+    "fireworkhq": "lever",
+    "pretiuminternships2027": "greenhouse",
+    "tpgcareers": "greenhouse",
+    "commodityai": "ashby"
   },
   "not_on_these_ats": [
     "realtor",
