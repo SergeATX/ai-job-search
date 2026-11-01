@@ -40,9 +40,24 @@ def _transient(e):
     return isinstance(e, (urllib.error.URLError, TimeoutError, ConnectionError, OSError)) and not isinstance(e, urllib.error.HTTPError)
 
 
+_MAX_WAIT = 120  # longest Retry-After we sleep through; Workable sends 8+ hours, which used to park every worker thread
+
+
+class HostBlocked(Exception):
+    """The host asked us to come back later than _MAX_WAIT: give up on it for now instead of sleeping."""
+    code = 429
+
+    def __init__(self, retry_after, cause):
+        super().__init__(f"{cause} (Retry-After {int(retry_after)}s)")
+        self.retry_after = retry_after
+
+
 def _wait(e, attempt):
     ra = getattr(e, "headers", None) and e.headers.get("Retry-After")
-    base = float(ra) if ra and str(ra).replace(".", "", 1).isdigit() else min(60, 3 * 2 ** attempt)
+    ra = float(ra) if ra and str(ra).replace(".", "", 1).isdigit() else None
+    if ra is not None and ra > _MAX_WAIT:
+        raise HostBlocked(ra, e) from e
+    base = ra if ra is not None else min(60, 3 * 2 ** attempt)
     time.sleep(base + random.uniform(0, 2))
 
 
