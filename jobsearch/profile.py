@@ -68,6 +68,7 @@ DEFAULTS = {
     "resume_labels": [],
     "skill_aliases": {},
     "discovery": {},
+    "source_cadence": {},
 }
 
 

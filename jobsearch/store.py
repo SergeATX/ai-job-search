@@ -6,7 +6,7 @@ import time
 SCHEMA = """CREATE TABLE IF NOT EXISTS jobs(
  url TEXT PRIMARY KEY, company TEXT, title TEXT, location TEXT, source TEXT,
  first_seen TEXT, status TEXT DEFAULT 'candidate', verdict TEXT, reason TEXT)"""
-EXTRA_COLUMNS = ("jd", "prescreen", "missing_skills", "resume", "recorded_at")  # added in place so old databases keep working
+EXTRA_COLUMNS = ("jd", "prescreen", "missing_skills", "resume", "recorded_at", "chunk")  # added in place so old databases keep working
 
 
 def norm(u):
@@ -15,7 +15,8 @@ def norm(u):
 
 class Store:
     def __init__(self, path):
-        self.db = sqlite3.connect(path)
+        self.db = sqlite3.connect(path, timeout=60)  # the scan, incremental prescreen and record may write at the same time
+        self.db.execute("PRAGMA journal_mode=WAL")
         self.db.execute(SCHEMA)
         have = {r[1] for r in self.db.execute("PRAGMA table_info(jobs)")}
         for c in EXTRA_COLUMNS:

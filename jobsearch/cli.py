@@ -17,6 +17,7 @@ def main():
     r = sub.add_parser("run", help="scrape all configured sources for a profile and write a shortlist")
     r.add_argument("--profile", help="profile name (default: registry lookup from the current directory, then the registry default)")
     r.add_argument("--dry-run", action="store_true")
+    r.add_argument("--all", dest="force_all", action="store_true", help="ignore the profile's source_cadence and scan every source")
     r.add_argument("--workers", type=int, default=12, help="parallel fetches (default 12; higher triggers Workday 429s)")
     r.add_argument("--sources", help="comma-separated subset of the profile's sources to scan this time (e.g. builtin,muse,capps)")
     s = sub.add_parser("seed", help="mark every URL in an existing tracker file as already seen")
@@ -25,11 +26,16 @@ def main():
     rec = sub.add_parser("record", help="load fit-check verdicts (fitcheck.json) into the profile database")
     rec.add_argument("--profile", help="profile name (default: registry lookup from the current directory, then the registry default)")
     rec.add_argument("file", nargs="?")
+    rec.add_argument("--chunks", action="store_true", help="record every out/chunks/*/fitcheck.json not yet recorded (streaming flow)")
     rec.add_argument("--skills-only", action="store_true", help="backfill missing_skills/resume from an old file without changing verdicts or statuses")
     ps = sub.add_parser("prescreen", help="fetch candidate postings and auto-reject explicit years/clearance/grad-degree gates")
     ps.add_argument("--profile", help="profile name (default: registry lookup from the current directory, then the registry default)")
     ps.add_argument("--limit", type=int)
     ps.add_argument("--max-queue", type=int, default=250, help="cap on postings handed to the fit-check agent")
+    ck = sub.add_parser("chunk", help="streaming fit-check: prescreen new candidates, then write the next ready chunk of postings for a fit-check agent")
+    ck.add_argument("--profile", help="profile name (default: registry lookup from the current directory, then the registry default)")
+    ck.add_argument("--size", type=int, default=25, help="postings (distinct company+title) per chunk")
+    ck.add_argument("--final", action="store_true", help="flush everything that is left, even if fewer than --size")
     gp = sub.add_parser("gaps", help="skill-gap analysis over GOOD/WEAK jobs; --write saves skills-gap-report.md in the profile root")
     gp.add_argument("--profile", help="profile name (default: registry lookup from the current directory, then the registry default)")
     gp.add_argument("--write", action="store_true")
@@ -144,7 +150,7 @@ def main():
         from .runner import run
         if a.sources:
             p.cfg["sources"] = [x.strip() for x in a.sources.split(",")]
-        run(p, dry_run=a.dry_run, workers=a.workers)
+        run(p, dry_run=a.dry_run, workers=a.workers, force_all=a.force_all, subset=bool(a.sources))
         if not a.dry_run:
             print(f"shortlist: {p.out_dir / 'shortlist.md'}\nfit-check prompt: {p.out_dir / 'fitcheck-prompt.md'}")
     elif a.cmd == "prescreen":
@@ -160,6 +166,36 @@ def main():
     elif a.cmd == "seed":
         n = Store(p.db_path).seed_urls(Path(a.file).read_text())
         print(f"seeded {n} urls")
+    elif a.cmd == "chunk":
+        from .prescreen import run as pre, export_chunk
+        s = Store(p.db_path)
+        stats = pre(p, s)
+        res = export_chunk(p, s, a.size, a.final)
+        if res:
+            k, n, base = res
+            print(f"prescreen {stats}; chunk {k}: {n} postings ready -> {base / 'fitcheck-prompt.md'}")
+        else:
+            left = s.db.execute("SELECT COUNT(*) FROM jobs WHERE status='candidate' AND prescreen IS NOT NULL AND chunk IS NULL").fetchone()[0]
+            print(f"prescreen {stats}; no chunk yet ({left} candidate rows waiting, need {a.size} distinct postings)")
+    elif a.cmd == "record" and a.chunks:
+        import shutil, time
+        s = Store(p.db_path)
+        urls, total = [], 0
+        for d in sorted((p.out_dir / "chunks").glob("*/"), key=lambda d: int(d.name) if d.name.isdigit() else 0):
+            f, done = d / "fitcheck.json", d / "recorded.flag"
+            if not f.exists() or done.exists():
+                continue
+            rows = json.loads(f.read_text())
+            for r in rows:
+                s.record(r["url"], r["verdict"], r.get("reason", ""), r.get("missing_skills"), r.get("resume"))
+            urls += [r["url"] for r in rows]
+            total += len(rows)
+            (p.out_dir / "history").mkdir(exist_ok=True)
+            shutil.copy(f, p.out_dir / "history" / f"fitcheck-{time.strftime('%Y%m%d-%H%M%S')}-chunk{d.name}.json")
+            done.write_text("ok")
+            print(f"chunk {d.name}: recorded {len(rows)} verdicts")
+        (p.out_dir / "last-batch.json").write_text(json.dumps(urls))
+        print(f"recorded {total} verdicts from chunks")
     elif a.cmd == "record":
         f = Path(a.file) if a.file else p.out_dir / "fitcheck.json"
         s = Store(p.db_path)

@@ -148,9 +148,30 @@ def _norm(job, source, company):
             "company": job.get("company") or company, "source": source}
 
 
-def run(p, dry_run=False, workers=8):
+def _cadence_filter(p, tasks, force):
+    """Drop sources scanned more recently than the profile's `source_cadence: {source: days}` allows (low-yield, slow
+    sources need not run every batch). -> (tasks, skipped source names, state dict, path)"""
+    path = p.out_dir / "source-state.json"
+    state = json.loads(path.read_text()) if path.exists() else {}
+    cad = p.cfg.get("source_cadence") or {}
+    skipped = set()
+    if not force:
+        today = time.time()
+        for src, days in cad.items():
+            last = state.get(src)
+            if last and today - time.mktime(time.strptime(last, "%Y-%m-%d")) < (float(days) - 0.5) * 86400:
+                skipped.add(src)
+    return [t for t in tasks if t[0] not in skipped], sorted(skipped), state, path
+
+
+def run(p, dry_run=False, workers=8, force_all=False, subset=False):
     store = Store(p.db_path)
     tasks = [t for t in _tasks(p) if p.company_ok(t[1])]
+    skipped_src, state, state_path = [], {}, None
+    if not subset:  # an explicit --sources subset always scans exactly what was asked
+        tasks, skipped_src, state, state_path = _cadence_filter(p, tasks, force_all)
+        if skipped_src:
+            print(f"[{p.name}] skipping recently scanned low-yield sources (source_cadence): {', '.join(skipped_src)}; use --all to force", flush=True)
     random.Random(time.strftime("%Y%m%d%H")).shuffle(tasks)  # spread consecutive requests across hosts
     raw = new = 0
     errors, per_company = [], {}
@@ -195,6 +216,11 @@ def run(p, dry_run=False, workers=8):
         recovered = len(again) - len(failed2)
         failed = [(t, e) for t, e in failed if not _transient(e)] + failed2
     errors = [f"{t[0]}/{t[1]}: {e}" for t, e in failed]
+    if state_path and not dry_run:
+        today = time.strftime("%Y-%m-%d")
+        for src in {t[0] for t in tasks}:
+            state[src] = today
+        state_path.write_text(json.dumps(state, indent=1))
     # a job can be returned twice in one run (e.g. several locations) - collapse by url
     uniq = {j["url"].split("?")[0]: j for j in shortlist}
     shortlist = sorted(uniq.values(), key=lambda j: (j["company"], j["title"] or ""))
@@ -221,25 +247,29 @@ def write_shortlist(p, shortlist):
     mark = lambda j: bool(boost and boost.search(j["title"] or ""))
     shortlist = sorted(shortlist, key=lambda j: (not mark(j), j["company"] or "", j["title"] or ""))
     sl.write_text("\n".join(f"- {'★ ' if mark(j) else ''}{j['title']} | {j['company']} | {j['location']} | {j['url']}" for j in shortlist) + "\n")
+    (p.out_dir / "fitcheck-prompt.md").write_text(fitcheck_prompt(p, p.out_dir))
+
+
+def fitcheck_prompt(p, base):
+    """Prompt for a fit-check agent whose queue, posting texts and output all live under `base`."""
     labels = p.cfg.get("resume_labels") or []
     label_rule = f', "resume" (one of: {", ".join(labels)} - which of the candidate\'s resumes fits best)' if labels else ""
     notes = p.fitcheck_notes or ""
     gates = "\n".join(f"- {g}" for g in p.gates)
     resume = p.resume or "(no resume path configured)"
-    (p.out_dir / "fitcheck-prompt.md").write_text(f"""You are a resume-fit-check agent for the job-search profile "{p.name}".
+    return f"""You are a resume-fit-check agent for the job-search profile "{p.name}".
 
 1. Read the candidate's resume: {resume}
-2. The queue is {p.out_dir}/fitcheck-queue.json (a list of {{n,title,company,locations,urls,prescreen,note}}). Each posting's text is already on disk
-   at {p.out_dir}/jd/<n>.txt - read that file; do NOT re-fetch the web unless the file is empty (then WebFetch urls[0]).
+2. The queue is {base}/fitcheck-queue.json (a list of {{n,title,company,locations,urls,prescreen,note}}). Each posting's text is already on disk
+   at {base}/jd/<n>.txt - read that file; do NOT re-fetch the web unless the file is empty (then WebFetch urls[0]).
    Mechanical gates (explicit years, clearance, graduate degree) were already applied; you judge what is left.
    prescreen=WEAK means a soft/1-year experience mention: read it in context.
 3. Disqualify ONLY for these gates (anything else is a fit, even a different stack):
 {gates}
 {notes}
 4. Verdicts: GOOD / WEAK / SKIP. Quote the deciding requirement text. A verdict applies to every url of the group.
-5. Write JSON to {p.out_dir}/fitcheck.json: a list of {{"url","title","company","location","verdict","reason","missing_skills"{label_rule}}} - one row per url in the group.
+5. Write JSON to {base}/fitcheck.json: a list of {{"url","title","company","location","verdict","reason","missing_skills"{label_rule}}} - one row per url in the group.
    "missing_skills" is REQUIRED on every GOOD/WEAK row: a list of short canonical skill/tool names (e.g. "Docker", "TypeScript", "Kubernetes") that the posting asks for and the resume lacks; [] if none.
    Skills only - no years-of-experience, no domain facts.
    Do not edit trackers or send email. Final report: counts plus a table of GOOD and WEAK rows.
-""")
-
+"""

@@ -103,6 +103,10 @@ def clean_company(name):
     return name
 
 
+def _squash(s):
+    return re.sub(r"[^a-z0-9]", "", (s or "").lower())
+
+
 def clean_title(title):
     return re.sub(r"^copy of\s+", "", (title or "").strip(), flags=re.I)
 
@@ -120,6 +124,13 @@ def email_body(store, urls, extra=None, top=5):
     rows = store.db.execute(
         f"SELECT company,title,location,url,verdict,reason,missing_skills,resume FROM jobs WHERE url IN ({marks}) "
         f"AND verdict IN ('GOOD','WEAK') ORDER BY verdict, company", [norm(u) for u in urls]).fetchall()
+    # drop jobs already emailed in an earlier batch under another URL (same company + title, recorded before this batch)
+    first = store.db.execute(f"SELECT MIN(recorded_at) FROM jobs WHERE url IN ({marks})", [norm(u) for u in urls]).fetchone()[0] if urls else None
+    sent = set()
+    if first:
+        for co, ti in store.db.execute("SELECT company,title FROM jobs WHERE verdict IN ('GOOD','WEAK') AND COALESCE(recorded_at,'0') < ?", (first,)):
+            sent.add((_squash(co), _squash(clean_title(ti))))
+    rows = [r for r in rows if (_squash(r[0]), _squash(clean_title(r[1]))) not in sent]
     seen, uniq = {}, []
     for r in rows:  # drop cross-board duplicates, preferring the row whose company name is properly capitalised
         k = _dupe_key(r[1], r[2], r[5])

@@ -158,3 +158,39 @@ def export_queue(p, store, max_items=250):
         out.append(g)
     (p.out_dir / "fitcheck-queue.json").write_text(json.dumps(out, indent=1))
     return len(groups), len(out)
+
+
+def export_chunk(p, store, size=25, final=False):
+    """Streaming fit-check: take the next `size` groups of prescreened, not-yet-chunked candidates and write them to
+    out/chunks/<k>/ (queue, jd/<n>.txt, prompt). Returns (k, groups, dir) or None when fewer than `size` are ready
+    (unless final, which flushes whatever is left). Rows are marked with their chunk number so nothing is judged twice."""
+    from .runner import fitcheck_prompt
+    boost = re.compile(p.cfg["titles"]["boost"], re.I) if p.cfg["titles"].get("boost") else None
+    rows = store.db.execute("SELECT company,title,location,url,prescreen,reason,jd FROM jobs "
+                            "WHERE status='candidate' AND prescreen IS NOT NULL AND chunk IS NULL").fetchall()
+    groups = {}
+    for c, t, l, u, ps, why, jd in rows:
+        g = groups.setdefault((c, t), {"company": c, "title": t, "locations": [], "urls": [], "prescreen": ps, "note": why, "jd": jd})
+        g["locations"].append(l)
+        g["urls"].append(u)
+    if not groups or (len(groups) < size and not final):
+        return None
+    rank = lambda g: (0 if boost and boost.search(g["title"] or "") else 1, {"PASS": 0, "WEAK": 1}.get(g["prescreen"], 2), g["company"] or "")
+    take = sorted(groups.values(), key=rank)[:size if not final else max(size, 40)]
+    root = p.out_dir / "chunks"
+    root.mkdir(exist_ok=True)
+    k = 1 + max([int(d.name) for d in root.iterdir() if d.name.isdigit()] or [0])
+    base = root / str(k)
+    (base / "jd").mkdir(parents=True)
+    out = []
+    for n, g in enumerate(take, 1):
+        text = (g.pop("jd") or "")[:6000]
+        (base / "jd" / f"{n}.txt").write_text(f"{g['title']} | {g['company']} | {'; '.join(sorted(set(g['locations'])))[:200]}\n{g['urls'][0]}\n\n{text}\n")
+        g["n"], g["locations"] = n, sorted(set(g["locations"]))[:6]
+        out.append(g)
+        for u in g["urls"]:
+            store.db.execute("UPDATE jobs SET chunk=? WHERE url=?", (str(k), u))
+    store.db.commit()
+    (base / "fitcheck-queue.json").write_text(json.dumps(out, indent=1))
+    (base / "fitcheck-prompt.md").write_text(fitcheck_prompt(p, base))
+    return k, len(out), base
