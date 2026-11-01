@@ -93,13 +93,17 @@ def _terms(p):
 def _tasks(p):
     """Yield (source, company, zero-arg fetcher returning raw jobs)."""
     srcs = p.sources
-    if "ats" in srcs:
+    for tier, reg_file in (("ats", "watchlist.json"), ("ats_ext", "watchlist_extended.json")):
+        # "ats_ext" = bulk-mined boards (Common Crawl, VC portfolios): same fetchers, separate source name so it can
+        # run on a slower source_cadence and show up separately in `jobsearch yield`
+        if tier not in srcs:
+            continue
         from .sources import ats, bamboohr, breezy, personio, recruitee, rippling, smartrecruiters, teamtailor, workable
         direct = {"rippling": rippling.fetch_jobs, "smartrecruiters": smartrecruiters.fetch_jobs, "workable": workable.fetch_jobs, "bamboohr": bamboohr.fetch_jobs,
                   "recruitee": recruitee.fetch_jobs, "breezy": breezy.fetch_jobs, "personio": personio.fetch_jobs, "teamtailor": teamtailor.fetch_jobs}
-        for co, kind in _reg("watchlist.json")["confirmed"].items():
+        for co, kind in _reg(reg_file)["confirmed"].items():
             fn = direct.get(kind)
-            yield "ats", co, _guarded(kind, (lambda co=co, fn=fn: fn(co)) if fn else (lambda co=co, kind=kind: ats.fetch_jobs(co, kind)))
+            yield tier, co, _guarded(kind, (lambda co=co, fn=fn: fn(co)) if fn else (lambda co=co, kind=kind: ats.fetch_jobs(co, kind)))
     if "workday" in srcs:
         from .sources import workday
         for co, c in _reg("workday_sites.json").items():

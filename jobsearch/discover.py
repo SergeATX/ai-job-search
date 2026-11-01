@@ -84,7 +84,7 @@ def _probe_oracle(cfg):
 def discover(urls, save=True, workers=24):
     ats, workday, icims, oracle = classify(urls)
     wl = _load("watchlist.json")
-    known_ats = set(wl["confirmed"]) | set(wl.get("not_on_these_ats", []))
+    known_ats = set(wl["confirmed"]) | set(wl.get("not_on_these_ats", [])) | set(_load("watchlist_extended.json").get("confirmed", {}))
     known_ats_l = {k.lower() for k in known_ats}
     wd, ic, orc = _load("workday_sites.json"), _load("icims_sites.json"), _load("oracle_sites.json")
     known_wd = {(v["subdomain"], v["site"]) for v in wd.values()}
@@ -138,7 +138,8 @@ def _slugs(name, website=None):
 def discover_names(entries, save=True, workers=24):
     """entries: iterable of (name, website-or-None). Probes greenhouse/lever/ashby/workable/smartrecruiters/rippling by slug."""
     wl = _load("watchlist.json")
-    known = {k.lower() for k in wl["confirmed"]} | {k.lower() for k in wl.get("not_on_these_ats", [])}
+    known = ({k.lower() for k in wl["confirmed"]} | {k.lower() for k in wl.get("not_on_these_ats", [])}
+             | {k.lower() for k in _load("watchlist_extended.json").get("confirmed", {})})
     todo = []
     for name, site in entries:
         for s in _slugs(name, site):

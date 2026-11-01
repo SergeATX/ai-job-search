@@ -7148,5 +7148,135 @@
     "subdomain": "chathamfinancial.wd501",
     "tenant": "chathamfinancial",
     "site": "chathamfinancial"
+  },
+  "rappi": {
+    "subdomain": "rappi.wd12",
+    "tenant": "rappi",
+    "site": "Rappi_jobs"
+  },
+  "cityblockhealth": {
+    "subdomain": "cityblockhealth.wd1",
+    "tenant": "cityblockhealth",
+    "site": "CityblockExternalCareerSite"
+  },
+  "resilience": {
+    "subdomain": "resilience.wd1",
+    "tenant": "resilience",
+    "site": "Resilience_Careers"
+  },
+  "hummingbird": {
+    "subdomain": "hummingbird.wd1",
+    "tenant": "hummingbird",
+    "site": "hummingbird"
+  },
+  "mavenir": {
+    "subdomain": "mavenir.wd1",
+    "tenant": "mavenir",
+    "site": "Mavenir_Careers"
+  },
+  "devoted": {
+    "subdomain": "devoted.wd1",
+    "tenant": "devoted",
+    "site": "Devoted"
+  },
+  "dnli": {
+    "subdomain": "dnli.wd1",
+    "tenant": "dnli",
+    "site": "Development"
+  },
+  "ideayabio": {
+    "subdomain": "ideayabio.wd501",
+    "tenant": "ideayabio",
+    "site": "External"
+  },
+  "bitsight": {
+    "subdomain": "bitsight.wd1",
+    "tenant": "bitsight",
+    "site": "Bitsight"
+  },
+  "pacbio": {
+    "subdomain": "pacbio.wd12",
+    "tenant": "pacbio",
+    "site": "PacBio-"
+  },
+  "vetsource": {
+    "subdomain": "vetsource.wd504",
+    "tenant": "vetsource",
+    "site": "vetsource_careers"
+  },
+  "cardlytics": {
+    "subdomain": "cardlytics.wd5",
+    "tenant": "cardlytics",
+    "site": "CardlyticsExternalCareerSite"
+  },
+  "communitybrands": {
+    "subdomain": "communitybrands.wd1",
+    "tenant": "communitybrands",
+    "site": "Momentive_External_Careers"
+  },
+  "globe": {
+    "subdomain": "globe.wd3",
+    "tenant": "globe",
+    "site": "Mynt"
+  },
+  "browserstack": {
+    "subdomain": "browserstack.wd3",
+    "tenant": "browserstack",
+    "site": "External"
+  },
+  "postman": {
+    "subdomain": "postman.wd108",
+    "tenant": "postman",
+    "site": "careers"
+  },
+  "cotality": {
+    "subdomain": "cotality.wd115",
+    "tenant": "cotality",
+    "site": "Global"
+  },
+  "tealium": {
+    "subdomain": "tealium.wd1",
+    "tenant": "tealium",
+    "site": "Careers"
+  },
+  "stord": {
+    "subdomain": "stord.wd503",
+    "tenant": "stord",
+    "site": "Stord_External_Career"
+  },
+  "catalyte": {
+    "subdomain": "catalyte.wd503",
+    "tenant": "catalyte",
+    "site": "catalyte"
+  },
+  "avant": {
+    "subdomain": "avant.wd503",
+    "tenant": "avant",
+    "site": "External_Careers"
+  },
+  "applyboard": {
+    "subdomain": "applyboard.wd3",
+    "tenant": "applyboard",
+    "site": "ApplyBoardNH"
+  },
+  "snapchat": {
+    "subdomain": "snapchat.wd1",
+    "tenant": "snapchat",
+    "site": "snap"
+  },
+  "teladoc": {
+    "subdomain": "teladoc.wd503",
+    "tenant": "teladoc",
+    "site": "teladochealth_is_hiring"
+  },
+  "cloudera": {
+    "subdomain": "cloudera.wd5",
+    "tenant": "cloudera",
+    "site": "External_Career"
+  },
+  "ehealthinsurance": {
+    "subdomain": "ehealthinsurance.wd5",
+    "tenant": "ehealthinsurance",
+    "site": "EHI"
   }
 }

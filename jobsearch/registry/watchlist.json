@@ -3034,7 +3034,21 @@
     "lunar": "teamtailor",
     "anyfin": "teamtailor",
     "tado": "personio",
-    "helpling": "personio"
+    "helpling": "personio",
+    "buildersfirstsource": "smartrecruiters",
+    "cityofsanantonio": "smartrecruiters",
+    "creatoriq": "ashby",
+    "disco": "greenhouse",
+    "epirus": "greenhouse",
+    "fervoenergy": "greenhouse",
+    "godaddy": "greenhouse",
+    "hyliion": "greenhouse",
+    "leandna": "rippling",
+    "logicmonitor": "greenhouse",
+    "oklo": "greenhouse",
+    "qualia": "greenhouse",
+    "restaurant365": "lever",
+    "texasworkforcecommission": "smartrecruiters"
   },
   "not_on_these_ats": [
     "realtor",
