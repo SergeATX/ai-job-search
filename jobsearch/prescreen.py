@@ -176,7 +176,16 @@ def export_chunk(p, store, size=25, final=False):
     if not groups or (len(groups) < size and not final):
         return None
     rank = lambda g: (0 if boost and boost.search(g["title"] or "") else 1, {"PASS": 0, "WEAK": 1}.get(g["prescreen"], 2), g["company"] or "")
-    take = sorted(groups.values(), key=rank)[:size if not final else max(size, 40)]
+    # one employer must not fill a whole chunk (e.g. 100 identical 'General Application' postings): at most 6 per company
+    # per chunk, the rest wait for later chunks
+    per_co, ordered = {}, []
+    for g in sorted(groups.values(), key=rank):
+        if final or per_co.get(g["company"], 0) < 6:
+            per_co[g["company"]] = per_co.get(g["company"], 0) + 1
+            ordered.append(g)
+    if len(ordered) < size and not final:
+        return None
+    take = ordered[:size if not final else max(size, 40)]
     root = p.out_dir / "chunks"
     root.mkdir(exist_ok=True)
     k = 1 + max([int(d.name) for d in root.iterdir() if d.name.isdigit()] or [0])
