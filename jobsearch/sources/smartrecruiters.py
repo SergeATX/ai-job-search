@@ -20,7 +20,7 @@ def fetch_jobs(company, max_jobs=1000):
             if loc.get("remote"):
                 place += " (Remote)"
             out.append({"title": j.get("name"), "location": place,
-                        "url": f"https://jobs.smartrecruiters.com/{company}/{j.get('id')}"})
+                        "url": f"https://jobs.smartrecruiters.com/{company}/{j.get('id')}", "posted": j.get("releasedDate")})
         offset += 100
         if offset >= d.get("totalFound", 0) or not items:
             break

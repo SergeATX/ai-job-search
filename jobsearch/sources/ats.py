@@ -62,6 +62,8 @@ def fetch_jobs(company, ats):
                 "location": (j.get("location") or {}).get("name"),
                 "url": j.get("absolute_url"),
                 "updated_at": j.get("updated_at"),
+                "posted": j.get("first_published"),
+                "description_html": j.get("content"),  # entity-escaped HTML, already in the response (content=true)
                 "department": ", ".join(d.get("name", "") for d in j.get("departments", [])),
             })
     elif ats == "lever":
@@ -71,6 +73,9 @@ def fetch_jobs(company, ats):
                 "location": (j.get("categories") or {}).get("location"),
                 "url": j.get("hostedUrl"),
                 "updated_at": j.get("createdAt"),
+                "posted": j.get("createdAt"),  # epoch milliseconds
+                "description": "\n".join(x for x in [j.get("descriptionPlain"), *(f"{l.get('text')}:\n{l.get('content')}" for l in j.get("lists") or []),
+                                                     j.get("additionalPlain")] if x),  # list content is HTML
                 "department": (j.get("categories") or {}).get("team"),
             })
     elif ats == "ashby":
@@ -80,6 +85,8 @@ def fetch_jobs(company, ats):
                 "location": j.get("location"),
                 "url": j.get("jobUrl") or j.get("applyUrl"),
                 "updated_at": j.get("publishedAt"),
+                "posted": j.get("publishedAt"),
+                "description": j.get("descriptionPlain"),
                 "department": j.get("department"),
             })
     return jobs

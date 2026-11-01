@@ -20,7 +20,7 @@ def fetch_jobs(account, max_pages=20):
             if j.get("remote") or j.get("workplace") == "remote":
                 place += " (Remote)"
             out.append({"title": j.get("title"), "location": place,
-                        "url": f"https://apply.workable.com/{account}/j/{j.get('shortcode')}/"})
+                        "url": f"https://apply.workable.com/{account}/j/{j.get('shortcode')}/", "posted": j.get("published")})
         token = d.get("nextPage")
         if not token:
             break
