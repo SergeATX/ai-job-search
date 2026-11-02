@@ -937,5 +937,44 @@
   },
   "careers-cellularsales": {
     "tenant": "careers-cellularsales"
+  },
+  "careers-aa": {
+    "tenant": "careers-aa"
+  },
+  "careers-aveanna": {
+    "tenant": "careers-aveanna"
+  },
+  "careers-generaldynamics": {
+    "tenant": "careers-generaldynamics"
+  },
+  "careers-indeed": {
+    "tenant": "careers-indeed"
+  },
+  "careers-mednax": {
+    "tenant": "careers-mednax"
+  },
+  "careers-pediatrix": {
+    "tenant": "careers-pediatrix"
+  },
+  "careers-pepsico": {
+    "tenant": "careers-pepsico"
+  },
+  "careers-quanta": {
+    "tenant": "careers-quanta"
+  },
+  "careers-usaa": {
+    "tenant": "careers-usaa"
+  },
+  "careers-usoncology": {
+    "tenant": "careers-usoncology"
+  },
+  "allcareers-quanta": {
+    "tenant": "allcareers-quanta"
+  },
+  "stewartstevenson-kirbycorp": {
+    "tenant": "stewartstevenson-kirbycorp"
+  },
+  "bughouse-rollins": {
+    "tenant": "bughouse-rollins"
   }
 }

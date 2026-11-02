@@ -7278,5 +7278,60 @@
     "subdomain": "ehealthinsurance.wd5",
     "tenant": "ehealthinsurance",
     "site": "EHI"
+  },
+  "ally": {
+    "subdomain": "ally.wd1",
+    "tenant": "ally",
+    "site": "ally"
+  },
+  "jbhunt": {
+    "subdomain": "jbhunt.wd501",
+    "tenant": "jbhunt",
+    "site": "Careers"
+  },
+  "kimberlyclark": {
+    "subdomain": "kimberlyclark.wd1",
+    "tenant": "kimberlyclark",
+    "site": "Global"
+  },
+  "michaels": {
+    "subdomain": "michaels.wd5",
+    "tenant": "michaels",
+    "site": "External"
+  },
+  "paypal": {
+    "subdomain": "paypal.wd1",
+    "tenant": "paypal",
+    "site": "jobs"
+  },
+  "digitalturbine": {
+    "subdomain": "digitalturbine.wd501",
+    "tenant": "digitalturbine",
+    "site": "Digital_Turbine_External_Careers"
+  },
+  "wpengine": {
+    "subdomain": "wpengine.wd1",
+    "tenant": "wpengine",
+    "site": "WP_Engine"
+  },
+  "fireflyspace": {
+    "subdomain": "fireflyspace.wd115",
+    "tenant": "fireflyspace",
+    "site": "Firefly"
+  },
+  "clearchanneloutdoor": {
+    "subdomain": "clearchanneloutdoor.wd5",
+    "tenant": "clearchanneloutdoor",
+    "site": "CCO"
+  },
+  "elliottgroup": {
+    "subdomain": "elliottgroup.wd5",
+    "tenant": "elliottgroup",
+    "site": "ElliottCareers"
+  },
+  "transocean": {
+    "subdomain": "deepwater.wd1",
+    "tenant": "deepwater",
+    "site": "GlobalExternalCareerSite"
   }
 }

@@ -730,5 +730,9 @@
   "fa-ewji-saasfaprod1": {
     "host": "fa-ewji-saasfaprod1.fa.ocs.oraclecloud.com",
     "site": "CX_1"
+  },
+  "capmetro-austin": {
+    "host": "fa-eujk-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "CX_1"
   }
 }
