@@ -98,12 +98,18 @@ def _tasks(p):
         # run on a slower source_cadence and show up separately in `jobsearch yield`
         if tier not in srcs:
             continue
-        from .sources import ats, bamboohr, breezy, personio, recruitee, rippling, smartrecruiters, teamtailor, workable
-        direct = {"rippling": rippling.fetch_jobs, "smartrecruiters": smartrecruiters.fetch_jobs, "workable": workable.fetch_jobs, "bamboohr": bamboohr.fetch_jobs,
-                  "recruitee": recruitee.fetch_jobs, "breezy": breezy.fetch_jobs, "personio": personio.fetch_jobs, "teamtailor": teamtailor.fetch_jobs}
-        for co, kind in _reg(reg_file)["confirmed"].items():
-            fn = direct.get(kind)
-            yield tier, co, _guarded(kind, (lambda co=co, fn=fn: fn(co)) if fn else (lambda co=co, kind=kind: ats.fetch_jobs(co, kind)))
+        from .sources import direct
+        reg = _reg(reg_file)
+        names = reg.get("names") or {}  # display names for boards whose slug is a GUID/uuid or a mangled slug
+        for co, kind in reg["confirmed"].items():
+            def f(co=co, kind=kind):
+                jobs = direct.fetch(co, kind)
+                if co in names:
+                    for j in jobs:
+                        if not j.get("company") or j["company"] == co:
+                            j["company"] = names[co]
+                return jobs
+            yield tier, co, _guarded(kind, f)
     if "workday" in srcs:
         from .sources import workday
         for co, c in _reg("workday_sites.json").items():

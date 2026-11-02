@@ -59,11 +59,8 @@ def _load(name):
 
 
 def _probe_ats(slug, kind):
-    from .sources import ats, bamboohr, breezy, personio, recruitee, rippling, smartrecruiters, teamtailor, workable
-    fn = {"smartrecruiters": smartrecruiters.fetch_jobs, "workable": workable.fetch_jobs,
-          "bamboohr": bamboohr.fetch_jobs, "rippling": rippling.fetch_jobs, "recruitee": recruitee.fetch_jobs,
-          "breezy": breezy.fetch_jobs, "personio": personio.fetch_jobs, "teamtailor": teamtailor.fetch_jobs}.get(kind)
-    return len(fn(slug)) if fn else len(ats.fetch_jobs(slug, kind))
+    from .sources import direct
+    return len(direct.fetch(slug, kind))
 
 
 def _probe_workday(cfg):
