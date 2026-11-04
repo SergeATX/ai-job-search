@@ -74,14 +74,35 @@ CLEAR_OK = re.compile(r"(?:ability|eligib\w+|willing\w*|able|obtain|eligible)[^.
 GRAD = re.compile(r"(?:master'?s|m\.s\.|phd|doctorate)[^.\n]{0,50}(?:required|is required|minimum)|requires? an? (?:master'?s|phd)", re.I)
 
 
+# a section header: a short line that ends in ":" or names a section ("Preferred Qualifications", "Nice to have")
+HEADER = re.compile(r"^[ \t]*(?![-*•·●▪–]|\d+[.)])(?:[^\n.:]{2,60}:|[^\n.:]{0,40}\b(?:qualifications|requirements|nice to have|"
+                    r"preferred|bonus|desired|responsibilities|what you|who you|you have|you bring|about (?:you|the role))\b"
+                    r"[^\n.:]{0,40}:?)[ \t]*$", re.M | re.I)
+
+
+def _soft_context(lines, m):
+    """Where a "preferred" softens match m: within 80 characters but inside its own sentence or bullet (so "Kafka
+    preferred." in the next sentence no longer softens "Requires 5+ years."), plus the section header it sits under
+    ("Nice to have:"). `lines` is the screened text with its line breaks, at the same positions."""
+    at = m.start(1)  # the number: YEARS can start with the whitespace before it
+    start = max(lines.rfind(c, 0, at) for c in ".;\n•") + 1
+    ends = [i for i in (lines.find(c, m.end()) for c in ".;\n•") if i != -1]
+    line_start = lines.rfind("\n", 0, at) + 1
+    headers = list(HEADER.finditer(lines, max(0, line_start - 1500), line_start))
+    return (lines[max(start, m.start() - 80): min(ends + [m.end() + 80])]
+            + ("\n" + headers[-1].group(0) if headers else ""))
+
+
 def screen(text):
     """Return (verdict, reason): ('SKIP', why) | ('WEAK', why) | ('PASS', '')."""
-    t = re.sub(r"\s+", " ", text)
+    # every whitespace run becomes one character: a line break if it had one, else a space; the gates match on t
+    lines = re.sub(r"[^\S\n]*\n\s*", "\n", re.sub(r"[^\S\n]+", " ", text))
+    t = lines.replace("\n", " ")
     hard, soft = [], []
     for rx in (YEARS, YEARS2):
         for m in rx.finditer(t):
             n = int(m.group(1))
-            ctx = t[max(0, m.start() - 80): m.end() + 80]
+            ctx = _soft_context(lines, m)
             if n >= 2 and n <= 15:
                 (soft if SOFT.search(ctx) else hard).append(f"{n}+ years: \"{t[m.start():m.end()][:90].strip()}\"")
             elif n == 1:
