@@ -80,6 +80,10 @@ HEADER = re.compile(r"^[ \t]*(?![-*•·●▪–]|\d+[.)])(?:[^\n.:]{2,60}:|[^\
                     r"[^\n.:]{0,40}:?)[ \t]*$", re.M | re.I)
 
 
+# what makes a section optional: "Our ideal candidate has:" or "Degree or equivalent" headings usually list requirements
+HEADER_SOFT = re.compile(r"preferred|a plus|nice to have|bonus|desired", re.I)
+
+
 def _soft_context(lines, m):
     """Where a "preferred" softens match m: within 80 characters but inside its own sentence or bullet (so "Kafka
     preferred." in the next sentence no longer softens "Requires 5+ years."), plus the section header it sits under
@@ -89,8 +93,8 @@ def _soft_context(lines, m):
     ends = [i for i in (lines.find(c, m.end()) for c in ".;\n•") if i != -1]
     line_start = lines.rfind("\n", 0, at) + 1
     headers = list(HEADER.finditer(lines, max(0, line_start - 1500), line_start))
-    return (lines[max(start, m.start() - 80): min(ends + [m.end() + 80])]
-            + ("\n" + headers[-1].group(0) if headers else ""))
+    header = headers[-1].group(0) if headers else ""
+    return lines[max(start, m.start() - 80): min(ends + [m.end() + 80])] + ("\n" + header if HEADER_SOFT.search(header) else "")
 
 
 def screen(text):
