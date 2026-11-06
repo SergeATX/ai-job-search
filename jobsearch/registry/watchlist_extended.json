@@ -14075,7 +14075,11 @@
   "apply.careers.microsoft.com|microsoft.com": "eightfold",
   "amazon.jobs": "amazon",
   "careers.phillips66.com": "sfrmk",
-  "careers.arm.com": "talentbrew"
+  "careers.arm.com": "talentbrew",
+  "careers.fluor.com|fluor.com": "eightfold",
+  "careers.keurigdrpepper.com|en": "talentbrew",
+  "careers.kindermorgan.com": "jibe",
+  "tylertech": "jobvite"
  },
  "names": {
   "10xconstruction-ai": "10Xconstruction Ai",
@@ -18303,6 +18307,10 @@
   "apply.careers.microsoft.com|microsoft.com": "Microsoft",
   "amazon.jobs": "Amazon",
   "careers.phillips66.com": "Phillips 66",
-  "careers.arm.com": "Arm"
+  "careers.arm.com": "Arm",
+  "careers.fluor.com|fluor.com": "Fluor",
+  "careers.keurigdrpepper.com|en": "Keurig Dr Pepper",
+  "careers.kindermorgan.com": "Kinder Morgan",
+  "tylertech": "Tyler Technologies"
  }
 }

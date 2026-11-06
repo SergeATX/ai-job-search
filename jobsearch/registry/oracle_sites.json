@@ -794,5 +794,9 @@
   "eluq": {
     "host": "eluq.fa.us2.oraclecloud.com",
     "site": "CX_2001"
+  },
+  "eodr": {
+    "host": "eodr.fa.us2.oraclecloud.com",
+    "site": "CX_1001"
   }
 }
