@@ -17,10 +17,13 @@ def fetch_jobs(slug, max_jobs=2000, location=""):
         d = json.loads(urllib.request.urlopen(req, timeout=30).read())
         h = d.get("results") or ""
         items = re.findall(r'<li[^>]*>\s*<a href="(/[^"]*?/job/[^"]+)"[^>]*>(.*?)</a>', h, re.S)
+        if not items:  # job cards: <li><a class="job-card__title" href="/job/...">Title</a><span class="location">
+            items = [(m[1], m[2] + m[3]) for li in re.findall(r"<li[^>]*>(.*?)</li>", h, re.S)
+                     if (m := re.search(r'<a [^>]*href="(/(?:[^"/]+/)?job/[^"]+)"[^>]*>(.*?)</a>(.*)', li, re.S))]
         for href, inner in items:
-            t = re.search(r"<h[23][^>]*>(.*?)</h[23]>", inner, re.S)
-            l = re.search(r'class="[^"]*job-location[^"]*"[^>]*>(.*?)</span>', inner, re.S)
-            strip = lambda x: H.unescape(re.sub(r"<[^>]+>", "", x or "")).strip()
+            t = re.search(r"<h[23][^>]*>(.*?)</h[23]>", inner, re.S) or re.match(r"(.*?)(?=<span|$)", inner, re.S)
+            l = re.search(r'class="[^"]*(?:job-)?location[^"]*"[^>]*>(.*?)</span>', inner, re.S)
+            strip = lambda x: H.unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", x or ""))).strip()
             out.append({"title": strip(t.group(1)) if t else None, "company": host, "location": strip(l.group(1)) if l else "",
                         "url": f"https://{host}{href}", "posted": None})
         m = re.search(r'data-total-pages="(\d+)"', h)
