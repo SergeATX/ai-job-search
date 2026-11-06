@@ -135,7 +135,7 @@ def _tasks(p):
     if "simplify" in srcs:
         from .sources import simplify
         yield "simplify", "simplify", simplify.fetch_jobs
-    for name in ("builtin", "muse", "capps", "remote_boards"):
+    for name in ("builtin", "muse", "capps", "remote_boards", *AGGREGATORS):
         if name in srcs:
             mod = importlib.import_module(f".sources.{name}", __package__)
             opts = (p.cfg.get("source_options") or {}).get(name) or {}
@@ -149,6 +149,17 @@ def _tasks(p):
                     out += jibe.fetch_jobs(c["domain"], category=cat)
                 return out
             yield "jibe", co, f
+
+
+# Curated lists and startup boards whose links are not the employer's own posting (or are shortlinks), so the same job
+# usually also exists under another url: scanned after everything else and deduped on company + title.
+AGGREGATORS = ("jobright_lists", "github_newgrad", "wellfound", "yc_jobs", "consider_boards", "hn_hiring", "getro_boards",
+               "speedyapply", "resumax_lists")
+
+
+def _ct(job):
+    f = lambda x: re.sub(r"[^a-z0-9]+", "", (x or "").lower())
+    return f(job.get("company")), f(job.get("title"))
 
 
 def _norm(job, source, company):
@@ -187,13 +198,22 @@ def run(p, dry_run=False, workers=8, force_all=False, subset=False):
     raw = new = 0
     errors, per_company = [], {}
     shortlist = []
+    known_ct = None  # (company, title) of every posting already in the db, for the aggregator sources
+
     def handle(source, company, jobs):
-        nonlocal raw
+        nonlocal raw, known_ct
         raw += len(jobs)
+        agg = source in AGGREGATORS
+        if agg and known_ct is None:
+            known_ct = {_ct({"company": r[0], "title": r[1]}) for r in store.db.execute("SELECT company, title FROM jobs")}
         for j in jobs:
             j = _norm(j, source, company)
             if not j["url"] or not filters.keep(j, p) or store.seen(j["url"]):
                 continue
+            if agg and _ct(j) in known_ct:
+                continue
+            if agg:
+                known_ct.add(_ct(j))
             if not dry_run:
                 store.add(j)
             shortlist.append(j)
@@ -217,7 +237,11 @@ def run(p, dry_run=False, workers=8, force_all=False, subset=False):
                     failed.append((t, e))
         return failed
 
-    failed = sweep(tasks, workers)
+    main_tasks = [t for t in tasks if t[0] not in AGGREGATORS]
+    failed = sweep(main_tasks, workers)
+    agg_tasks = [t for t in tasks if t[0] in AGGREGATORS]
+    if agg_tasks:  # after the employer boards, so a job both have is kept under the employer's own url
+        failed += sweep(agg_tasks, min(workers, 4))
     again = [t for t, e in failed if _transient(e)]
     recovered = 0
     if again:  # second pass: only transient failures (429/5xx/timeouts), slowly, after a cooldown
