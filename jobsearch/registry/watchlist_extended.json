@@ -14079,7 +14079,9 @@
   "careers.fluor.com|fluor.com": "eightfold",
   "careers.keurigdrpepper.com|en": "talentbrew",
   "careers.kindermorgan.com": "jibe",
-  "tylertech": "jobvite"
+  "tylertech": "jobvite",
+  "careers.centerpointenergy.com": "sfrmk",
+  "careers.nrgenergy.com": "sfrmk"
  },
  "names": {
   "10xconstruction-ai": "10Xconstruction Ai",
@@ -18311,6 +18313,8 @@
   "careers.fluor.com|fluor.com": "Fluor",
   "careers.keurigdrpepper.com|en": "Keurig Dr Pepper",
   "careers.kindermorgan.com": "Kinder Morgan",
-  "tylertech": "Tyler Technologies"
+  "tylertech": "Tyler Technologies",
+  "careers.centerpointenergy.com": "CenterPoint Energy",
+  "careers.nrgenergy.com": "NRG Energy"
  }
 }
