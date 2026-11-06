@@ -14071,7 +14071,9 @@
   "doconomy": "teamtailor",
   "careers.heb.com": "jibe",
   "careers.amd.com": "jibe",
-  "jobs.ericsson.com|ericsson.com": "eightfold"
+  "jobs.ericsson.com|ericsson.com": "eightfold",
+  "apply.careers.microsoft.com|microsoft.com": "eightfold",
+  "amazon.jobs": "amazon"
  },
  "names": {
   "10xconstruction-ai": "10Xconstruction Ai",
@@ -18295,6 +18297,8 @@
   "jobs.corecivic.com|us/en": "CoreCivic",
   "careers.heb.com": "H-E-B",
   "careers.amd.com": "AMD",
-  "jobs.ericsson.com|ericsson.com": "Ericsson"
+  "jobs.ericsson.com|ericsson.com": "Ericsson",
+  "apply.careers.microsoft.com|microsoft.com": "Microsoft",
+  "amazon.jobs": "Amazon"
  }
 }
