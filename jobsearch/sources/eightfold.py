@@ -83,7 +83,8 @@ def _pcsx(host, path, q, stop_at):
     try:
         return _get(host, path, q, stop_at=stop_at).get("data") or {}
     except urllib.error.HTTPError as e:
-        if e.code != 403:
+        body = e.read().decode("utf-8", "replace") if e.code == 403 else ""
+        if "PCSX is not enabled" not in body:  # a 403 can also be the host throttling us: not a reason to switch
             raise
         _v2.add(host)
         return None
