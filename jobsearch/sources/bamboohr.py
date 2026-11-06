@@ -12,6 +12,6 @@ def fetch_jobs(sub):
         loc = j.get("location") or {}
         place = ", ".join(x for x in (loc.get("city"), loc.get("state")) if x)
         if j.get("isRemote") or j.get("locationType") == "1":
-            place += " (Remote)"
+            place = f"{place} (Remote)" if place else "Remote"  # not " (Remote)" when no place is listed (#84)
         out.append({"title": j.get("jobOpeningName"), "location": place, "url": f"https://{sub}.bamboohr.com/careers/{j.get('id')}"})
     return out

@@ -18,7 +18,7 @@ def fetch_jobs(guid):
         if jl.get("City") or jl.get("State"):
             loc = ", ".join(x for x in (jl.get("City") or loc, jl.get("State")) if x)
         if j.get("IsRemote"):
-            loc += " (Remote)"
+            loc = f"{loc} (Remote)" if loc else "Remote"  # not " (Remote)" when no place is listed (#84)
         out.append({"title": j.get("JobTitle"), "company": guid, "location": loc,
                     "url": f"https://recruiting.paylocity.com/Recruiting/Jobs/Details/{j.get('JobId')}",
                     "posted": j.get("PublishedDate")})

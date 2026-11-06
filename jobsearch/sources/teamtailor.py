@@ -15,7 +15,7 @@ def fetch_jobs(sub):
         locs = [", ".join(x for x in (l.findtext(TT + "city"), l.findtext(TT + "country")) if x) for l in it.iter(TT + "location")]
         place = "; ".join(x for x in locs if x)
         if it.findtext("remoteStatus") in ("fully", "remote"):
-            place += " (Remote)"
+            place = f"{place} (Remote)" if place else "Remote"  # not " (Remote)" when no place is listed (#84)
         out.append({"title": it.findtext("title"), "company": company, "location": place,
                     "url": it.findtext("link"), "posted": it.findtext("pubDate")})
     return out
