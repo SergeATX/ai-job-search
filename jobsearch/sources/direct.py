@@ -1,6 +1,6 @@
 """Per-ATS fetchers for boards listed as slug -> ats in the watchlists. Vendors not listed here fall back to ats.py
 (greenhouse/lever/ashby)."""
-from . import (applitrack, bamboohr, breezy, dover, eightfold, gem, jazzhr, jibe, jobvite, neogov, pageup, paylocity,
+from . import (amazon, applitrack, bamboohr, breezy, dover, eightfold, gem, jazzhr, jibe, jobvite, neogov, pageup, paylocity,
                peopleadmin, personio, phenom, pinpoint, recruitee, rippling, smartrecruiters, successfactors_rmk,
                taleo, talentbrew, teamtailor, workable)
 
@@ -14,7 +14,8 @@ FETCHERS = {"rippling": rippling.fetch_jobs, "smartrecruiters": smartrecruiters.
             "phenom": phenom.fetch_jobs, "eightfold": eightfold.fetch_jobs, "taleo": taleo.fetch_jobs,
             "talentbrew": talentbrew.fetch_jobs, "sfrmk": successfactors_rmk.fetch_jobs, "neogov": neogov.fetch_jobs,
             "peopleadmin": peopleadmin.fetch_jobs, "pageup": pageup.fetch_jobs, "applitrack": applitrack.fetch_jobs,
-            "jibe": jibe.fetch_board}  # jibe slug: careers domain
+            "jibe": jibe.fetch_board,  # jibe slug: careers domain
+            "amazon": amazon.fetch_jobs}  # amazon slug: "amazon.jobs" (US jobs)
 
 
 def fetch(slug, kind):
