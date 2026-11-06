@@ -7443,5 +7443,35 @@
     "subdomain": "noblecorp.wd1",
     "tenant": "noblecorp",
     "site": "noblecorp"
+  },
+  "fico": {
+    "site": "external",
+    "subdomain": "fico.wd1",
+    "tenant": "fico"
+  },
+  "djeholdings": {
+    "site": "ZenoCareers",
+    "subdomain": "djeholdings.wd5",
+    "tenant": "djeholdings"
+  },
+  "alterra": {
+    "site": "WinterParkResort",
+    "subdomain": "alterra.wd1",
+    "tenant": "alterra"
+  },
+  "fedex": {
+    "site": "FXE_APAC_External",
+    "subdomain": "fedex.wd1",
+    "tenant": "fedex"
+  },
+  "martin": {
+    "site": "mphc",
+    "subdomain": "martin.wd1",
+    "tenant": "martin"
+  },
+  "workwear": {
+    "site": "Careers",
+    "subdomain": "workwear.wd503",
+    "tenant": "workwear"
   }
 }

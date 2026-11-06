@@ -1018,5 +1018,8 @@
   },
   "globalcareers-sas": {
     "tenant": "globalcareers-sas"
+  },
+  "careers-jobyaviation": {
+    "tenant": "careers-jobyaviation"
   }
 }
