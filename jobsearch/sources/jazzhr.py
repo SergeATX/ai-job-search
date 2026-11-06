@@ -1,13 +1,12 @@
 """JazzHR public career page HTML (no key): https://{slug}.applytojob.com/apply"""
 import html
 import re
-import urllib.request
+
+from . import get_text
 
 
 def fetch_jobs(slug):
-    req = urllib.request.Request(f"https://{slug}.applytojob.com/apply", headers={"User-Agent": "Mozilla/5.0"})
-    with urllib.request.urlopen(req, timeout=20) as r:
-        h = r.read().decode("utf-8", "replace")
+    h = get_text(f"https://{slug}.applytojob.com/apply")
     m = re.search(r"<title>(.*?)</title>", h, re.S)
     company = slug
     if m:

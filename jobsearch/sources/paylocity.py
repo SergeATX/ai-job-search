@@ -1,13 +1,12 @@
 """Paylocity Recruiting public board (no key). slug = company GUID."""
 import json
 import re
-import urllib.request
+
+from . import get_text
 
 
 def fetch_jobs(guid):
-    req = urllib.request.Request(f"https://recruiting.paylocity.com/recruiting/jobs/All/{guid}", headers={"User-Agent": "Mozilla/5.0"})
-    with urllib.request.urlopen(req, timeout=20) as r:
-        h = r.read().decode("utf-8", "replace")
+    h = get_text(f"https://recruiting.paylocity.com/recruiting/jobs/All/{guid}")
     m = re.search(r"window\.pageData\s*=\s*(\{.*?\});\s*(?:\n|</script>)", h, re.S)
     if not m:
         return []  # "Job Not Found" page
