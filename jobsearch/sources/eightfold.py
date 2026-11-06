@@ -3,6 +3,7 @@ or "<careers host>|<domain>" for a site on its own domain ("apply.careers.micros
 
 - search: https://<host>/api/pcsx/search?domain=<domain>&start=N&num=10 (10 a page whatever num asks, newest first)
 - one job, with its description: /api/pcsx/position_details?position_id=<id>&domain=<domain>
+- sites without pcsx (403 "PCSX is not enabled", careers.fluor.com) answer the same on /api/apply/v2/jobs[/<id>]
 - every open job's id and last change: /careers/sitemap.xml (one request; not every site has it)
 
 The sites answer 429 to a burst (Lockheed Martin after ~9 requests in 4s; Microsoft after 2-3 at one a second), so
@@ -60,13 +61,32 @@ def _day(ts):
 
 
 def _job(host, domain, p):
-    j = {"id": str(p.get("id")), "title": p.get("name"), "company": domain,
-         "location": "; ".join(p.get("locations") or []),
+    """A position from either API: pcsx (name, locations, postedTs) or the older apply/v2 (t_create, job_description)."""
+    locs = p.get("locations") or []
+    if isinstance(locs, str):  # v2 sends the list as its Python repr: "['Houston, US-TX, United States']"
+        locs = re.findall(r"'([^']*)'", locs) or [locs]
+    j = {"id": str(p.get("id")), "title": p.get("name"), "company": domain, "location": "; ".join(locs),
          "url": f"https://{host}{p.get('positionUrl') or '/careers/job/' + str(p.get('id'))}",
-         "posted": _day(p.get("postedTs") or p.get("creationTs"))}
-    if p.get("jobDescription"):
-        j["description_html"] = p["jobDescription"]
+         "posted": _day(int(p.get("postedTs") or p.get("creationTs") or p.get("t_create") or 0))}
+    if p.get("jobDescription") or p.get("job_description"):
+        j["description_html"] = p.get("jobDescription") or p.get("job_description")
     return j
+
+
+_v2 = set()  # hosts whose pcsx API answers 403 ("PCSX is not enabled"): read through /api/apply/v2 instead
+
+
+def _pcsx(host, path, q, stop_at):
+    """pcsx answer's data, or None when the host only has the v2 API."""
+    if host in _v2:
+        return None
+    try:
+        return _get(host, path, q, stop_at=stop_at).get("data") or {}
+    except urllib.error.HTTPError as e:
+        if e.code != 403:
+            raise
+        _v2.add(host)
+        return None
 
 
 def search_page(slug, start, location="", stop_at=None):
@@ -75,16 +95,19 @@ def search_page(slug, start, location="", stop_at=None):
     q = {"domain": domain, "query": "", "start": start, "num": 10, "sort_by": "timestamp"}
     if location:
         q["location"] = location
-    d = _get(host, "/api/pcsx/search", q, stop_at=stop_at).get("data") or {}
+    d = _pcsx(host, "/api/pcsx/search", q, stop_at)
+    if d is None:
+        d = _get(host, "/api/apply/v2/jobs", q, stop_at=stop_at)
     return [_job(host, domain, p) for p in d.get("positions") or []], d.get("count") or 0
 
 
 def position(slug, pid, stop_at=None):
     """One job with its description_html, or None when the site has no such job."""
     host, domain = host_domain(slug)
-    d = _get(host, "/api/pcsx/position_details", {"position_id": pid, "domain": domain, "hl": "en"}, stop_at=stop_at)
-    d = d.get("data") or {}
-    return _job(host, domain, d) if d.get("id") else None
+    d = _pcsx(host, "/api/pcsx/position_details", {"position_id": pid, "domain": domain, "hl": "en"}, stop_at)
+    if d is None:
+        d = _get(host, f"/api/apply/v2/jobs/{pid}", {"domain": domain}, stop_at=stop_at)
+    return _job(host, domain, d) if d.get("id") and d.get("name") else None
 
 
 def sitemap(slug):
