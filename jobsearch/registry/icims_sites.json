@@ -976,5 +976,47 @@
   },
   "bughouse-rollins": {
     "tenant": "bughouse-rollins"
+  },
+  "careers-containerstore": {
+    "tenant": "careers-containerstore"
+  },
+  "careers-concentrainc": {
+    "tenant": "careers-concentrainc"
+  },
+  "careers-skanska": {
+    "tenant": "careers-skanska"
+  },
+  "jobs-tollbrothers": {
+    "tenant": "jobs-tollbrothers"
+  },
+  "careers-kbhome": {
+    "tenant": "careers-kbhome"
+  },
+  "careers-tripointe": {
+    "tenant": "careers-tripointe"
+  },
+  "careers-hines": {
+    "tenant": "careers-hines"
+  },
+  "careers-aerotek": {
+    "tenant": "careers-aerotek"
+  },
+  "careers-naturalgrocers": {
+    "tenant": "careers-naturalgrocers"
+  },
+  "careers-frontdoor": {
+    "tenant": "careers-frontdoor"
+  },
+  "careers-greyhound": {
+    "tenant": "careers-greyhound"
+  },
+  "nfpus-careers-aon": {
+    "tenant": "nfpus-careers-aon"
+  },
+  "external-penskemotorgroup": {
+    "tenant": "external-penskemotorgroup"
+  },
+  "globalcareers-sas": {
+    "tenant": "globalcareers-sas"
   }
 }

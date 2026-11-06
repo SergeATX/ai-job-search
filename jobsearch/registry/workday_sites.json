@@ -7333,5 +7333,115 @@
     "subdomain": "deepwater.wd1",
     "tenant": "deepwater",
     "site": "GlobalExternalCareerSite"
+  },
+  "atmos-energy": {
+    "subdomain": "atmosenergy.wd108",
+    "tenant": "atmosenergy",
+    "site": "External_Career_Site"
+  },
+  "plains-all-american": {
+    "subdomain": "plains.wd1",
+    "tenant": "plains",
+    "site": "plains"
+  },
+  "pape-dawson": {
+    "subdomain": "papedawson.wd12",
+    "tenant": "papedawson",
+    "site": "PDE"
+  },
+  "taylor-morrison": {
+    "subdomain": "taylormorrison.wd1",
+    "tenant": "taylormorrison",
+    "site": "TaylorMorrisonCareers"
+  },
+  "credit-acceptance": {
+    "subdomain": "creditacceptance.wd5",
+    "tenant": "creditacceptance",
+    "site": "Credit_Acceptance"
+  },
+  "yeti": {
+    "subdomain": "yeticoolers.wd5",
+    "tenant": "yeticoolers",
+    "site": "YETI"
+  },
+  "fogo-de-chao": {
+    "subdomain": "fogo.wd5",
+    "tenant": "fogo",
+    "site": "Fogo"
+  },
+  "old-dominion": {
+    "subdomain": "odfl.wd1",
+    "tenant": "odfl",
+    "site": "ODFL_Careers"
+  },
+  "revionics": {
+    "subdomain": "aptos.wd108",
+    "tenant": "aptos",
+    "site": "Revionics"
+  },
+  "taskus": {
+    "subdomain": "taskus.wd1",
+    "tenant": "taskus",
+    "site": "Careers"
+  },
+  "axcess-financial": {
+    "subdomain": "cngholdingsinc.wd5",
+    "tenant": "cngholdingsinc",
+    "site": "CNG"
+  },
+  "flowserve": {
+    "subdomain": "flowserve.wd1",
+    "tenant": "flowserve",
+    "site": "applied"
+  },
+  "mrc-global": {
+    "subdomain": "mrcglobal.wd503",
+    "tenant": "mrcglobal",
+    "site": "MRC_Global_Careers"
+  },
+  "sunbelt-rentals": {
+    "subdomain": "sunbeltrentals.wd1",
+    "tenant": "sunbeltrentals",
+    "site": "sbcareers"
+  },
+  "port-houston": {
+    "subdomain": "porthouston.wd5",
+    "tenant": "porthouston",
+    "site": "External_Careers"
+  },
+  "holmes-murphy": {
+    "subdomain": "holmesmurphy.wd1",
+    "tenant": "holmesmurphy",
+    "site": "HolmesMurphyCareers"
+  },
+  "xpel": {
+    "subdomain": "xpel.wd5",
+    "tenant": "xpel",
+    "site": "XPEL_Careers"
+  },
+  "phreesia": {
+    "subdomain": "phreesia.wd1",
+    "tenant": "phreesia",
+    "site": "Phreesia"
+  },
+  "dallascityhall": {
+    "subdomain": "dallascityhall.wd5",
+    "tenant": "dallascityhall",
+    "site": "CODCareers"
+  },
+  "cookchildrens": {
+    "subdomain": "cookchildrens.wd1",
+    "tenant": "cookchildrens",
+    "site": "Cook_Childrens_Careers"
+  },
+  "tstc": {
+    "subdomain": "tstc.wd1",
+    "tenant": "tstc",
+    "site": "TSTC_Jobs"
+  },
+  "noblecorp": {
+    "subdomain": "noblecorp.wd1",
+    "tenant": "noblecorp",
+    "site": "noblecorp"
   }
 }

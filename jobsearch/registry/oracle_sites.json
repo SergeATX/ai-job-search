@@ -734,5 +734,57 @@
   "capmetro-austin": {
     "host": "fa-eujk-saasfaprod1.fa.ocs.oraclecloud.com",
     "site": "CX_1"
+  },
+  "Cheniere": {
+    "host": "hcgi.fa.us2.oraclecloud.com",
+    "site": "CX_2"
+  },
+  "Hilltop": {
+    "host": "ejlu.fa.us2.oraclecloud.com",
+    "site": "HilltopHoldingsAllJobs"
+  },
+  "National Oilwell Varco": {
+    "host": "egay.fa.us6.oraclecloud.com",
+    "site": "CX_2001"
+  },
+  "Ocwen": {
+    "host": "ebhz.fa.us2.oraclecloud.com",
+    "site": "Onity"
+  },
+  "Quest Diagnostics": {
+    "host": "hdox.fa.us6.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "Verint": {
+    "host": "fa-epcb-saasfaprod1.fa.ocs.oraclecloud.com",
+    "site": "CX"
+  },
+  "InfoBlox": {
+    "host": "efpv.fa.us6.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "US Silica": {
+    "host": "icbajb.fa.ocs.oraclecloud.com",
+    "site": "CX_1"
+  },
+  "eohh": {
+    "host": "eohh.fa.us2.oraclecloud.com",
+    "site": "CX"
+  },
+  "ibpcjb": {
+    "host": "ibpcjb.fa.ocs.oraclecloud.com",
+    "site": "CX_1004"
+  },
+  "dell": {
+    "host": "enterpriseplatform.dell.com",
+    "site": "careers"
+  },
+  "baylor": {
+    "host": "ejof.fa.us2.oraclecloud.com",
+    "site": "CX"
+  },
+  "rice": {
+    "host": "emdz.fa.us2.oraclecloud.com",
+    "site": "CX"
   }
 }
