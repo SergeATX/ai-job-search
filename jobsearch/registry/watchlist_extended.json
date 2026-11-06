@@ -14074,7 +14074,8 @@
   "jobs.ericsson.com|ericsson.com": "eightfold",
   "apply.careers.microsoft.com|microsoft.com": "eightfold",
   "amazon.jobs": "amazon",
-  "careers.phillips66.com": "sfrmk"
+  "careers.phillips66.com": "sfrmk",
+  "careers.arm.com": "talentbrew"
  },
  "names": {
   "10xconstruction-ai": "10Xconstruction Ai",
@@ -18301,6 +18302,7 @@
   "jobs.ericsson.com|ericsson.com": "Ericsson",
   "apply.careers.microsoft.com|microsoft.com": "Microsoft",
   "amazon.jobs": "Amazon",
-  "careers.phillips66.com": "Phillips 66"
+  "careers.phillips66.com": "Phillips 66",
+  "careers.arm.com": "Arm"
  }
 }
