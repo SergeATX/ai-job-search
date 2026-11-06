@@ -14068,7 +14068,8 @@
   "winston-artory-group": "rippling",
   "zrg-partners-careers": "rippling",
   "axmed": "teamtailor",
-  "doconomy": "teamtailor"
+  "doconomy": "teamtailor",
+  "careers.heb.com": "jibe"
  },
  "names": {
   "10xconstruction-ai": "10Xconstruction Ai",
@@ -18289,6 +18290,7 @@
   "careers.kohls.com|us/en": "Kohl's",
   "careers.aarons.com|us/en": "Aaron's",
   "careers.opentext.com|us/en": "OpenText",
-  "jobs.corecivic.com|us/en": "CoreCivic"
+  "jobs.corecivic.com|us/en": "CoreCivic",
+  "careers.heb.com": "H-E-B"
  }
 }

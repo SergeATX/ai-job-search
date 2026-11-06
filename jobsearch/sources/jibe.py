@@ -62,6 +62,30 @@ def _fetch_page(domain, page=1, category=None):
         return json.loads(resp.read())
 
 
+def fetch_board(domain, limit=100):
+    """Every posting on a Jibe site, with its description and posted date, for the catalog crawler
+    (direct.FETCHERS kind "jibe", slug = careers domain). The API takes limit= up to 100 a page."""
+    out, page = [], 1
+    while True:
+        params = {"page": page, "limit": limit, "sortBy": "posted_date", "descending": "true", "internal": "false"}
+        url = f"https://{domain}/api/jobs?{urllib.parse.urlencode(params)}"
+        req = urllib.request.Request(url, headers={"User-Agent": UA})
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            data = json.loads(resp.read())
+        for j in data.get("jobs", []):
+            d = j["data"]
+            desc = d.get("description") or ""
+            out.append({"title": d.get("title"), "company": d.get("hiring_organization") or domain,
+                        "location": ", ".join(x for x in (d.get("city"), d.get("state")) if x) or d.get("full_location"),
+                        "url": f"https://{domain}/jobs/{d.get('slug') or d.get('req_id')}",
+                        "posted": (d.get("posted_date") or "")[:10] or None,
+                        "description_html" if "<" in desc else "description": desc or None})
+        if not data.get("jobs") or page * limit >= data.get("totalCount", 0):
+            return out
+        page += 1
+        time.sleep(0.3)
+
+
 def list_categories(domain):
     data = _fetch_page(domain, page=1)
     facets = data.get("filter", {}).get("facetList", {}).get("tags2", [])
