@@ -14069,7 +14069,9 @@
   "zrg-partners-careers": "rippling",
   "axmed": "teamtailor",
   "doconomy": "teamtailor",
-  "careers.heb.com": "jibe"
+  "careers.heb.com": "jibe",
+  "careers.amd.com": "jibe",
+  "jobs.ericsson.com|ericsson.com": "eightfold"
  },
  "names": {
   "10xconstruction-ai": "10Xconstruction Ai",
@@ -18291,6 +18293,8 @@
   "careers.aarons.com|us/en": "Aaron's",
   "careers.opentext.com|us/en": "OpenText",
   "jobs.corecivic.com|us/en": "CoreCivic",
-  "careers.heb.com": "H-E-B"
+  "careers.heb.com": "H-E-B",
+  "careers.amd.com": "AMD",
+  "jobs.ericsson.com|ericsson.com": "Ericsson"
  }
 }
