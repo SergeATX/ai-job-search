@@ -790,5 +790,9 @@
   "egmn": {
     "host": "egmn.fa.us2.oraclecloud.com",
     "site": "CX_1"
+  },
+  "eluq": {
+    "host": "eluq.fa.us2.oraclecloud.com",
+    "site": "CX_2001"
   }
 }
