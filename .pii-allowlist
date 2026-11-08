@@ -1,0 +1,8 @@
+# Reviewed-safe matches. `path: <glob>` skips whole files; `literal: <text>` skips matches containing/contained in it.
+path: *package-lock.json
+path: *.lock
+literal: noreply@anthropic.com
+literal: users.noreply.github.com
+literal: jane.doe@example.com
+literal: 555-0100
+literal: 555-0101
