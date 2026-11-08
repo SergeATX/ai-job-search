@@ -14082,7 +14082,8 @@
   "tylertech": "jobvite",
   "careers.centerpointenergy.com": "sfrmk",
   "careers.nrgenergy.com": "sfrmk",
-  "jobs.mdanderson.org": "activate"
+  "jobs.mdanderson.org": "activate",
+  "careers.ibm.com": "ibm"
  },
  "names": {
   "10xconstruction-ai": "10Xconstruction Ai",
@@ -18317,6 +18318,7 @@
   "tylertech": "Tyler Technologies",
   "careers.centerpointenergy.com": "CenterPoint Energy",
   "careers.nrgenergy.com": "NRG Energy",
-  "jobs.mdanderson.org": "MD Anderson"
+  "jobs.mdanderson.org": "MD Anderson",
+  "careers.ibm.com": "IBM"
  }
 }
