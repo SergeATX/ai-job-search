@@ -157,6 +157,21 @@ AGGREGATORS = ("jobright_lists", "github_newgrad", "wellfound", "yc_jobs", "cons
                "speedyapply", "resumax_lists")
 
 
+def _alnum(x):
+    return re.sub(r"[^a-z0-9]+", "", (x or "").lower())
+
+
+def _excluded_company(p, name):
+    """Job-level company exclusion: profile `companies.exclude` entries match the posting's own company name
+    (punctuation/case ignored; a trailing * matches a prefix), not only the board slug company_ok() sees."""
+    n = _alnum(name)
+    for e in p.cfg["companies"]["exclude"]:
+        k = _alnum(e)
+        if k and (n.startswith(k) if str(e).endswith("*") else n == k):
+            return True
+    return False
+
+
 def _ct(job):
     f = lambda x: re.sub(r"[^a-z0-9]+", "", (x or "").lower())
     return f(job.get("company")), f(job.get("title"))
@@ -208,7 +223,7 @@ def run(p, dry_run=False, workers=8, force_all=False, subset=False):
             known_ct = {_ct({"company": r[0], "title": r[1]}) for r in store.db.execute("SELECT company, title FROM jobs")}
         for j in jobs:
             j = _norm(j, source, company)
-            if not j["url"] or not filters.keep(j, p) or store.seen(j["url"]):
+            if not j["url"] or not filters.keep(j, p) or store.seen(j["url"]) or _excluded_company(p, j["company"]):
                 continue
             if agg and _ct(j) in known_ct:
                 continue
