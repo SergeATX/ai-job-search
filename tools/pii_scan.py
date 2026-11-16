@@ -10,10 +10,13 @@ Modes:
 
 Detects: emails, phone numbers, street addresses, SSN-like and card-like numbers (Luhn), and every term in
 ~/.config/jobcatalog/pii-terms.txt (override with $PII_TERMS_FILE), matched case-insensitively on word boundaries.
-Allowlist: <repo>/.pii-allowlist, lines `path: <glob>` or `literal: <string>`; `#` starts a comment.
+Allowlist: <repo>/.pii-allowlist, lines `path: <glob>`, `literal: <string>` or `line: <path> <sha256>`; `#` starts a comment.
+`line:` mutes findings only on one exact line (the hash of its exact text); make the entry with
+`--line-entry PATH LINENO` (prints the entry, never the text).
 Matched values are masked in output. Exit 1 blocks.
 """
 import fnmatch
+import hashlib
 import os
 import re
 import subprocess
@@ -70,8 +73,12 @@ def load_terms():
     return out
 
 
+def line_hash(text):
+    return hashlib.sha256(text.rstrip("\r\n").encode()).hexdigest()
+
+
 def load_allow(root):
-    globs, lits = [], []
+    globs, lits, lines = [], [], set()
     f = Path(root) / ".pii-allowlist"
     if f.exists():
         for l in f.read_text().splitlines():
@@ -80,19 +87,25 @@ def load_allow(root):
                 globs.append(l[5:].strip())
             elif l.startswith("literal:"):
                 lits.append(l[8:].strip())
-    return globs, lits
+            elif l.startswith("line:"):
+                p = l[5:].split()
+                if len(p) == 2:
+                    lines.add((p[0], p[1]))
+    return globs, lits, lines
 
 
 class Scanner:
     def __init__(self, root):
         self.rules = RULES + load_terms()
-        self.globs, self.lits = load_allow(root)
+        self.globs, self.lits, self.lines = load_allow(root)
         self.findings = []
 
     def path_ok(self, path):
         return any(fnmatch.fnmatch(path, g) for g in self.globs)
 
-    def line(self, where, ln, text):
+    def line(self, where, ln, text, path=None):
+        if path and (path, line_hash(text)) in self.lines:
+            return
         for kind, rx in self.rules:
             for m in rx.finditer(text):
                 v = m.group(0)
@@ -114,7 +127,7 @@ class Scanner:
             elif raw.startswith("+") and path:
                 ln += 1
                 if not self.path_ok(path):
-                    self.line(f"{label}{path}", ln, raw[1:])
+                    self.line(f"{label}{path}", ln, raw[1:], path)
             elif not raw.startswith("-"):
                 ln += 1
 
@@ -154,12 +167,16 @@ def main():
         s.commits(push_commits(sys.stdin.read()))
     elif a[0] == "--range":
         s.commits(git("rev-list", a[1]).split())
+    elif a[0] == "--line-entry":
+        text = Path(root, a[1]).read_text().split("\n")[int(a[2]) - 1]
+        print(f"line: {a[1]} {line_hash(text)}")
+        return
     elif a[0] == "--tracked":
         for p in git("ls-files").split("\n"):
             if p and not s.path_ok(p):
                 try:
                     for i, l in enumerate(Path(root, p).read_text().split("\n"), 1):
-                        s.line(p, i, l)
+                        s.line(p, i, l, p)
                 except (UnicodeDecodeError, OSError):
                     pass
         for k, n in sorted(Counter(f[2] for f in s.findings).items()):

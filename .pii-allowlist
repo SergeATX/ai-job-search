@@ -6,3 +6,9 @@ literal: users.noreply.github.com
 literal: jane.doe@example.com
 literal: 555-0100
 literal: 555-0101
+# Reviewed 2026-11-16 (#119): placeholders and one exact-line false positive.
+literal: +4512345678
+literal: your.email@example.com
+literal: you@example.com
+literal: 360 Talent Avenue
+line: jobsearch/registry/watchlist_extended.json dc49fb615c578d4828f994e8bbd6419ffcb85535a25f4f9394ba316adc91d4c2
